@@ -1,46 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<div class="container mx-auto flex justify-center px-6 my-12">
+    <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+        <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+            style="background-image: url('https://source.unsplash.com/K4mSJ7kc0As/600x800')">
+        </div>
+        <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+            <h3 class="pt-4 text-2xl text-center">{{ __('Reset Password') }}</h3>
+            <form class="px-8 pt-6 mb-4 bg-gray-100 rounded" method="POST" action="{{ route('password.email') }}">
+                @if (session('status'))
+                <div class="text-xs italic text-green-500" role="alert">
+                    {{ session('status') }}
                 </div>
+                @endif
+                <div class="mb-4">
+                    <label class="block mb-2 text-sm font-semibold text-gray-700" for="email">
+                        Email Address
+                    </label>
+                    <input
+                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none @error('email') border-red-500 @enderror"
+                        id="email" type="email" placeholder="email@example.com" name="email" value="{{ old('email') }}"
+                        required autocomplete="email" />
+                    @error('email')
+                    <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-6 text-center">
+                    <button
+                        class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none"
+                        type="submit">
+                        {{ __('Send Password Reset Link') }}
+                    </button>
+                </div>
+                @csrf
+            </form>
+            <hr class="mb-6 mx-8 border-t" />
+            <div class="text-center">
+                <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    href="{{ route('login') }}">
+                    Already have Account? Login!
+                </a>
             </div>
+            @if (Route::has('password.request'))
+            <div class="text-center">
+                <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                    href="{{ route('password.request') }}">
+                    Forgot Password?
+                </a>
+            </div>
+            @endif
         </div>
     </div>
 </div>
