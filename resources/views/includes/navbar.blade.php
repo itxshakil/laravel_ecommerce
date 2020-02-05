@@ -16,6 +16,36 @@
             @endif
             <a class="text-blue-500 mr-2" href="{{ route('login') }}">{{ __('Login') }}</a>
             @else
+            @if(Auth::guard('admin')->check() && Auth::guard('web')->check())
+            <dropdown v-cloak>
+                <p slot="toggler" class="mr-12">{{ Auth::guard('admin')->user()->name }}</p>
+                <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                </span>
+            </dropdown>
+            <dropdown v-cloak>
+                <p slot="toggler" class="mr-12">{{ Auth::user()->name }}</p>
+                <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('admin-logout-form').submit();">
+                        {{ __('Logout as Admin') }}
+                    </a>
+                </span>
+            </dropdown>
+            @elseif(Auth::guard('admin')->check())
+            <dropdown v-cloak>
+                <p slot="toggler" class="mr-12">{{ Auth::guard('admin')->user()->name }}</p>
+                <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('admin-logout-form').submit();">
+                        {{ __('Logout as Admin') }}
+                    </a>
+                </span>
+            </dropdown>
+            @else
             <dropdown v-cloak>
                 <p slot="toggler" class="mr-12">{{ Auth::user()->name }}</p>
                 <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
@@ -25,7 +55,12 @@
                     </a>
                 </span>
             </dropdown>
+            @endif
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            </dropdown>
+            <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
             @endguest
