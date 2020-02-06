@@ -17,6 +17,7 @@ class AdminAuthenticationTest extends TestCase
     */
     public function user_can_not_access_admin_dashboard()
     {
+        $this->withExceptionHandling();
         $this->actingAs(factory(User::class)->create());
 
         $this->get('/admin')->assertRedirect('/admin/login');
@@ -50,6 +51,7 @@ class AdminAuthenticationTest extends TestCase
     */
     public function admin_can_not_login_with_invalid_credentials()
     {
+        $this->withExceptionHandling();
         $response = $this->json('POST', 'admin/login', [
             'email' => $this->faker->email,
             'password' => $this->faker->password
@@ -65,6 +67,7 @@ class AdminAuthenticationTest extends TestCase
     */
     public function required_inputs_are_required_to_login($formInput, $formInputValue)
     {
+        $this->withExceptionHandling();
         $this->post('admin/login', [$formInput => $formInputValue])
         ->assertSessionHasErrors($formInput);
 
