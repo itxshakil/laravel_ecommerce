@@ -3534,6 +3534,11 @@ video {
           flex: none;
 }
 
+.flex-product {
+  -webkit-box-flex: 1;
+          flex: 1 1 320px;
+}
+
 .flex-grow-0 {
   -webkit-box-flex: 0;
           flex-grow: 0;
@@ -11253,6 +11258,10 @@ video {
   width: 16rem;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .w-auto {
   width: auto;
 }
@@ -11399,6 +11408,26 @@ video {
 
 .z-auto {
   z-index: auto;
+}
+
+a:hover {
+  -webkit-filter: saturate(90%);
+          filter: saturate(90%);
+}
+
+.overlay {
+  position: relative;
+}
+
+.overlay::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 640px) {
@@ -14307,6 +14336,11 @@ video {
   .sm\:flex-none {
     -webkit-box-flex: 0;
             flex: none;
+  }
+
+  .sm\:flex-product {
+    -webkit-box-flex: 1;
+            flex: 1 1 320px;
   }
 
   .sm\:flex-grow-0 {
@@ -22028,6 +22062,10 @@ video {
     width: 16rem;
   }
 
+  .sm\:w-96 {
+    width: 24rem;
+  }
+
   .sm\:w-auto {
     width: auto;
   }
@@ -25083,6 +25121,11 @@ video {
   .md\:flex-none {
     -webkit-box-flex: 0;
             flex: none;
+  }
+
+  .md\:flex-product {
+    -webkit-box-flex: 1;
+            flex: 1 1 320px;
   }
 
   .md\:flex-grow-0 {
@@ -32804,6 +32847,10 @@ video {
     width: 16rem;
   }
 
+  .md\:w-96 {
+    width: 24rem;
+  }
+
   .md\:w-auto {
     width: auto;
   }
@@ -35859,6 +35906,11 @@ video {
   .lg\:flex-none {
     -webkit-box-flex: 0;
             flex: none;
+  }
+
+  .lg\:flex-product {
+    -webkit-box-flex: 1;
+            flex: 1 1 320px;
   }
 
   .lg\:flex-grow-0 {
@@ -43580,6 +43632,10 @@ video {
     width: 16rem;
   }
 
+  .lg\:w-96 {
+    width: 24rem;
+  }
+
   .lg\:w-auto {
     width: auto;
   }
@@ -46635,6 +46691,11 @@ video {
   .xl\:flex-none {
     -webkit-box-flex: 0;
             flex: none;
+  }
+
+  .xl\:flex-product {
+    -webkit-box-flex: 1;
+            flex: 1 1 320px;
   }
 
   .xl\:flex-grow-0 {
@@ -54354,6 +54415,10 @@ video {
 
   .xl\:w-64 {
     width: 16rem;
+  }
+
+  .xl\:w-96 {
+    width: 24rem;
   }
 
   .xl\:w-auto {
