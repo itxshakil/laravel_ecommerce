@@ -12,7 +12,7 @@ class Product extends Model
       *
       * @var array
       */
-    protected $fillable = ['slug'];
+    protected $guarded = [];
 
     protected static function boot()
     {
@@ -37,5 +37,15 @@ class Product extends Model
         $count = static::where('slug', 'like', Str::slug($value) . '%')->count();
         $value = ($count > 0) ? ($value . '-' . $count) : $value;
         return Str::slug($value);
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

@@ -31,4 +31,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
     Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+
+    Route::middleware(['auth:admin'])->group(function () {
+        Route::resource('/products', 'Admin\ProductController');
+    });
 });
