@@ -11,6 +11,8 @@ class CartController extends Controller
     public function store(Request $request, Product $product)
     {
         Cart::add($product, 1);
+
+        return Cart::content();
     }
 
     public function update(Request $request, Product $product)

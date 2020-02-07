@@ -68,7 +68,7 @@ class Product extends Model implements Buyable
      */
     public function getBuyableDescription($options = null)
     {
-        return $this->details;
+        return $this->name;
     }
 
     /**

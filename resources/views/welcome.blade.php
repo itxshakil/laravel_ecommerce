@@ -16,11 +16,13 @@
     <div class="flex flex-wrap items-stretch">
         @forelse ($products as $product)
         <div class="card flex-product m-5 bg-gray-800 rounded" title="View Details of {{ $product->name }}">
-            <img class="object-cover w-full" src="/storage/{{$product->image}}" alt="View Details of {{ $product->name }}">
+            <img class="object-cover w-full" src="/storage/{{$product->image}}"
+                alt="View Details of {{ $product->name }}">
             <div class="text-center p-3">
                 <div class="text-2xl">{{ $product->name }}</div>
                 <div class="text-green-400">₹{{ $product->price }}</div>
-                <a href="#" class="p-2 inline-block bg-green-400 rounded text-white m-1">View Details</a>
+                <a href="{{route('products.view',$product)}}"
+                    class="p-2 inline-block bg-green-400 rounded text-white m-1">View Details</a>
             </div>
         </div>
         @empty
