@@ -19,4 +19,9 @@ class CartController extends Controller
 
         Cart::update($product->cartRowId, $request->quantity);
     }
+
+    public function destroy(Request $request, Product $product)
+    {
+        Cart::remove($product->cartRowId);
+    }
 }

@@ -36,4 +36,21 @@ class CartTest extends TestCase
 
         $this->assertEquals(2, Cart::content()->first()->qty);
     }
+
+    /**
+    * @test
+    */
+    public function a_product_can_be_removed_from_cart()
+    {
+        $product = factory(Product::class)->create();
+
+        Cart::add($product, 1);
+
+        $this->assertCount(1, Cart::content());
+        
+        Cart::remove($product->cartRowId);
+
+        $this->assertCount(0, Cart::content());
+        
+    }
 }

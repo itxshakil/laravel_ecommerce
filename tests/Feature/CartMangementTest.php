@@ -56,4 +56,19 @@ class CartMangementTest extends TestCase
         $this->patch('/cart/' . $product->slug, ['quantity' => 'not numeric'])->assertSessionHasErrors('quantity');
         $this->assertEquals(1, Cart::content()->first()->qty);
     }
+
+    /**
+    * @test
+    */
+    public function user_can_remove_product_from_cart()
+    {
+        $this->actingAs(factory(User::class)->create());
+        $product = factory(Product::class)->create();
+
+        $this->post('/cart/' . $product->slug);
+        $this->assertCount(1, Cart::content());
+
+        $this->delete('/cart/' . $product->slug);
+        $this->assertCount(0, Cart::content());
+    }
 }
