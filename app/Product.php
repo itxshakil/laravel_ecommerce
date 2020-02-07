@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use illuminate\Support\Str;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Product extends Model implements Buyable
 {
@@ -78,5 +79,11 @@ class Product extends Model implements Buyable
     public function getBuyablePrice($options = null)
     {
         return $this->price;
+    }
+
+    public function getCartRowIdAttribute()
+    {
+        $cart = Cart::content();
+        return $cart->firstWhere('id', $this->id)->rowId;
     }
 }

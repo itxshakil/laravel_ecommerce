@@ -22,4 +22,18 @@ class CartTest extends TestCase
 
         $this->assertCount(1, Cart::content());
     }
+
+    /**
+     * @test
+     */
+    public function a_product_quantity_can_be_added_to_updated()
+    {
+        $product = factory(Product::class)->create();
+
+        Cart::add($product, 1);
+
+        Cart::update($product->cartRowId, 2);
+
+        $this->assertEquals(2, Cart::content()->first()->qty);
+    }
 }

@@ -12,4 +12,11 @@ class CartController extends Controller
     {
         Cart::add($product, 1);
     }
+
+    public function update(Request $request, Product $product)
+    {
+        $request->validate(['quantity' => ['required', 'numeric', 'between:1,5']]);
+
+        Cart::update($product->cartRowId, $request->quantity);
+    }
 }

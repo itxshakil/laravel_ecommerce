@@ -25,4 +25,35 @@ class CartMangementTest extends TestCase
         $this->assertCount(1, Cart::content());
         $this->assertEquals($product->fresh(), Cart::content()->first()->model);
     }
+
+    /**
+    * @test
+    */
+    public function cart_items_quantity_could_be_updated()
+    {
+        $this->actingAs(factory(User::class)->create());
+        $product = factory(Product::class)->create();
+
+        $this->post('/cart/' . $product->slug);
+        $this->assertEquals(1, Cart::content()->first()->qty);
+
+        $this->patch('/cart/' . $product->slug, ['quantity' => 2]);
+        $this->assertEquals(2, Cart::content()->first()->qty);
+    }
+
+    /**
+    * @test
+    */
+    public function it_requires_numeric_quantity_to_update_cart()
+    {
+        $this->actingAs(factory(User::class)->create());
+        $product = factory(Product::class)->create();
+
+        $this->post('/cart/' . $product->slug);
+        $this->assertEquals(1, Cart::content()->first()->qty);
+
+        $this->patch('/cart/' . $product->slug, ['quantity' => ''])->assertSessionHasErrors('quantity');
+        $this->patch('/cart/' . $product->slug, ['quantity' => 'not numeric'])->assertSessionHasErrors('quantity');
+        $this->assertEquals(1, Cart::content()->first()->qty);
+    }
 }
