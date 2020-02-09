@@ -11,6 +11,7 @@ class CartController extends Controller
     public function index()
     {
         $cartItems = Cart::content();
+
         return view('cart.index', compact('cartItems'));
     }
 
@@ -26,6 +27,10 @@ class CartController extends Controller
         $request->validate(['quantity' => ['required', 'numeric', 'between:1,5']]);
 
         Cart::update($product->cartRowId, $request->quantity);
+        
+        if ($request->wantsJson()) {
+            return response('Item quantity updated successfully.', 200);
+        }
         return redirect(route('cart.index'))->with('success', 'Item Quantity is updated successfully');
         ;
     }
@@ -35,7 +40,7 @@ class CartController extends Controller
         Cart::remove($product->cartRowId);
 
         if ($request->wantsJson()) {
-            return response('', 200);
+            return response('Item is removed from cart.', 200);
         }
         return redirect(route('cart.index'))->with('success', 'Item is removed from cart');
         ;
