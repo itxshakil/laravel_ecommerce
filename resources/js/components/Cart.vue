@@ -2,12 +2,10 @@
   <div>
     <div v-if="itemCount">
       <div class="mb-8">
-        <p class="text-xl mb-2">
-          <span v-text="itemCount"></span> item(s) in Shopping Cart
-        </p>
+        <p class="text-xl mb-2"><span v-text="itemCount"></span> item(s) in Shopping Cart</p>
         <div class="cart">
           <div v-for="item in items" :key="item.rowId">
-            <cart-item :data="item" @removed="remove"></cart-item>
+            <cart-item :data="item" @removed="remove" @savedforlater="switchtosavelater"></cart-item>
           </div>
         </div>
         <div class="flex justify-between px-2">
@@ -37,21 +35,52 @@
         <a href="/" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
       </div>
     </div>
+
+    <div v-if="saveditemCount">
+      <div class="mb-8">
+        <p class="text-xl mb-2">
+          <span v-text="saveditemCount"></span> item(s) in Saved for later
+        </p>
+        <div class="cart">
+          <div v-for="item in savedItems" :key="item.rowId">
+            <saved-item :data="item" @removed="removesaved" @savedtocart="switchtocartr"></saved-item>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <div class="text-center mb-8">
+        <p class="text-lg">No Items is saved for later.</p>
+        <a href="/" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import cartItem from "./CartItem";
+import SavedItem from "./SavedItem";
 export default {
-  props: ["data"],
-  components: { cartItem },
+  props: ["data", "savedforlater"],
+  components: { cartItem, SavedItem },
   data() {
     return {
-      items: Object.values(this.data)
+      items: Object.values(this.data),
+      savedItems: Object.values(this.savedforlater)
     };
   },
   computed: {
     itemCount() {
       return this.items
+        .map(item => {
+          return item.qty;
+        })
+        .reduce(
+          (previousValue, currentValue) => previousValue + currentValue,
+          0
+        );
+    },
+    saveditemCount() {
+      return this.savedItems
         .map(item => {
           return item.qty;
         })
@@ -87,6 +116,23 @@ export default {
   methods: {
     remove(item) {
       this.items = this.items.filter(value => {
+        return value.model.slug != item.model.slug;
+      });
+    },
+    switchtosavelater(item) {
+      this.items = this.items.filter(value => {
+        return value.model.slug != item.model.slug;
+      });
+      this.savedItems.push(item);
+    },
+    switchtocartr(item) {
+      this.savedItems = this.savedItems.filter(value => {
+        return value.model.slug != item.model.slug;
+      });
+      this.items.push(item);
+    },
+    removesaved(item) {
+      this.savedItems = this.savedItems.filter(value => {
         return value.model.slug != item.model.slug;
       });
     }

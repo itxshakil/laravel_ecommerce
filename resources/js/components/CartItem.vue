@@ -7,7 +7,10 @@
       height="100"
     />
     <a :href="'/products/'+item.model.slug" class="mx-2" v-text="item.name"></a>
-    <div class="cursor-pointer" @click="remove(item)">Remove</div>
+    <div>
+      <div class="cursor-pointer" @click="remove(item)">Remove</div>
+      <div class="cursor-pointer" @click="saveforlater(item)">Save for Later</div>
+    </div>
     <select
       v-model.number="item.qty"
       class="block uppercase tracking-wide text-gray-700 text-xs font-bold p-1 mr-2 w-12 h-8 border"
@@ -36,6 +39,14 @@ export default {
         console.log("Deleted successfully");
       });
       this.$emit("removed", item);
+    },
+    saveforlater(item) {
+      axios
+        .post("/cart/switchToSaveForLater/" + item.model.slug)
+        .then(response => {
+          console.log("saved for later successfully");
+        });
+      this.$emit("savedforlater", item);
     },
     updateQuantity() {
       axios
