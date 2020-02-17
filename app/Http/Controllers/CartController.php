@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -23,6 +24,7 @@ class CartController extends Controller
         }
 
         Cart::instance('default')->add($product, 1);
+        $this->storeCart();
 
         return redirect(route('cart.index'))->with('success', 'Item is added to cart');
     }
@@ -32,30 +34,31 @@ class CartController extends Controller
         $request->validate(['quantity' => ['required', 'numeric', 'between:1,5']]);
 
         Cart::instance('default')->update($product->cartRowId, $request->quantity);
+        $this->storeCart();
 
         if ($request->wantsJson()) {
             return response('Item quantity updated successfully.', 200);
         }
         return redirect(route('cart.index'))->with('success', 'Item Quantity is updated successfully');
-        ;
     }
 
     public function destroy(Request $request, Product $product)
     {
         Cart::instance('default')->remove($product->cartRowId);
+        $this->storeCart();
 
         if ($request->wantsJson()) {
             return response('Item is removed from cart.', 200);
         }
         return redirect(route('cart.index'))->with('success', 'Item is removed from cart');
-        ;
     }
 
     public function switchToSaveForLater(Product $product)
     {
         Cart::instance('default');
         Cart::remove($product->cartRowId);
-        
+        $this->storeCart();
+
         if ($this->isDuplicates($product, 'savedforlater')) {
             if (request()->wantsJson()) {
                 return response('Item is already saved for later.', 200);
@@ -64,6 +67,8 @@ class CartController extends Controller
         }
 
         Cart::instance('savedforlater')->add($product, 1);
+        $this->storeCart('savedforlater');
+
         if (request()->wantsJson()) {
             return response('Item is saved for later.', 200);
         }
@@ -77,5 +82,12 @@ class CartController extends Controller
         });
 
         return $duplicates->isNotEmpty();
+    }
+
+    public function storeCart($instance = 'default')
+    {
+        if (Auth::check()) {
+            Cart::instance($instance)->store(auth()->id());
+        }
     }
 }
