@@ -20,13 +20,13 @@ class CartController extends Controller
     public function store(Request $request, Product $product)
     {
         if ($this->isDuplicates($product)) {
-            return redirect(route('cart.index'))->with('success', 'Item is already added in cart');
+            return redirect(route('cart.index'))->with('flash', 'Item is already added in cart');
         }
 
         Cart::instance('default')->add($product, 1);
         $this->storeCart();
 
-        return redirect(route('cart.index'))->with('success', 'Item is added to cart');
+        return redirect(route('cart.index'))->with('flash', 'Item is added to cart');
     }
 
     public function update(Request $request, Product $product)
@@ -39,7 +39,7 @@ class CartController extends Controller
         if ($request->wantsJson()) {
             return response('Item quantity updated successfully.', 200);
         }
-        return redirect(route('cart.index'))->with('success', 'Item Quantity is updated successfully');
+        return redirect(route('cart.index'))->with('flash', 'Item Quantity is updated flashfully');
     }
 
     public function destroy(Request $request, Product $product)
@@ -50,7 +50,7 @@ class CartController extends Controller
         if ($request->wantsJson()) {
             return response('Item is removed from cart.', 200);
         }
-        return redirect(route('cart.index'))->with('success', 'Item is removed from cart');
+        return redirect(route('cart.index'))->with('flash', 'Item is removed from cart');
     }
 
     public function switchToSaveForLater(Product $product)
@@ -61,9 +61,9 @@ class CartController extends Controller
 
         if ($this->isDuplicates($product, 'savedforlater')) {
             if (request()->wantsJson()) {
-                return response('Item is already saved for later.', 200);
+                return response('Item is already saved for later.', 422);
             }
-            return redirect(route('cart.index'))->with('success', 'Item is already saved for later.');
+            return redirect(route('cart.index'))->with('flash', 'Item is already saved for later.');
         }
 
         Cart::instance('savedforlater')->add($product, 1);
@@ -72,7 +72,7 @@ class CartController extends Controller
         if (request()->wantsJson()) {
             return response('Item is saved for later.', 200);
         }
-        return redirect(route('cart.index'))->with('success', 'Item is saved for later.');
+        return redirect(route('cart.index'))->with('flash', 'Item is saved for later.');
     }
 
     public function isDuplicates(Product $product, $instance = 'default')

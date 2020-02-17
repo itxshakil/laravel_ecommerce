@@ -7,7 +7,7 @@
       height="100"
     />
     <a :href="'/products/'+item.model.slug" class="mx-2" v-text="item.name"></a>
-    <div>
+    <div class="flex-shrink-0 m-2">
       <div class="cursor-pointer" @click="remove(item)">Remove</div>
       <div class="cursor-pointer" @click="saveforlater(item)">Save for Later</div>
     </div>
@@ -36,7 +36,7 @@ export default {
   methods: {
     remove(item) {
       axios.delete("/cart/" + item.model.slug).then(response => {
-        console.log("Deleted successfully");
+        flash("Item is removed from cart", "danger");
       });
       this.$emit("removed", item);
     },
@@ -44,7 +44,10 @@ export default {
       axios
         .post("/cart/switchToSaveForLater/" + item.model.slug)
         .then(response => {
-          console.log("saved for later successfully");
+          flash("Item is saved for later", "success");
+        })
+        .catch(error => {
+          flash(error.response.data, "warning");
         });
       this.$emit("savedforlater", item);
     },
@@ -52,7 +55,7 @@ export default {
       axios
         .patch("/cart/" + this.item.model.slug, { quantity: this.item.qty })
         .then(response => {
-          console.log("Updated successfully");
+          flash("Item Quantity updated successfully", "success");
         });
     }
   }

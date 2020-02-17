@@ -31,16 +31,16 @@ class SaveForLaterController extends Controller
             if (request()->wantsJson()) {
                 return response('Item is already saved in cart.', 200);
             }
-            return redirect(route('cart.index'))->with('success', 'Item is already saved in cart.');
+            return redirect(route('cart.index'))->with('flash', 'Item is already saved in cart.');
         };
 
         Cart::instance('default')->add($product, 1);
-        $this->storeCart(['dafault']);
+        $this->storeCart();
 
         if (request()->wantsJson()) {
             return response('Item is saved to cart.', 200);
         }
-        return redirect(route('cart.index'))->with('success', 'Item is saved to cart.');
+        return redirect(route('cart.index'))->with('flash', 'Item is saved to cart.');
     }
 
     public function storeCart($instance = 'default')

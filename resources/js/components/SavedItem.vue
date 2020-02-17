@@ -25,7 +25,7 @@ export default {
   methods: {
     remove(item) {
       axios.delete("/saveForLater/" + item.model.slug).then(response => {
-        console.log("removed from saved later successfully");
+        flash("Item is removed from saved to later successfully", "danger");
       });
       this.$emit("removed", item);
     },
@@ -33,7 +33,10 @@ export default {
       axios
         .post("/saveForLater/switchToSaveToCart/" + item.model.slug)
         .then(response => {
-          console.log("saved to cart successfully");
+          flash(response.data, "success");
+        })
+        .catch(error => {
+          flash(error.response.data, "warning");
         });
       this.$emit("savedtocart", item);
     }
