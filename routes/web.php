@@ -28,6 +28,10 @@ Route::post('/cart/switchToSaveForLater/{product}', 'CartController@switchToSave
 Route::delete('/saveForLater/{product}', 'saveForLaterController@destroy')->name('saveForLater.destroy');
 Route::post('/saveForLater/switchToSaveToCart/{product}', 'saveForLaterController@switchToSaveToCart')->name('saveForLater.switchToCart');
 
+
+Route::get('/checkout', 'OrderController@store')->name('order.create')->middleware('auth');
+Route::get('/checkout/{order}', 'OrderController@checkout')->name('order.checkout')->middleware('auth');
+
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');

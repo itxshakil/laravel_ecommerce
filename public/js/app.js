@@ -33908,7 +33908,7 @@ var staticRenderFns = [
         "a",
         {
           staticClass: "inline-block p-2 bg-green-200 text-green-800 rounded",
-          attrs: { href: "/" }
+          attrs: { href: "/checkout" }
         },
         [_vm._v("Proceed to Checkout")]
       )
