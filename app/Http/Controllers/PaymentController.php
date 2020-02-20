@@ -35,34 +35,7 @@ class PaymentController extends Controller
             $error = $e->getMessage();
             return view('payment.failed', compact('error'));
         }
-        #TODO Notes should be used without so many toarray json encode
-        $notes = $payment->notes->toArray();
-        $order = Order::find($payment->order_id);
-        $payment = $order->payments()->create([
-            'id' => $payment->id,
-            'entity' => $payment->entity,
-            'amount' => $payment->amount,
-            'currency' => $payment->currency,
-            'status' => $payment->status,
-            'invoice_id' => $payment->invoice_id,
-            'international' => $payment->international,
-            'method' => $payment->method,
-            'amount_refunded' => $payment->amount_refunded,
-            'refund_status' => 'null',
-            'captured' => $payment->captured,
-            'description' => $payment->description,
-            'card_id' => $payment->card_id,
-            'bank' => $payment->bank,
-            'wallet' => $payment->wallet,
-            'vpa' => $payment->vpa,
-            'email' => $payment->email,
-            'contact' => $payment->contact,
-            'fee' => $payment->fee,
-            'tax' => $payment->tax,
-            'error_code' => $payment->error_code,
-            'error_description' => $payment->error_description,
-            'notes' => json_encode($notes),
-        ]);
+        $payment = Payment::create($payment->toArray());
         Cart::instance('default')->destroy();
 
         Cart::instance('default')->store(auth()->id());
@@ -78,13 +51,8 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        // Check if already exists
-        if (!session()->has('cart.' . $payment->order->id)) {
-            $payment->order->items->each(function ($item) use ($payment) {
-                Cart::instance($payment->order->id)->add($item->model, $item->qty);
-            });
-        }
-
+        $payment->order->fetchAllPayments();
+        
         return view('payments.success', compact('payment'));
     }
 }

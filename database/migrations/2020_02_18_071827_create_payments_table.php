@@ -24,18 +24,18 @@ class CreatePaymentsTable extends Migration
             $table->boolean('international');
             $table->string('method');//-card-netbanking-wallet- emi-upi
             $table->bigInteger('amount_refunded')->nullable();
-            $table->string('refund_status');//- null- partial- full.
+            $table->string('refund_status')->nullable();//- null- partial- full.
             $table->boolean('captured');
             $table->string('description');
             $table->string('card_id');
             $table->string('bank')->nullable();
             $table->string('wallet')->nullable();
             $table->string('vpa')->nullable();
-            $table->string('email');
-            $table->string('contact');
+            $table->string('email')->nullable();
+            $table->string('contact')->nullable();
             $table->string('notes')->nullable();
-            $table->string('fee');
-            $table->string('tax');
+            $table->string('fee')->nullable();
+            $table->string('tax')->nullable();
             $table->string('error_code')->nullable();
             $table->string('error_description')->nullable();
             $table->timestamps();

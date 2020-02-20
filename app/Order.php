@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -11,6 +12,19 @@ class Order extends Model
     protected $casts = [
         'notes' => 'array',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function ($order) {
+            if (!session()->has('cart.' . $order->id)) {
+                $order->items->each(function ($item) use ($order) {
+                    Cart::instance($order->id)->add($item->model, $item->qty);
+                });
+            }
+        });
+    }
 
     public function getAmountAttribute($value)
     {
@@ -24,7 +38,7 @@ class Order extends Model
 
     public function getStatusAttribute($value)
     {
-        #TODO: Check for refund
+        //TODO: Check for refund
         if ($value != 'paid') {
             $value = $this->fetchRecentInfo()->status;
         }
@@ -36,7 +50,7 @@ class Order extends Model
         $razorpayApi = resolve('App\Billing\RazorpayApi');
 
         $orderData = $razorpayApi->fetchOrder($this->id);
-        
+
         $this->update([
             'amount_paid' => $orderData->amount_paid,
             'amount_due' => $orderData->amount_due,
@@ -44,6 +58,20 @@ class Order extends Model
             'attempts' => $orderData->attempts,
             'status' => $orderData->status, ]);
         return $orderData;
+    }
+
+    public function fetchAllPayments()
+    {
+        $razorpayApi = resolve('App\Billing\RazorpayApi');
+
+        $payments = $razorpayApi->fetchOrder($this->id)->payments();
+        if ($payments->count > $this->payments->count()) {
+            for ($i = 0; $i < $payments->count; $i++) {
+                if (!Payment::find($payments->items[$i]->id)) {
+                    Payment::create($payments->items[$i]->toArray());
+                }
+            }
+        }
     }
 
     public function payments()

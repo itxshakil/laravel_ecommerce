@@ -17,15 +17,24 @@ class Payment extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function setNotesAttribute($value)
+    {
+        $this->attributes['notes'] = json_encode($value);
+    }
+
     public function getAmountAttribute($value)
     {
         return $value / 100;
     }
 
+    public function getCardAttribute($value)
+    {
+        return resolve('App\Billing\RazorpayApi')->fetchCard($this->card_id)->toArray();
+    }
+
     public function getShippingAddressAttribute()
     {
-        $address = json_decode($this->notes);
-        return "{$address->shipping_address_local}, {$address->shipping_address_state}, {$address->shipping_address_pincode}";
+        return "{$this->notes['shipping_address_local']}, {$this->notes['shipping_address_state']}, {$this->notes['shipping_address_pincode']}";
     }
 
     public function getCardDetails()
