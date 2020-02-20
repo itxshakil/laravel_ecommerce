@@ -12,7 +12,7 @@ class OrderController extends Controller
     {
         $order = $razorpayApi->createOrder();
 
-        $order = Order::create([
+        $order = auth()->user()->orders()->create([
             'id' => $order->id,
             'entity' => $order->entity,
             'amount' => $order->amount,
@@ -25,7 +25,12 @@ class OrderController extends Controller
         ]);
 
         session(['order' => $order->id]);
-        
+
         return redirect(route('order.checkout', ['order' => $order]));
+    }
+
+    public function checkout(Order $order)
+    {
+        return view('checkout', compact('order'));
     }
 }

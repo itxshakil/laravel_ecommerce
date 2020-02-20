@@ -28,9 +28,12 @@ Route::post('/cart/switchToSaveForLater/{product}', 'CartController@switchToSave
 Route::delete('/saveForLater/{product}', 'saveForLaterController@destroy')->name('saveForLater.destroy');
 Route::post('/saveForLater/switchToSaveToCart/{product}', 'saveForLaterController@switchToSaveToCart')->name('saveForLater.switchToCart');
 
-
-Route::get('/checkout', 'OrderController@store')->name('order.create')->middleware('auth');
-Route::get('/checkout/{order}', 'OrderController@checkout')->name('order.checkout')->middleware('auth');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/checkout', 'OrderController@store')->name('order.create');
+    Route::get('/checkout/{order}', 'OrderController@checkout')->name('order.checkout');
+    Route::post('/payment', 'PaymentController@store')->name('payment.verify');
+    Route::get('/payment/{payment}', 'PaymentController@show')->name('payment.status');
+});
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
