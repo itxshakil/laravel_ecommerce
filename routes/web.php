@@ -33,6 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/checkout/{order}', 'OrderController@checkout')->name('order.checkout');
     Route::post('/payment', 'PaymentController@store')->name('payment.verify');
     Route::get('/payment/{payment}', 'PaymentController@show')->name('payment.status');
+
+    Route::get('/orders', 'OrderController@index')->name('orders');
+    Route::get('/orders/{order}', 'OrderController@show')->name('orders.view');
 });
 
 Route::prefix('admin')->group(function () {

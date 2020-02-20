@@ -12,7 +12,7 @@
             <p class="text-gray-600 mt-2">Order Id</p>
             <p class="font-semibold text-gray-900">{{ $payment->order_id }}</p>
             <p class="text-gray-600 mt-2">Shipping Address</p>
-            <p class="font-semibold text-gray-900">{{ $payment->getShippingAddress() }}</p>
+            <p class="font-semibold text-gray-900">{{ $payment->shipping_address }}</p>
             <p class="text-gray-500 text-xs float-right pt-3">
                 {{ $payment->created_at->setTimezone('Asia/Kolkata')->toDateTimeString() }}</p>
         </div>

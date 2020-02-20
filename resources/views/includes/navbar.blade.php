@@ -1,10 +1,14 @@
 <nav class="bg-gray-900 text-gray-100">
     <div class="p-4 flex justify-between">
         <!-- Left Side of Navbar-->
-        <div class="flex">
-            <a class="navbar-brand" href="{{ url('/') }}">
+        <div class="flex items-end">
+            <a class="mr-8 text-xl" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
+            <a class="mx-2" href="{{ url('/cart') }}">Cart</a>
+            @auth
+            <a class="mx-2" href="{{ url('/orders') }}">My Order</a>
+            @endauth
         </div>
         <!-- Right Side of Navbar-->
         <div class="flex">

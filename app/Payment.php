@@ -22,10 +22,10 @@ class Payment extends Model
         return $value / 100;
     }
 
-    public function getShippingAddress()
+    public function getShippingAddressAttribute()
     {
         $address = json_decode($this->notes);
-        return $address->shipping_address_local . ', ' . $address->shipping_address_state . ', ' . $address->shipping_address_pincode;
+        return "{$address->shipping_address_local}, {$address->shipping_address_state}, {$address->shipping_address_pincode}";
     }
 
     public function getCardDetails()
