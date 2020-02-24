@@ -23,12 +23,18 @@ class CartController extends Controller
     public function store(Request $request, Product $product)
     {
         if ($this->isDuplicates($product)) {
+            if ($request->wantsJson()) {
+                return response('Item is already in cart.', 422);
+            }
             return redirect(route('cart.index'))->with('flash', 'Item is already added in cart');
         }
-
+        
         Cart::instance('default')->add($product, 1);
         $this->storeCart();
-
+        
+        if ($request->wantsJson()) {
+            return response('Item is added to cart', 200);
+        }
         return redirect(route('cart.index'))->with('flash', 'Item is added to cart');
     }
 
