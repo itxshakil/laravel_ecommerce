@@ -2,12 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\CartHelper;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class SaveForLaterController extends Controller
 {
+    use CartHelper;
+    
+    public function store(Product $product)
+    {
+        if ($this->isDuplicates($product, 'savedforlater')) {
+            if (request()->wantsJson()) {
+                return response('Item is already saved for later.', 422);
+            }
+            return redirect(route('cart.index'))->with('flash', 'Item is already saved for later.');
+        }
+
+        Cart::instance('savedforlater')->add($product, 1);
+        $this->storeCart('savedforlater');
+
+        if (request()->wantsJson()) {
+            return response('Item is saved for later.', 200);
+        }
+        return redirect(route('cart.index'))->with('flash', 'Item is saved for later.');
+    }
+
     public function destroy(Product $product)
     {
         Cart::instance('savedforlater');
@@ -41,12 +62,5 @@ class SaveForLaterController extends Controller
             return response('Item is saved to cart.', 200);
         }
         return redirect(route('cart.index'))->with('flash', 'Item is saved to cart.');
-    }
-
-    public function storeCart($instance = 'default')
-    {
-        if (Auth::check()) {
-            Cart::instance($instance)->store(auth()->id());
-        }
     }
 }

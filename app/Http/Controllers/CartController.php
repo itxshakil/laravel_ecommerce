@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CartHelper;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    use CartHelper;
+    
     public function index()
     {
         $cartItems = Cart::instance('default')->content();
@@ -73,21 +76,5 @@ class CartController extends Controller
             return response('Item is saved for later.', 200);
         }
         return redirect(route('cart.index'))->with('flash', 'Item is saved for later.');
-    }
-
-    public function isDuplicates(Product $product, $instance = 'default')
-    {
-        $duplicates = Cart::instance($instance)->search(function ($cartItem, $rowId) use ($product) {
-            return $cartItem->model->id === $product->id;
-        });
-
-        return $duplicates->isNotEmpty();
-    }
-
-    public function storeCart($instance = 'default')
-    {
-        if (Auth::check()) {
-            Cart::instance($instance)->store(auth()->id());
-        }
     }
 }

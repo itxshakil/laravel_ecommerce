@@ -17,10 +17,17 @@
                     {{ $product->details }}
                 </p>
 
-                <form action="{{ route('cart.store',$product) }}" method="POST">
-                    <button type="submit" class="inline-block px-2 bg-blue-500 text-white rounded">Add to cart</button>
-                    @csrf
-                </form>
+                <div class="flex">
+                    <form action="{{ route('cart.store',$product) }}" method="POST">
+                        <button type="submit" class="mr-2 inline-block px-2 bg-blue-500 text-white rounded">Add to cart</button>
+                        @csrf
+                    </form>
+    
+                    <form action="{{ route('saveForLater.store',$product) }}" method="POST">
+                        <button type="submit" class="mr-2 inline-block px-2 bg-blue-500 text-white rounded">Save for later</button>
+                        @csrf
+                    </form>
+                </div>
             </div>
         </div>
     </div>
