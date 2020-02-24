@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Admin;
 use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class AddProductsTest extends TestCase
@@ -16,14 +17,11 @@ class AddProductsTest extends TestCase
     */
     public function guests_may_not_add_products()
     {
-        $this->withExceptionHandling();
-
         $this->get(route('products.create'))
         ->assertRedirect('/admin/login');
 
         $this->post('/admin/products')
         ->assertRedirect('/admin/login');
-        ;
     }
 
     /**
@@ -33,11 +31,15 @@ class AddProductsTest extends TestCase
     {
         $this->actingAs(factory(Admin::class)->create(), 'admin');
 
-        $product = factory(Product::class)->make();
+        $product = factory(Product::class)->make([
+            'image' => UploadedFile::fake()->image('avatar.jpg', 200, 350)->size(100),
+        ]);
 
         $response = $this->post('/admin/products', $product->toArray());
 
-        $this->assertDatabaseHas('products', $product->toArray());
+        $this->assertEquals($product->name, Product::first()->name);
+        $this->assertEquals($product->details, Product::first()->details);
+        $this->assertEquals($product->price, Product::first()->price);
 
         $this->get($response->headers->get('Location'))
         ->assertSee($product->name);
