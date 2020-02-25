@@ -6,12 +6,11 @@ use App\CartHelper;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     use CartHelper;
-    
+
     public function index()
     {
         $cartItems = Cart::instance('default')->content();
@@ -22,16 +21,22 @@ class CartController extends Controller
 
     public function store(Request $request, Product $product)
     {
+        if (!$product->quantity > 0) {
+            if ($request->wantsJson()) {
+                return response('Item is not available.', 422);
+            }
+            return redirect(route('cart.index'))->with('flash', 'Item is not available.');
+        }
         if ($this->isDuplicates($product)) {
             if ($request->wantsJson()) {
                 return response('Item is already in cart.', 422);
             }
             return redirect(route('cart.index'))->with('flash', 'Item is already added in cart');
         }
-        
+
         Cart::instance('default')->add($product, 1);
         $this->storeCart();
-        
+
         if ($request->wantsJson()) {
             return response('Item is added to cart', 200);
         }
@@ -41,6 +46,10 @@ class CartController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate(['quantity' => ['required', 'numeric', 'between:1,5']]);
+
+        if ($request->quantity > $product->quantity) {
+            return response(collect(['message' => 'We currently do not have enough item in stock.']), 422);
+        }
 
         Cart::instance('default')->update($product->cartRowId, $request->quantity);
         $this->storeCart();

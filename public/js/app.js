@@ -2093,7 +2093,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ["data"],
   data: function data() {
     return {
-      item: this.data
+      item: this.data,
+      quantity: this.data.qty
     };
   },
   methods: {
@@ -2101,6 +2102,7 @@ __webpack_require__.r(__webpack_exports__);
       axios["delete"]("/cart/" + item.model.slug).then(function (response) {
         flash("Item is removed from cart", "danger");
       });
+      this.item.qty = this.quantity;
       this.$emit("removed", item);
     },
     saveforlater: function saveforlater(item) {
@@ -2112,10 +2114,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("savedforlater", item);
     },
     updateQuantity: function updateQuantity() {
+      var _this = this;
+
       axios.patch("/cart/" + this.item.model.slug, {
-        quantity: this.item.qty
+        quantity: this.quantity
       }).then(function (response) {
+        _this.item.qty = _this.quantity;
         flash("Item Quantity updated successfully", "success");
+      })["catch"](function (error) {
+        flash(error.response.data.message, "warning");
       });
     }
   }
@@ -2273,14 +2280,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data'],
+  props: ["data"],
   data: function data() {
     return {
       product: this.data,
       cartText: "Add to cart",
       saveText: "Save for later"
     };
+  },
+  computed: {
+    stockLevel: function stockLevel() {
+      if (this.isStock) {
+        return this.product.quantity > 5 ? "Available" : "Low Stock";
+      }
+
+      return "Not Available";
+    },
+    isStock: function isStock() {
+      if (this.product.quantity > 0) {
+        return true;
+      }
+
+      return false;
+    },
+    stockClass: function stockClass() {
+      if (this.isStock) {
+        return this.product.quantity > 5 ? "green" : "orange";
+      }
+
+      return "red";
+    }
   },
   methods: {
     addtocart: function addtocart() {
@@ -34094,8 +34143,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model.number",
-              value: _vm.item.qty,
-              expression: "item.qty",
+              value: _vm.quantity,
+              expression: "quantity",
               modifiers: { number: true }
             }
           ],
@@ -34113,11 +34162,9 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return _vm._n(val)
                   })
-                _vm.$set(
-                  _vm.item,
-                  "qty",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
+                _vm.quantity = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
               },
               _vm.updateQuantity
             ]
@@ -34266,87 +34313,87 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg" },
-      [
-        _c("div", { staticClass: "md:flex border-2 rounded-lg" }, [
-          _c("div", { staticClass: "md:flex-shrink-0" }, [
-            _c("img", {
-              staticClass: "rounded-lg md:w-56 h-64",
-              attrs: {
-                src: _vm.product.image,
-                alt: "Details of " + _vm.product.name
-              }
-            })
-          ]),
+  return _c(
+    "div",
+    { staticClass: "w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg" },
+    [
+      _c("div", { staticClass: "md:flex border-2 rounded-lg" }, [
+        _c("div", { staticClass: "md:flex-shrink-0" }, [
+          _c("img", {
+            staticClass: "rounded-lg md:w-56 h-64",
+            attrs: {
+              src: _vm.product.image,
+              alt: "Details of " + _vm.product.name
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "pt-4 md:mt-0 md:ml-6" }, [
+          _c("div", {
+            staticClass:
+              "uppercase tracking-wide text-sm text-indigo-600 font-bold",
+            domProps: { textContent: _vm._s(_vm.product.name) }
+          }),
           _vm._v(" "),
-          _c("div", { staticClass: "pt-4 md:mt-0 md:ml-6" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uppercase tracking-wide text-sm text-indigo-600 font-bold"
-              },
-              [
-                _vm._v("Details of "),
-                _c("span", {
-                  domProps: { textContent: _vm._s(_vm.product.name) }
-                })
-              ]
-            ),
+          _c("div", {
+            class:
+              "mr-2 inline-block px-2 bg-" +
+              _vm.stockClass +
+              "-500 text-white rounded",
+            domProps: { textContent: _vm._s(_vm.stockLevel) }
+          }),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass:
+                "block mt-1 text-lg leading-tight font-semibold text-green hover:underline",
+              attrs: { href: "#" }
+            },
+            [
+              _vm._v("\n        ₹\n        "),
+              _c("span", {
+                domProps: { textContent: _vm._s(_vm.product.price) }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("p", {
+            staticClass: "mt-2 text-gray-600 mb-3",
+            domProps: { textContent: _vm._s(_vm.product.details) }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex" }, [
+            _vm.isStock
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "mr-2 inline-block px-2 bg-blue-500 text-white rounded",
+                    attrs: { type: "submit" },
+                    domProps: { textContent: _vm._s(_vm.cartText) },
+                    on: { click: _vm.addtocart }
+                  },
+                  [_vm._v("Add to cart")]
+                )
+              : _vm._e(),
             _vm._v(" "),
             _c(
-              "a",
+              "button",
               {
                 staticClass:
-                  "block mt-1 text-lg leading-tight font-semibold text-green hover:underline",
-                attrs: { href: "#" }
+                  "mr-2 inline-block px-2 bg-blue-500 text-white rounded",
+                attrs: { type: "submit" },
+                domProps: { textContent: _vm._s(_vm.saveText) },
+                on: { click: _vm.saveforlater }
               },
-              [
-                _vm._v("₹"),
-                _c("span", {
-                  domProps: { textContent: _vm._s(_vm.product.price) }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c("p", {
-              staticClass: "mt-2 text-gray-600 mb-3",
-              domProps: { textContent: _vm._s(_vm.product.details) }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex" }, [
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "mr-2 inline-block px-2 bg-blue-500 text-white rounded",
-                  attrs: { type: "submit" },
-                  domProps: { textContent: _vm._s(_vm.cartText) },
-                  on: { click: _vm.addtocart }
-                },
-                [_vm._v("Add to cart")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "mr-2 inline-block px-2 bg-blue-500 text-white rounded",
-                  attrs: { type: "submit" },
-                  domProps: { textContent: _vm._s(_vm.saveText) },
-                  on: { click: _vm.saveforlater }
-                },
-                [_vm._v("Save for later")]
-              )
-            ])
+              [_vm._v("Save for later")]
+            )
           ])
         ])
-      ]
-    )
-  ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -46980,15 +47027,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************!*\
   !*** ./resources/js/components/ProductView.vue ***!
   \*************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductView_vue_vue_type_template_id_3aa22d19___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductView.vue?vue&type=template&id=3aa22d19& */ "./resources/js/components/ProductView.vue?vue&type=template&id=3aa22d19&");
 /* harmony import */ var _ProductView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductView.vue?vue&type=script&lang=js& */ "./resources/js/components/ProductView.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ProductView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ProductView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -47018,7 +47064,7 @@ component.options.__file = "resources/js/components/ProductView.vue"
 /*!**************************************************************************!*\
   !*** ./resources/js/components/ProductView.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -12,7 +12,7 @@
       <div class="cursor-pointer" @click="saveforlater(item)">Save for Later</div>
     </div>
     <select
-      v-model.number="item.qty"
+      v-model.number="quantity"
       class="block uppercase tracking-wide text-gray-700 text-xs font-bold p-1 mr-2 w-12 h-8 border"
       for="grid-state"
       @change="updateQuantity"
@@ -30,7 +30,8 @@ export default {
   props: ["data"],
   data() {
     return {
-      item: this.data
+      item: this.data,
+      quantity: this.data.qty
     };
   },
   methods: {
@@ -38,6 +39,7 @@ export default {
       axios.delete("/cart/" + item.model.slug).then(response => {
         flash("Item is removed from cart", "danger");
       });
+      this.item.qty = this.quantity;
       this.$emit("removed", item);
     },
     saveforlater(item) {
@@ -53,9 +55,13 @@ export default {
     },
     updateQuantity() {
       axios
-        .patch("/cart/" + this.item.model.slug, { quantity: this.item.qty })
+        .patch("/cart/" + this.item.model.slug, { quantity: this.quantity })
         .then(response => {
+          this.item.qty = this.quantity;
           flash("Item Quantity updated successfully", "success");
+        })
+        .catch(error => {
+          flash(error.response.data.message, "warning");
         });
     }
   }

@@ -74,6 +74,13 @@ class Order extends Model
         }
     }
 
+    public function decreaseProductQuantity()
+    {
+        $this->items->map(function ($item) {
+            $item->model->decrement('quantity', $item->qty);
+        });
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

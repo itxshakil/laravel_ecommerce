@@ -15,7 +15,7 @@ class CartMangementTest extends TestCase
     /**
     * @test
     */
-    public function authenticated_user_can_add_products_to_cart()
+    public function user_can_add_products_to_cart()
     {
         $this->actingAs(factory(User::class)->create());
         $product = factory(Product::class)->create();
@@ -24,6 +24,21 @@ class CartMangementTest extends TestCase
 
         $this->assertCount(1, Cart::content());
         $this->assertEquals($product->fresh(), Cart::content()->first()->model);
+    }
+
+    /**
+    * @test
+    */
+    public function item_does_not_added_to_cart_if_stock_is_not_available()
+    {
+        $this->actingAs(factory(User::class)->create());
+        $product = factory(Product::class)->create(['quantity' => 0]);
+
+        $this->assertCount(0, Cart::content());
+
+        $this->post('/cart/' . $product->slug);
+
+        $this->assertCount(0, Cart::content());
     }
 
     /**

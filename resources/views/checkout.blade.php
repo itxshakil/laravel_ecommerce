@@ -46,7 +46,7 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="prefill[contact]" name="prefill[contact]" type="tel" placeholder="9123456780"
+                                id="prefill[contact]" name="prefill[contact]" type="tel" placeholder="9123456780" title="Please Enter Valid Contact Number" pattern="[789][0-9]{9}"
                                 required>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                 id="notes[shipping_address_pincode]" name="notes[shipping_address_pincode]" type="text"
-                                placeholder="6 digits [0-9] pincode" required>
+                                placeholder="6 digits [0-9] pincode" pattern="[0-9]{6}" required>
                         </div>
                     </div>
                 </fieldset>
@@ -115,7 +115,7 @@
             <div class="cart">
                 @foreach (Cart::instance('default')->content() as $item)
                 <div class="flex justify-between border-b-2 p-2">
-                    <img src="/storage/{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
+                    <img src="{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
                         height="100">
                     <a href="{{ route('products.view',$item->model->slug) }}" class="mx-2">{{ $item->name }}</a>
                     <p>{{ $item->qty  }}</p>

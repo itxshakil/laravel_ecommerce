@@ -11,7 +11,7 @@
                 <th class="p-3">Price</th>
                 <th class="p-3">Details</th>
                 <th class="p-3">Image</th>
-                <th class="p-3">last Updated</th>
+                <th class="p-3">Quantity</th>
                 <th class="p-3">Action</th>
             </tr>
             @foreach ($products as $product)
@@ -20,10 +20,9 @@
                 <td class="p-3">{{ $product->price }}</td>
                 <td class="p-3">{{ Str::limit($product->details,30) }}</td>
                 <td class="p-3">
-                    <img src="/storage/{{ $product->image }}" alt="Details of {{ $product->image }}" height="auto"
-                        width="50">
+                    <img src="{{ $product->image }}" alt="Details of {{ $product->image }}" height="auto" width="50">
                 </td>
-                <td class="p-3">{{ $product->updated_at->diffForHumans() }}</td>
+                <td class="p-3 text-lg">{{ $product->quantity }}</td>
                 <td class="p-3"><a href="{{ route('products.show',$product) }}">View</a></td>
             </tr>
             @endforeach

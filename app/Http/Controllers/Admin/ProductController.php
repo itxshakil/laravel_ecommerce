@@ -42,6 +42,7 @@ class ProductController extends Controller
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric'],
             'image' => ['required']
         ]);
 
@@ -85,6 +86,7 @@ class ProductController extends Controller
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric'],
             'image' => ['sometimes', 'required']
         ]);
 

@@ -36,6 +36,9 @@ class PaymentController extends Controller
             return view('payment.failed', compact('error'));
         }
         $payment = Payment::create($payment->toArray());
+
+        $payment->order->decreaseProductQuantity();
+        
         Cart::instance('default')->destroy();
 
         Cart::instance('default')->store(auth()->id());

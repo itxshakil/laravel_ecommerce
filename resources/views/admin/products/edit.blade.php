@@ -19,17 +19,31 @@
                 <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-4">
-                <label class="block mb-2 text-sm font-bold text-gray-700" for="price">
-                    Price
-                </label>
-                <input
-                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('price') border-red-500 @enderror"
-                    id="price" type="text" pattern="[0-9].+" name="price" value="{{ $product->price ?? old('price') }}"
-                    required placeholder="199.99" />
-                @error('price')
-                <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
-                @enderror
+            <div class="flex flex-col md:flex-row">
+                <div class="mb-4 md:mr-2 w-full">
+                    <label class="block mb-2 text-sm font-bold text-gray-700" for="price">
+                        Price
+                    </label>
+                    <input
+                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('price') border-red-500 @enderror"
+                        id="price" type="text" pattern="[0-9].+" name="price"
+                        value="{{ $product->price ?? old('price') }}" required placeholder="199.99" />
+                    @error('price')
+                    <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-4 md:ml-2 w-full">
+                    <label class="block mb-2 text-sm font-bold text-gray-700" for="quantity">
+                        Quantity
+                    </label>
+                    <input
+                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('price') border-red-500 @enderror"
+                        id="quantity" type="number" pattern="[0-9].+" name="quantity"
+                        value="{{ $product->quantity ?? old('quantity') }}" required placeholder="199" />
+                    @error('quantity')
+                    <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
             <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-700" for="image">
