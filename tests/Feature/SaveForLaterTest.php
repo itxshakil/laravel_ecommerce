@@ -11,16 +11,15 @@ class SaveForLaterTest extends TestCase
 {
     use RefreshDatabase;
 
-
     /**
     * @test
     */
     public function user_can_save_item_to_Saved_for_later()
     {
-        $product= factory(Product::class)->create();
+        $product = factory(Product::class)->create();
 
         $this->post("/SaveForLater/$product->slug");
- 
+
         $this->assertCount(1, Cart::instance('savedforlater')->content());
         $this->assertEquals($product->fresh(), Cart::instance('savedforlater')->content()->first()->model);
     }

@@ -48,7 +48,8 @@ class ProductController extends Controller
 
         $data['image'] = $this->uploadImage($request);
 
-        return Product::create($data);
+        Product::create($data);
+        return redirect(route('products.index'));
     }
 
     /**

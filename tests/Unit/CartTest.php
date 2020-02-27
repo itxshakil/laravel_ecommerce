@@ -47,10 +47,9 @@ class CartTest extends TestCase
         Cart::add($product, 1);
 
         $this->assertCount(1, Cart::content());
-        
+
         Cart::remove($product->cartRowId);
 
         $this->assertCount(0, Cart::content());
-        
     }
 }
