@@ -59,31 +59,31 @@ class LoginController extends Controller
     }
 
     /**
-     * Redirect the user to the GitHub authentication page.
+     * Redirect the user to the Social sites authentication page.
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider()
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from Social Sites.
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback($provider)
     {
-        $githubUser = Socialite::driver('github')->user();
+        $socialUser = Socialite::driver($provider)->user();
 
-        $user = User::where('provider_id', $githubUser->getId())->where('provider', 'github')->first();
+        $user = User::where('provider_id', $socialUser->getId())->where('provider', $provider)->first();
         if (!$user) {
             $user = User::create([
-                'email' => $githubUser->getEmail(),
-                'name' => $githubUser->getName(),
-                'provider_id' => $githubUser->getId(),
-                'provider' => 'github',
+                'email' => $socialUser->getEmail(),
+                'name' => $socialUser->getName(),
+                'provider_id' => $socialUser->getId(),
+                'provider' => $provider,
             ]);
         }
 

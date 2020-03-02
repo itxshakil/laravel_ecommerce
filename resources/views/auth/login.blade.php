@@ -46,6 +46,12 @@
                         Sign In
                     </button>
                 </div>
+                <div class="mb-2 text-center">
+                    <a class="w-full inline-block px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none"
+                        href="login/twitter">
+                        Login in using Twitter
+                    </a>
+                </div>
                 <div class="mb-6 text-center">
                     <a class="w-full inline-block px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none"
                         href="login/github">
