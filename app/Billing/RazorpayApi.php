@@ -11,7 +11,7 @@ class RazorpayApi
 
     public function __construct()
     {
-        $this->api = new Api(config('app.razorpay_key'), config('app.razorpay_private'));
+        $this->api = new Api(config('services.razorpay.key'), config('services.razorpay.private'));
     }
 
     public function createOrder()

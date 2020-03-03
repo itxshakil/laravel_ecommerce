@@ -222,7 +222,5 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
     ],
-
-    'razorpay_key' => env('RAZORPAY_KEY', ''),
-    'razorpay_private' => env('RAZORPAY_PRIVATE', ''),
+    
 ];

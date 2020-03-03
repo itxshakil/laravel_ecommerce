@@ -28,6 +28,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    
+    'razorpay' => [
+        'key' => env('RAZORPAY_KEY', ''),
+        'private' => env('RAZORPAY_PRIVATE', ''),
+    ],
 
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),

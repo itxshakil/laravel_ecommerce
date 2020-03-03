@@ -11,7 +11,7 @@
             </p>
             @include('includes.message')
             <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">
-                <input type="hidden" name="key_id" value="{{config('app.razorpay_key')}}">
+                <input type="hidden" name="key_id" value="{{config('services.razorpay.key')}}">
                 <input type="hidden" name="order_id" value="{{ $order->id }}">
                 <input type="hidden" name="name" value="Acme Corp">
                 <input type="hidden" name="description" value="Payment for Order #{{ $order->id }}">
