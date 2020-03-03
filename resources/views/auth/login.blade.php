@@ -39,25 +39,25 @@
                         Remember Me
                     </label>
                 </div>
-                <div class="mb-2 text-center">
+                <div class="mb-4 text-center">
                     <button
                         class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none"
                         type="submit">
                         Sign In
                     </button>
                 </div>
-                <hr class="mb-2">
-                <div class="mb-2 text-center">
-                    <a class="w-full inline-block px-4 py-2 font-bold text-white bg-google rounded-full hover:bg-google focus:outline-none"
-                        href="login/google">
-                        <i class="fa fab fa-google"></i> Login in using Google
-                    </a>
+                <div class="flex items-center ">
+                    <hr class="flex-grow border">
+                    <p class="text-center text-gray-600 font-semibold mb-2 mx-2">Or sign in with </p>
+                    <hr class="flex-grow border">
                 </div>
-                <div class="mb-2 text-center">
-                    <a class="w-full inline-block px-4 py-2 font-bold text-white bg-twitter rounded-full hover:bg-twitter focus:outline-none"
-                        href="login/twitter">
-                        <i class="fa fab fa-twitter"></i> Login in using Twitter
-                    </a>
+                <div class="text-center">
+                    <a class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                    href="login/google">
+                    <img alt="..." class="w-5 mr-1" src="https://demos.creative-tim.com/tailwindcss-starter-project/static/media/google.87be59a1.svg">Google</a>
+                    <a class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                    href="login/twitter">
+                    <i class="fa fab fa-twitter text-twitter text-xl mr-1"></i> Twitter</a>
                 </div>
                 @csrf
             </form>

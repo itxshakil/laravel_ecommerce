@@ -8,7 +8,7 @@
         </div>
         <div class="w-full lg:w-1/2 bg-gray-100 p-5 rounded-lg lg:rounded-l-none">
             <h3 class="pt-4 text-2xl text-center">Create New account</h3>
-            <form class="px-8 pt-6 mb-4 bg-white rounded" method="POST" action="{{ route('register') }}">
+            <form class="px-8 pt-6  pb-2 mb-4 bg-white rounded" method="POST" action="{{ route('register') }}">
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-bold text-gray-700" for="name">
                         Name
