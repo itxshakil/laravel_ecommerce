@@ -52,10 +52,10 @@
                     <hr class="flex-grow border">
                 </div>
                 <div class="text-center">
-                    <a class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                    <a class="bg-gray-100 active:bg-gray-200 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                     href="login/google">
                     <img alt="..." class="w-5 mr-1" src="https://demos.creative-tim.com/tailwindcss-starter-project/static/media/google.87be59a1.svg">Google</a>
-                    <a class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                    <a class="bg-gray-100 active:bg-gray-200 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                     href="login/twitter">
                     <i class="fa fab fa-twitter text-twitter text-xl mr-1"></i> Twitter</a>
                 </div>

@@ -5,7 +5,7 @@
             <a class="mr-8 text-xl" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
-            <a class="mx-2" href="{{ url('/cart') }}">Cart</a>
+            <a class="mx-2" href="{{ url('/cart') }}"><i class="fa fas fa-shopping-cart"></i> Cart</a>
             @auth
             <a class="mx-2" href="{{ url('/orders') }}">My Order</a>
             @endauth

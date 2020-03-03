@@ -26,7 +26,7 @@
     <div id="app">
         @include('includes.navbar')
 
-        <main class="py-4">
+        <main>
             @yield('content')
             <flash message="{{session('flash')}}"></flash>
         </main>
