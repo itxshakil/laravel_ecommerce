@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/orders', 'OrderController@index')->name('orders');
     Route::get('/orders/{order}', 'OrderController@show')->name('orders.view');
+
+    Route::post('/{product}/ratings', 'RatingController@store')->name('rating.store');
 });
 
 Route::prefix('admin')->group(function () {

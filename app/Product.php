@@ -86,4 +86,9 @@ class Product extends Model implements Buyable
         $cart = Cart::content();
         return $cart->firstWhere('id', $this->id)->rowId;
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }
