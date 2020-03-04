@@ -41,8 +41,8 @@ class RatingController extends Controller
             'description' => ['required'],
             'rating' => ['required', 'numeric', 'between:1,5'],
         ]);
-        
-        return $product->ratings()->create($data);
+
+        return $product->ratings()->create($data)->load('user');
     }
 
     /**

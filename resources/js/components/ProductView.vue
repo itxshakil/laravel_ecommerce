@@ -45,20 +45,20 @@
       </div>
     </div>
     <div v-if="ratings">
-      <h3 class="text-lg my-2">
-        <span v-text="ratings.length"></span> Ratings
-      </h3>
+      <h3 class="text-xl my-2">Reviews</h3>
       <div v-for="rating in ratings" :key="rating.id">
         <rating :data="rating"></rating>
       </div>
     </div>
+    <new-rating :data="product" @created="addReview"></new-rating>
   </div>
 </template>
 <script>
 import rating from "./Rating.vue";
+import newRating from "./NewRating.vue";
 export default {
   props: ["data"],
-  components: { rating },
+  components: { rating, newRating },
   data() {
     return {
       product: this.data,
@@ -85,6 +85,18 @@ export default {
         return this.product.quantity > 5 ? "green" : "orange";
       }
       return "red";
+    },
+    average() {
+      let length = this.ratings.length;
+      let sum = this.ratings
+        .map(item => {
+          return item.rating;
+        })
+        .reduce(
+          (previousValue, currentValue) => previousValue + currentValue,
+          0.0
+        );
+      return (sum / length).toFixed(2);
     }
   },
   methods: {
@@ -109,6 +121,9 @@ export default {
         .catch(error => {
           flash(error.response.data, "warning");
         });
+    },
+    addReview(data) {
+      this.ratings.push(data);
     }
   }
 };

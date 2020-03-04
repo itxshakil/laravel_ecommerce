@@ -8,6 +8,9 @@ class Rating extends Model
 {
     protected $guarded = [];
 
+    protected $casts =[
+        'rating' => 'integer'
+    ];
     
     protected static function boot()
     {
