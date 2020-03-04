@@ -8,6 +8,7 @@ class ProductController extends Controller
 {
     public function show(Product $product)
     {
+        $product->load('ratings.user');
         return view('products.view', compact('product'));
     }
 }
