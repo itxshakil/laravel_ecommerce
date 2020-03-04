@@ -8,6 +8,16 @@ class Rating extends Model
 {
     protected $guarded = [];
 
+    
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($product) {
+            $product->user_id = auth()->id();
+        });
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

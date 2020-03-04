@@ -36,12 +36,13 @@ class RatingController extends Controller
      */
     public function store(Product $product, Request $request)
     {
-        return $product->ratings()->create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'rating' => $request->rating,
-            'user_id' => auth()->id()
+        $data = $request->validate([
+            'title' => ['required', 'max:100'],
+            'description' => ['required'],
+            'rating' => ['required', 'numeric', 'between:1,5'],
         ]);
+        
+        return $product->ratings()->create($data);
     }
 
     /**
