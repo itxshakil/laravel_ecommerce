@@ -1,38 +1,38 @@
 <template>
-  <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg">
-    <div class="md:flex border-2 rounded-lg">
+  <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 rounded-lg">
+    <div class="md:flex  rounded-lg">
       <div class="md:flex-shrink-0">
-        <img class="rounded-lg md:w-56 h-64" :src="product.image" :alt="'Details of '+product.name" />
+        <img class="rounded-lg w-full md:w-56 h-64" :src="product.image" :alt="'Details of '+product.name" />
       </div>
-      <div class="pt-4 md:mt-0 md:ml-6">
+      <div class="pt-4 px-4 md:px-0 md:mt-0 md:ml-6">
+        <div class="flex md:flex-col items-baseline">
         <div
-          class="uppercase tracking-wide text-sm text-indigo-600 font-bold"
+          class="uppercase tracking-wide text-sm text-indigo-600 font-bold flex-grow"
           v-text="product.name"
         ></div>
         <div
           :class="'mr-2 inline-block px-2 bg-'+ stockClass +'-500 text-white rounded'"
           v-text="stockLevel"
-        ></div>
-        <a
-          href="#"
-          class="block mt-1 text-lg leading-tight font-semibold text-green hover:underline"
+        ></div></div>
+        <div
+          class="block mt-1 text-lg leading-tight font-semibold"
         >
           ₹
           <span v-text="product.price"></span>
-        </a>
+        </div>
         <p class="mt-2 text-gray-600 mb-3" v-text="product.details"></p>
 
         <div class="flex">
           <button
             type="submit"
-            class="mr-2 inline-block px-2 bg-blue-500 text-white rounded"
+            class="bg-blue-500 active:bg-blue-400 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
             v-if="isStock"
             @click="addtocart"
             v-text="cartText"
           >Add to cart</button>
           <button
             type="submit"
-            class="mr-2 inline-block px-2 bg-blue-500 text-white rounded"
+            class="bg-gray-100 active:bg-gray-200 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
             @click="saveforlater"
             v-text="saveText"
           >Save for later</button>

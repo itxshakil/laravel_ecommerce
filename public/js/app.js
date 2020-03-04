@@ -34315,12 +34315,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg" },
+    { staticClass: "w-full xl:w-3/4 lg:w-11/12 bg-gray-100 rounded-lg" },
     [
-      _c("div", { staticClass: "md:flex border-2 rounded-lg" }, [
+      _c("div", { staticClass: "md:flex  rounded-lg" }, [
         _c("div", { staticClass: "md:flex-shrink-0" }, [
           _c("img", {
-            staticClass: "rounded-lg md:w-56 h-64",
+            staticClass: "rounded-lg w-full md:w-56 h-64",
             attrs: {
               src: _vm.product.image,
               alt: "Details of " + _vm.product.name
@@ -34328,28 +34328,26 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "pt-4 md:mt-0 md:ml-6" }, [
-          _c("div", {
-            staticClass:
-              "uppercase tracking-wide text-sm text-indigo-600 font-bold",
-            domProps: { textContent: _vm._s(_vm.product.name) }
-          }),
-          _vm._v(" "),
-          _c("div", {
-            class:
-              "mr-2 inline-block px-2 bg-" +
-              _vm.stockClass +
-              "-500 text-white rounded",
-            domProps: { textContent: _vm._s(_vm.stockLevel) }
-          }),
+        _c("div", { staticClass: "pt-4 px-4 md:px-0 md:mt-0 md:ml-6" }, [
+          _c("div", { staticClass: "flex md:flex-col items-baseline" }, [
+            _c("div", {
+              staticClass:
+                "uppercase tracking-wide text-sm text-indigo-600 font-bold flex-grow",
+              domProps: { textContent: _vm._s(_vm.product.name) }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              class:
+                "mr-2 inline-block px-2 bg-" +
+                _vm.stockClass +
+                "-500 text-white rounded",
+              domProps: { textContent: _vm._s(_vm.stockLevel) }
+            })
+          ]),
           _vm._v(" "),
           _c(
-            "a",
-            {
-              staticClass:
-                "block mt-1 text-lg leading-tight font-semibold text-green hover:underline",
-              attrs: { href: "#" }
-            },
+            "div",
+            { staticClass: "block mt-1 text-lg leading-tight font-semibold" },
             [
               _vm._v("\n        ₹\n        "),
               _c("span", {
@@ -34369,7 +34367,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "mr-2 inline-block px-2 bg-blue-500 text-white rounded",
+                      "bg-blue-500 active:bg-blue-400 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs",
                     attrs: { type: "submit" },
                     domProps: { textContent: _vm._s(_vm.cartText) },
                     on: { click: _vm.addtocart }
@@ -34382,7 +34380,7 @@ var render = function() {
               "button",
               {
                 staticClass:
-                  "mr-2 inline-block px-2 bg-blue-500 text-white rounded",
+                  "bg-gray-100 active:bg-gray-200 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs",
                 attrs: { type: "submit" },
                 domProps: { textContent: _vm._s(_vm.saveText) },
                 on: { click: _vm.saveforlater }
