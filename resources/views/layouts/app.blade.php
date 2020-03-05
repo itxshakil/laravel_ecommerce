@@ -20,6 +20,9 @@
     <!-- Styles -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script>
+    window.auth_user = @json(auth()->user());
+    </script>
 </head>
 
 <body>

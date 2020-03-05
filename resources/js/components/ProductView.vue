@@ -50,7 +50,7 @@
         <rating :data="rating"></rating>
       </div>
     </div>
-    <new-rating :data="product" @created="addReview"></new-rating>
+    <new-rating v-if="canAdd" :data="product" @created="addReview"></new-rating>
   </div>
 </template>
 <script>
@@ -79,6 +79,16 @@ export default {
         return true;
       }
       return false;
+    },
+    canAdd() {
+      if (auth_user == null) {
+        return true;
+      }
+
+      let userRating = this.ratings.filter(item => {
+        return item.user_id == auth_user.id;
+      });
+      return userRating.length > 0 ? false : true;
     },
     stockClass() {
       if (this.isStock) {

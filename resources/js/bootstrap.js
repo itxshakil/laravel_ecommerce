@@ -41,6 +41,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Vue = require('vue');
 
+Vue.prototype.signedIn = window.auth_user;
+
 window.events = new Vue();
 window.flash = function (message, level = 'success') {
     window.events.$emit('flash', { message, level })

@@ -33,6 +33,26 @@ class RatingTest extends TestCase
     /**
      * @test
      */
+    public function user_can_only_add_one_review_per_product()
+    {
+        $this->actingAs($user = factory(User::class)->create());
+
+        $product = factory(Product::class)->create();
+        $rating = factory(Rating::class)->make();
+
+        $this->post($product->slug . '/ratings', $rating->toArray());
+
+        $this->assertCount(1, $product->fresh()->ratings);
+
+        $this->post($product->slug . '/ratings', $rating->toArray())->assertStatus(422);
+
+        $this->assertCount(1, $product->fresh()->ratings);
+        $this->assertCount(1, $user->fresh()->ratings);
+    }
+
+    /**
+     * @test
+     */
     public function unauthenticated_user_can_not_add_rating()
     {
         $product = factory(Product::class)->create();

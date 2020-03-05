@@ -40,4 +40,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function isRated(Product $product)
+    {
+        return $this->ratings->filter(function ($value, $key) use ($product) {
+            return $value->product_id == $product->id;
+        });
+    }
 }

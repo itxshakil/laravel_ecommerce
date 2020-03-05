@@ -1,53 +1,59 @@
 <template>
-  <div class="rounded p-8 bg-gray-300 mt-2">
-    <h2 class="mt-4 text-2xl text-center">Submit Review</h2>
-    <form @submit.prevent="addReview">
-      <div class="mb-4">
-        <label class="block mb-2 text-sm font-bold text-gray-700" for="title">Title</label>
-        <input
-          class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
-          id="title"
-          type="text"
-          placeholder="Add new heading"
-          name="title"
-          required
-          autocomplete="title"
-          v-model="title"
-        />
-      </div>
-      <div class="mb-4">
-        <label class="block mb-2 text-sm font-bold text-gray-700" for="description">Description</label>
-        <textarea
-          class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
-          id="description"
-          name="description"
-          required
-          placeholder="Enter product description here"
-          v-model="description"
-        ></textarea>
-      </div>
-      <div class="mb-4">
-        <label class="block mb-2 text-sm font-bold text-gray-700" for="rating">Rating</label>
-        <span class="star-rating">
-          <input type="radio" name="rating" v-model="rating" v-bind:value="1" />
-          <i class="fa fas- fa-star text-yellow-600"></i>
-          <input type="radio" name="rating" v-model="rating" v-bind:value="2" />
-          <i class="fa fas- fa-star text-yellow-600"></i>
-          <input type="radio" name="rating" v-model="rating" v-bind:value="3" />
-          <i class="fa fas- fa-star text-yellow-600"></i>
-          <input type="radio" name="rating" v-model="rating" v-bind:value="4" />
-          <i class="fa fas- fa-star text-yellow-600"></i>
-          <input type="radio" name="rating" v-model="rating" v-bind:value="5" />
-          <i class="fa fas- fa-star text-yellow-600"></i>
-        </span>
-      </div>
-      <div class="mb-6 text-center">
-        <button
-          class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none"
-          type="submit"
-        >Add Product</button>
-      </div>
-    </form>
+  <div>
+    <div v-if="signedIn" class="rounded p-8 bg-gray-300 mt-2">
+      <h2 class="mt-4 text-2xl text-center">Submit Review</h2>
+      <form @submit.prevent="addReview">
+        <div class="mb-4">
+          <label class="block mb-2 text-sm font-bold text-gray-700" for="title">Title</label>
+          <input
+            class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
+            id="title"
+            type="text"
+            placeholder="Add new heading"
+            name="title"
+            required
+            autocomplete="title"
+            v-model="title"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 text-sm font-bold text-gray-700" for="description">Description</label>
+          <textarea
+            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
+            id="description"
+            name="description"
+            required
+            placeholder="Enter product description here"
+            v-model="description"
+          ></textarea>
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 text-sm font-bold text-gray-700" for="rating">Rating</label>
+          <span class="star-rating">
+            <input type="radio" name="rating" v-model="rating" v-bind:value="1" />
+            <i class="fa fas- fa-star text-yellow-600"></i>
+            <input type="radio" name="rating" v-model="rating" v-bind:value="2" />
+            <i class="fa fas- fa-star text-yellow-600"></i>
+            <input type="radio" name="rating" v-model="rating" v-bind:value="3" />
+            <i class="fa fas- fa-star text-yellow-600"></i>
+            <input type="radio" name="rating" v-model="rating" v-bind:value="4" />
+            <i class="fa fas- fa-star text-yellow-600"></i>
+            <input type="radio" name="rating" v-model="rating" v-bind:value="5" />
+            <i class="fa fas- fa-star text-yellow-600"></i>
+          </span>
+        </div>
+        <div class="mb-6 text-center">
+          <button
+            class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none"
+            type="submit"
+          >Add Product Rating</button>
+        </div>
+      </form>
+    </div>
+    <p class="p-4" v-else>
+      Please
+      <a href="/login" class="text-blue-500">sign in</a> to add review
+    </p>
   </div>
 </template>
 <script>

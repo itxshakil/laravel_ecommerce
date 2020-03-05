@@ -2308,6 +2308,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["data"],
   data: function data() {
@@ -2437,6 +2443,16 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return false;
+    },
+    canAdd: function canAdd() {
+      if (auth_user == null) {
+        return true;
+      }
+
+      var userRating = this.ratings.filter(function (item) {
+        return item.user_id == auth_user.id;
+      });
+      return userRating.length > 0 ? false : true;
     },
     stockClass: function stockClass() {
       if (this.isStock) {
@@ -34520,218 +34536,228 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "rounded p-8 bg-gray-300 mt-2" }, [
-    _c("h2", { staticClass: "mt-4 text-2xl text-center" }, [
-      _vm._v("Submit Review")
-    ]),
-    _vm._v(" "),
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.addReview($event)
-          }
-        }
-      },
-      [
-        _c("div", { staticClass: "mb-4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block mb-2 text-sm font-bold text-gray-700",
-              attrs: { for: "title" }
-            },
-            [_vm._v("Title")]
-          ),
+  return _c("div", [
+    _vm.signedIn
+      ? _c("div", { staticClass: "rounded p-8 bg-gray-300 mt-2" }, [
+          _c("h2", { staticClass: "mt-4 text-2xl text-center" }, [
+            _vm._v("Submit Review")
+          ]),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.title,
-                expression: "title"
-              }
-            ],
-            staticClass:
-              "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none",
-            attrs: {
-              id: "title",
-              type: "text",
-              placeholder: "Add new heading",
-              name: "title",
-              required: "",
-              autocomplete: "title"
-            },
-            domProps: { value: _vm.title },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.title = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mb-4" }, [
           _c(
-            "label",
+            "form",
             {
-              staticClass: "block mb-2 text-sm font-bold text-gray-700",
-              attrs: { for: "description" }
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addReview($event)
+                }
+              }
             },
-            [_vm._v("Description")]
-          ),
-          _vm._v(" "),
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.description,
-                expression: "description"
-              }
-            ],
-            staticClass:
-              "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none",
-            attrs: {
-              id: "description",
-              name: "description",
-              required: "",
-              placeholder: "Enter product description here"
-            },
-            domProps: { value: _vm.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.description = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mb-4" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block mb-2 text-sm font-bold text-gray-700",
-              attrs: { for: "rating" }
-            },
-            [_vm._v("Rating")]
-          ),
-          _vm._v(" "),
-          _c("span", { staticClass: "star-rating" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating,
-                  expression: "rating"
-                }
-              ],
-              attrs: { type: "radio", name: "rating" },
-              domProps: { value: 1, checked: _vm._q(_vm.rating, 1) },
-              on: {
-                change: function($event) {
-                  _vm.rating = 1
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating,
-                  expression: "rating"
-                }
-              ],
-              attrs: { type: "radio", name: "rating" },
-              domProps: { value: 2, checked: _vm._q(_vm.rating, 2) },
-              on: {
-                change: function($event) {
-                  _vm.rating = 2
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating,
-                  expression: "rating"
-                }
-              ],
-              attrs: { type: "radio", name: "rating" },
-              domProps: { value: 3, checked: _vm._q(_vm.rating, 3) },
-              on: {
-                change: function($event) {
-                  _vm.rating = 3
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating,
-                  expression: "rating"
-                }
-              ],
-              attrs: { type: "radio", name: "rating" },
-              domProps: { value: 4, checked: _vm._q(_vm.rating, 4) },
-              on: {
-                change: function($event) {
-                  _vm.rating = 4
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.rating,
-                  expression: "rating"
-                }
-              ],
-              attrs: { type: "radio", name: "rating" },
-              domProps: { value: 5, checked: _vm._q(_vm.rating, 5) },
-              on: {
-                change: function($event) {
-                  _vm.rating = 5
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fas- fa-star text-yellow-600" })
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
-      ]
-    )
+            [
+              _c("div", { staticClass: "mb-4" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block mb-2 text-sm font-bold text-gray-700",
+                    attrs: { for: "title" }
+                  },
+                  [_vm._v("Title")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.title,
+                      expression: "title"
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none",
+                  attrs: {
+                    id: "title",
+                    type: "text",
+                    placeholder: "Add new heading",
+                    name: "title",
+                    required: "",
+                    autocomplete: "title"
+                  },
+                  domProps: { value: _vm.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.title = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mb-4" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block mb-2 text-sm font-bold text-gray-700",
+                    attrs: { for: "description" }
+                  },
+                  [_vm._v("Description")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.description,
+                      expression: "description"
+                    }
+                  ],
+                  staticClass:
+                    "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none",
+                  attrs: {
+                    id: "description",
+                    name: "description",
+                    required: "",
+                    placeholder: "Enter product description here"
+                  },
+                  domProps: { value: _vm.description },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.description = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mb-4" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "block mb-2 text-sm font-bold text-gray-700",
+                    attrs: { for: "rating" }
+                  },
+                  [_vm._v("Rating")]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "star-rating" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.rating,
+                        expression: "rating"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "rating" },
+                    domProps: { value: 1, checked: _vm._q(_vm.rating, 1) },
+                    on: {
+                      change: function($event) {
+                        _vm.rating = 1
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.rating,
+                        expression: "rating"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "rating" },
+                    domProps: { value: 2, checked: _vm._q(_vm.rating, 2) },
+                    on: {
+                      change: function($event) {
+                        _vm.rating = 2
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.rating,
+                        expression: "rating"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "rating" },
+                    domProps: { value: 3, checked: _vm._q(_vm.rating, 3) },
+                    on: {
+                      change: function($event) {
+                        _vm.rating = 3
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.rating,
+                        expression: "rating"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "rating" },
+                    domProps: { value: 4, checked: _vm._q(_vm.rating, 4) },
+                    on: {
+                      change: function($event) {
+                        _vm.rating = 4
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "fa fas- fa-star text-yellow-600" }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.rating,
+                        expression: "rating"
+                      }
+                    ],
+                    attrs: { type: "radio", name: "rating" },
+                    domProps: { value: 5, checked: _vm._q(_vm.rating, 5) },
+                    on: {
+                      change: function($event) {
+                        _vm.rating = 5
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "fa fas- fa-star text-yellow-600" })
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
+        ])
+      : _c("p", { staticClass: "p-4" }, [
+          _vm._v("\n    Please\n    "),
+          _c("a", { staticClass: "text-blue-500", attrs: { href: "/login" } }, [
+            _vm._v("sign in")
+          ]),
+          _vm._v(" to add review\n  ")
+        ])
   ])
 }
 var staticRenderFns = [
@@ -34747,7 +34773,7 @@ var staticRenderFns = [
             "w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none",
           attrs: { type: "submit" }
         },
-        [_vm._v("Add Product")]
+        [_vm._v("Add Product Rating")]
       )
     ])
   }
@@ -34877,10 +34903,12 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("new-rating", {
-        attrs: { data: _vm.product },
-        on: { created: _vm.addReview }
-      })
+      _vm.canAdd
+        ? _c("new-rating", {
+            attrs: { data: _vm.product },
+            on: { created: _vm.addReview }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -47255,6 +47283,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+Vue.prototype.signedIn = window.auth_user;
 window.events = new Vue();
 
 window.flash = function (message) {

@@ -36,6 +36,10 @@ class RatingController extends Controller
      */
     public function store(Product $product, Request $request)
     {
+        if (auth()->user()->fresh()->isRated($product)->count()) {
+            return response('You have already added review', 422);
+        }
+        
         $data = $request->validate([
             'title' => ['required', 'max:100'],
             'description' => ['required'],
