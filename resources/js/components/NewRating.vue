@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       product: this.data,
-      rating: "",
+      rating: 5,
       description: "",
       title: ""
     };

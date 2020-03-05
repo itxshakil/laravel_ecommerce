@@ -19,7 +19,7 @@ class CreateRatingsTable extends Migration
             $table->string('product_id');
             $table->string('title');
             $table->text('description');
-            $table->string('rating');
+            $table->string('rating')->default(5);
             $table->timestamps();
         });
     }

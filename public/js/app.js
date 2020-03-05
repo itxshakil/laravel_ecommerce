@@ -2319,7 +2319,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       product: this.data,
-      rating: "",
+      rating: 5,
       description: "",
       title: ""
     };
