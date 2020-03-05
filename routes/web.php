@@ -41,7 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/orders/{order}', 'OrderController@show')->name('orders.view');
 
     Route::post('/{product}/ratings', 'RatingController@store')->name('rating.store');
-    Route::patch('/{product}/ratings', 'RatingController@update')->name('rating.update');
+    Route::patch('/ratings/{rating}', 'RatingController@update')->name('rating.update');
+    Route::delete('/ratings/{rating}', 'RatingController@destroy')->name('rating.destroy');
 });
 
 Route::prefix('admin')->group(function () {

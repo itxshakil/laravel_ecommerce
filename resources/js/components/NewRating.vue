@@ -86,7 +86,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style>
 .star-rating {
   font-size: 0;
   white-space: nowrap;

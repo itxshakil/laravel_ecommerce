@@ -103,7 +103,7 @@ class RatingTest extends TestCase
         $this->post($product->slug . '/ratings', $rating->toArray());
         $updatedRating = factory(Rating::class)->make();
 
-        $this->patch($product->slug . '/ratings', $updatedRating->toArray());
+        $this->patch('/ratings/' . Rating::first()->id, $updatedRating->toArray());
 
         $this->assertEquals($updatedRating->title, Rating::first()->title);
         $this->assertEquals($updatedRating->description, Rating::first()->description);
@@ -125,11 +125,50 @@ class RatingTest extends TestCase
         $this->actingAs(factory(User::class)->create());
         $updatedRating = factory(Rating::class)->make();
 
-        $this->patch($product->slug . '/ratings', $updatedRating->toArray())->assertStatus(403);
+        $this->patch('/ratings/' . Rating::first()->id, $updatedRating->toArray())->assertStatus(403);
 
         $this->assertEquals($rating->title, Rating::first()->title);
         $this->assertEquals($rating->description, Rating::first()->description);
         $this->assertEquals($rating->rating, Rating::first()->rating);
+    }
+
+    /**
+    * @test
+    */
+    public function authorized_user_can_delete_review()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $product = factory(Product::class)->create();
+        $rating = factory(Rating::class)->make();
+
+        $this->post($product->slug . '/ratings', $rating->toArray());
+
+        $this->assertCount(1, $product->fresh()->ratings);
+
+        $this->delete('/ratings/' . Rating::first()->id, $rating->toArray())->assertStatus(200);
+
+        $this->assertCount(0, $product->fresh()->ratings);
+    }
+
+    /**
+    * @test
+    */
+    public function unauthorized_user_can_not_delete_review()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $product = factory(Product::class)->create();
+        $rating = factory(Rating::class)->make();
+
+        $this->post($product->slug . '/ratings', $rating->toArray());
+
+        $this->assertCount(1, $product->fresh()->ratings);
+        $this->actingAs(factory(User::class)->create());
+
+        $this->delete('/ratings/' . Rating::first()->id, $rating->toArray())->assertStatus(403);
+
+        $this->assertCount(1, $product->fresh()->ratings);
     }
 
     public function createRating($overrides = [])

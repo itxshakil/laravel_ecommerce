@@ -15,7 +15,6 @@ class RatingController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -25,7 +24,6 @@ class RatingController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -57,7 +55,6 @@ class RatingController extends Controller
      */
     public function show(Rating $rating)
     {
-        //
     }
 
     /**
@@ -68,7 +65,6 @@ class RatingController extends Controller
      */
     public function edit(Rating $rating)
     {
-        //
     }
 
     /**
@@ -78,19 +74,18 @@ class RatingController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Rating $rating)
     {
+        $this->authorize('update', $rating);
+
         $data = $request->validate([
             'title' => ['required', 'max:100'],
             'description' => ['required'],
             'rating' => ['required', 'numeric', 'between:1,5'],
         ]);
 
-        $rating = $product->ratings->firstWhere('user_id', auth()->id());
-
-        $this->authorize('update', $rating);
-
         $rating->update($data);
+
         return $rating->load('user');
     }
 
@@ -102,6 +97,10 @@ class RatingController extends Controller
      */
     public function destroy(Rating $rating)
     {
-        //
+        $this->authorize('update', $rating);
+
+        $rating->delete();
+
+        return response('Deleted Successfully', 200);
     }
 }

@@ -47,7 +47,7 @@
     <div v-if="ratings">
       <h3 class="text-xl my-2">Reviews</h3>
       <div v-for="rating in ratings" :key="rating.id">
-        <rating :data="rating"></rating>
+        <rating :data="rating" @deleted="remove"></rating>
       </div>
     </div>
     <new-rating v-if="canAdd" :data="product" @created="addReview"></new-rating>
@@ -134,6 +134,11 @@ export default {
     },
     addReview(data) {
       this.ratings.push(data);
+    },
+    remove(id) {
+      this.ratings = this.ratings.filter(item => {
+        return item.id != id;
+      });
     }
   }
 };
