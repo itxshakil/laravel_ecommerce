@@ -90,6 +90,48 @@ class RatingTest extends TestCase
         $this->createRating(['rating' => 0])->assertSessionHasErrors('rating');
     }
 
+    /**
+    * @test
+    */
+    public function user_can_edit_rating()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $product = factory(Product::class)->create();
+        $rating = factory(Rating::class)->make();
+
+        $this->post($product->slug . '/ratings', $rating->toArray());
+        $updatedRating = factory(Rating::class)->make();
+
+        $this->patch($product->slug . '/ratings', $updatedRating->toArray());
+
+        $this->assertEquals($updatedRating->title, Rating::first()->title);
+        $this->assertEquals($updatedRating->description, Rating::first()->description);
+        $this->assertEquals($updatedRating->rating, Rating::first()->rating);
+    }
+
+    /**
+    * @test
+    */
+    public function unauthorised_user_can_not_edit_rating()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $product = factory(Product::class)->create();
+        $rating = factory(Rating::class)->make();
+
+        $this->post($product->slug . '/ratings', $rating->toArray());
+
+        $this->actingAs(factory(User::class)->create());
+        $updatedRating = factory(Rating::class)->make();
+
+        $this->patch($product->slug . '/ratings', $updatedRating->toArray())->assertStatus(403);
+
+        $this->assertEquals($rating->title, Rating::first()->title);
+        $this->assertEquals($rating->description, Rating::first()->description);
+        $this->assertEquals($rating->rating, Rating::first()->rating);
+    }
+
     public function createRating($overrides = [])
     {
         $this->actingAs(factory(User::class)->create());

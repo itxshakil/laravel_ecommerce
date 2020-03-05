@@ -39,7 +39,7 @@ class RatingController extends Controller
         if (auth()->user()->fresh()->isRated($product)->count()) {
             return response('You have already added review', 422);
         }
-        
+
         $data = $request->validate([
             'title' => ['required', 'max:100'],
             'description' => ['required'],
@@ -75,12 +75,23 @@ class RatingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Rating  $rating
+     * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rating $rating)
+    public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', 'max:100'],
+            'description' => ['required'],
+            'rating' => ['required', 'numeric', 'between:1,5'],
+        ]);
+
+        $rating = $product->ratings->firstWhere('user_id', auth()->id());
+
+        $this->authorize('update', $rating);
+
+        $rating->update($data);
+        return $rating->load('user');
     }
 
     /**
