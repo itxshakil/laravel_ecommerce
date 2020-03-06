@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between border-b-2 p-2">
     <img
-      :src="'/storage/'+item.model.image"
+      :src="item.model.image"
       :alt="'Details of '+item.model.name"
       width="100"
       height="100"
