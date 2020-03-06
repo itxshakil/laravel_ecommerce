@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title','Welcome to Acme Shop')
 @section('content')
-<section class="home overlay text-center text-white" style="background-image:url(https://picsum.photos/200/300)">
+<section class="home overlay text-center text-white" style="background-image:url(https://source.unsplash.com/daily)">
     <div class="home__content flex flex-col justify-center align-items-center h-screen bg-fixed "
         style="z-index:99;">
         <h2 class="text-4xl md:text-6xl">Welcome to My Shop</h2>

@@ -27,7 +27,7 @@
 
 <body>
     <div id="app">
-    <header class="p-2 bg-yellow-500 w-full overflow-hidden" style="position:sticky;top:0; "><p>App is still in testing. Report error <a href="mailto:itxshakiil@gmail.com">here</a></p></header>
+    <header class="p-2 text-center w-full overflow-hidden" style="opacity:0.8;background:yellow;position:sticky;top:0; "><p>App is still in testing. Report error <a href="mailto:itxshakiil@gmail.com">here</a></p></header>
         @include('includes.navbar')
 
         <main>

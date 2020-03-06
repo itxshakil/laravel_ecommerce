@@ -11,6 +11,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'details' => $faker->paragraph(),
         'price' => $faker->randomFloat(2, 10, 9999),
         'quantity' => $faker->randomNumber(),
-        'image' => 'https://picsum.photos/120/100',
+        'image' => 'https://source.unsplash.com/collection/307591/400x300',
     ];
 });
