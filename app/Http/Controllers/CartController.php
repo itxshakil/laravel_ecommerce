@@ -16,7 +16,6 @@ class CartController extends Controller
         $cartItems = Cart::instance('default')->content();
         $savedForLaterItems = Cart::instance('savedforlater')->content();
 
-        return $cartItems;
         return view('cart.index', compact('cartItems', 'savedForLaterItems'));
     }
 
