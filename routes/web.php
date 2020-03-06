@@ -27,9 +27,9 @@ Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy')
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart/switchToSaveForLater/{product}', 'CartController@switchToSaveForLater')->name('cart.switchToSaveForLater');
 
-Route::post('/saveForLater/{product}', 'saveForLaterController@store')->name('saveForLater.store');
-Route::delete('/saveForLater/{product}', 'saveForLaterController@destroy')->name('saveForLater.destroy');
-Route::post('/saveForLater/switchToSaveToCart/{product}', 'saveForLaterController@switchToSaveToCart')->name('saveForLater.switchToCart');
+Route::post('/saveForLater/{product}', 'SaveForLaterController@store')->name('saveForLater.store');
+Route::delete('/saveForLater/{product}', 'SaveForLaterController@destroy')->name('saveForLater.destroy');
+Route::post('/saveForLater/switchToSaveToCart/{product}', 'SaveForLaterController@switchToSaveToCart')->name('saveForLater.switchToCart');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/checkout', 'OrderController@store')->name('order.create');
