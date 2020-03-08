@@ -40,8 +40,8 @@ export default {
   computed: {
     average() {
       let length = this.ratings.length;
-      if (length < 2) {
-        return length;
+      if (length == 0) {
+        return 0.00;
       }
       let sum = this.ratings
         .map(item => {
