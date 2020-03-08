@@ -115,7 +115,7 @@ export default {
     },
     saveforlater() {
       axios
-        .post(`/SaveForLater/${this.product.slug}`)
+        .post(`/saveForLater/${this.product.slug}`)
         .then(response => {
           flash("Item is saved for later", "success");
           this.saveText = "Saved";
