@@ -18,7 +18,7 @@ class SaveForLaterTest extends TestCase
     {
         $product = factory(Product::class)->create();
 
-        $this->post("/SaveForLater/$product->slug");
+        $this->post("/saveForLater/$product->slug");
 
         $this->assertCount(1, Cart::instance('savedforlater')->content());
         $this->assertEquals($product->fresh(), Cart::instance('savedforlater')->content()->first()->model);

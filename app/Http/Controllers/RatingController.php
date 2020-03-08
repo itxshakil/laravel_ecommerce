@@ -9,33 +9,15 @@ use Illuminate\Http\Request;
 class RatingController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+      * Store a newly created resource in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @return \Illuminate\Http\Response
+      */
     public function store(Product $product, Request $request)
     {
         if (auth()->user()->fresh()->isRated($product)->count()) {
-            return response('You have already added review', 422);
+            return response('You have already added your review', 422);
         }
 
         $data = $request->validate([
@@ -45,26 +27,6 @@ class RatingController extends Controller
         ]);
 
         return $product->ratings()->create($data)->load('user');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Rating  $rating
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Rating $rating)
-    {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Rating  $rating
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Rating $rating)
-    {
     }
 
     /**

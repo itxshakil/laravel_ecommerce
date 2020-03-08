@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 
-class ProductController extends Controller
+class ProductController
 {
     public function show(Product $product)
     {

@@ -8,16 +8,16 @@ class Rating extends Model
 {
     protected $guarded = [];
 
-    protected $casts =[
+    protected $casts = [
         'rating' => 'integer'
     ];
-    
+
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function ($product) {
-            $product->user_id = auth()->id();
+        static::creating(function ($rating) {
+            $rating->user_id = auth()->id();
         });
     }
 

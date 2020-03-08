@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\CartHelper;
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Support\Facades\Auth;
 
 class SaveForLaterController extends Controller
 {
     use CartHelper;
-    
+
     public function store(Product $product)
     {
         if ($this->isDuplicates($product, 'savedforlater')) {

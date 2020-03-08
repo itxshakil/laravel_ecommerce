@@ -33,7 +33,7 @@ class PaymentController extends Controller
         } catch (SignatureVerificationError $e) {
             // Check if payment really exists
             $error = $e->getMessage();
-            return view('payment.failed', compact('error'));
+            return view('payments.failed', compact('error'));
         }
         $payment = Payment::create($payment->toArray());
 

@@ -7,7 +7,7 @@ use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
-class CartController extends Controller
+class CartController
 {
     use CartHelper;
 
@@ -21,7 +21,7 @@ class CartController extends Controller
 
     public function store(Request $request, Product $product)
     {
-        if (!$product->quantity > 0) {
+        if ($product->quantity < 1) {
             if ($request->wantsJson()) {
                 return response('Item is not available.', 422);
             }
