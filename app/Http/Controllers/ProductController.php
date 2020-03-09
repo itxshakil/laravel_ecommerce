@@ -13,7 +13,7 @@ class ProductController
      */
     public function index()
     {
-        $products = Product::inRandomOrder()->take(11)->get();
+        $products = Product::where('featured', true)->take(12)->get();
         return view('welcome', compact('products'));
     }
 

@@ -91,4 +91,9 @@ class Product extends Model implements Buyable
     {
         return $this->hasMany(Rating::class);
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

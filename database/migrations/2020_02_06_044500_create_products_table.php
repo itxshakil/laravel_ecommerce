@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->float('price');
             $table->unsignedBigInteger('quantity')->default(10);
             $table->string('image');
+            $table->boolean('featured')->default(false);
             $table->timestamps();
         });
     }
