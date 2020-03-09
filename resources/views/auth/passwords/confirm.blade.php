@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Confirm Password')
 @section('content')
 <div class="container mx-auto flex justify-center px-6 my-12">
     <div class="w-full xl:w-3/4 lg:w-11/12 flex">

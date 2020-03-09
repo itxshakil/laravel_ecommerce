@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Admin dashboard')
 @section('content')
 <div class="container mx-auto flex justify-center px-6 my-12">
     <div class="w-full lg:w-1/2 bg-gray-100 p-5 rounded-lg lg:rounded-l-none">

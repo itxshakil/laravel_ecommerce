@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title','order Successfull')
+@section('title')
+Deatails of {{ $order->id}}
+@endsection
 @section('content')
 <div class="container mx-auto">
     <div class="flex justify-between">

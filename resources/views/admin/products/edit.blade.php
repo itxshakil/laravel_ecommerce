@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('title')
+Edit {{$product->name}}
+@endsection
 @section('content')
 <div class="container mx-auto flex justify-center px-6 my-12">
     <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg">

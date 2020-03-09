@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Checkout')
 @section('content')
 
 <div class="container mx-auto flex justify-center px-6 my-12">

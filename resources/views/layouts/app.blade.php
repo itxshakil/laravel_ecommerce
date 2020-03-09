@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title',config('app.name'))</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,7 +27,6 @@
 
 <body>
     <div id="app">
-    <header class="p-2 text-center w-full overflow-hidden" style="opacity:0.8;background:yellow;position:sticky;top:0; "><p>App is still in testing. Report error <a href="mailto:itxshakiil@gmail.com">here</a></p></header>
         @include('includes.navbar')
 
         <main>
