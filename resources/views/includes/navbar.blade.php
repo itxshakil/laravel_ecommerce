@@ -6,6 +6,7 @@
                 {{ config('app.name', 'Laravel') }}
             </a>
             <a class="mx-2" href="{{ url('/cart') }}"><i class="fa fas fa-shopping-cart"></i> Cart</a>
+            <a class="mx-2" href="{{ url('/shop') }}"> Shop</a>
             @auth
             <a class="mx-2" href="{{ url('/orders') }}">My Order</a>
             @endauth
