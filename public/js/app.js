@@ -34439,7 +34439,7 @@ var staticRenderFns = [
         "a",
         {
           staticClass: "inline-block p-2 bg-gray-200 text-gray-800 rounded",
-          attrs: { href: "/" }
+          attrs: { href: "/shop" }
         },
         [_vm._v("Continue Shopping")]
       ),
@@ -34465,7 +34465,7 @@ var staticRenderFns = [
         "a",
         {
           staticClass: "inline-block p-2 bg-gray-200 text-gray-800 rounded",
-          attrs: { href: "/" }
+          attrs: { href: "/shop" }
         },
         [_vm._v("Continue Shopping")]
       )
@@ -34484,7 +34484,7 @@ var staticRenderFns = [
         "a",
         {
           staticClass: "inline-block p-2 bg-gray-200 text-gray-800 rounded",
-          attrs: { href: "/" }
+          attrs: { href: "/shop" }
         },
         [_vm._v("Continue Shopping")]
       )

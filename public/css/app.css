@@ -3587,6 +3587,11 @@ video {
           flex: 1 1 320px;
 }
 
+.flex-shop {
+  -webkit-box-flex: 1;
+          flex: 1 1 240px;
+}
+
 .flex-grow-0 {
   -webkit-box-flex: 0;
           flex-grow: 0;
@@ -14543,6 +14548,11 @@ a:hover {
             flex: 1 1 320px;
   }
 
+  .sm\:flex-shop {
+    -webkit-box-flex: 1;
+            flex: 1 1 240px;
+  }
+
   .sm\:flex-grow-0 {
     -webkit-box-flex: 0;
             flex-grow: 0;
@@ -25478,6 +25488,11 @@ a:hover {
   .md\:flex-product {
     -webkit-box-flex: 1;
             flex: 1 1 320px;
+  }
+
+  .md\:flex-shop {
+    -webkit-box-flex: 1;
+            flex: 1 1 240px;
   }
 
   .md\:flex-grow-0 {
@@ -36417,6 +36432,11 @@ a:hover {
             flex: 1 1 320px;
   }
 
+  .lg\:flex-shop {
+    -webkit-box-flex: 1;
+            flex: 1 1 240px;
+  }
+
   .lg\:flex-grow-0 {
     -webkit-box-flex: 0;
             flex-grow: 0;
@@ -47352,6 +47372,11 @@ a:hover {
   .xl\:flex-product {
     -webkit-box-flex: 1;
             flex: 1 1 320px;
+  }
+
+  .xl\:flex-shop {
+    -webkit-box-flex: 1;
+            flex: 1 1 240px;
   }
 
   .xl\:flex-grow-0 {

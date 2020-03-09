@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="flex justify-between p-2">
-        <a href="/" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
+        <a href="/shop" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
         <a href="/checkout" class="inline-block p-2 bg-green-200 text-green-800 rounded">Proceed to Checkout</a>
         </div>
       </div>
@@ -38,7 +38,7 @@
     <div v-else>
       <div class="text-center mb-8">
         <p class="text-lg">No Items in Cart.</p>
-        <a href="/" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
+        <a href="/shop" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
       </div>
     </div>
 
@@ -57,7 +57,7 @@
     <div v-else>
       <div class="text-center mb-8">
         <p class="text-lg">No Items is saved for later.</p>
-        <a href="/" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
+        <a href="/shop" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
       </div>
     </div>
   </div>
