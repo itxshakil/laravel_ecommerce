@@ -20,6 +20,7 @@ class CategoriesTableSeeder extends Seeder
             ['name' => 'Mobile Phones', 'slug' => 'mobile-phones', 'created_at' => $now, 'updated_at' => $now],
             ['name' => 'Tablets', 'slug' => 'tablets', 'created_at' => $now, 'updated_at' => $now],
             ['name' => 'Appliances', 'slug' => 'appliances', 'created_at' => $now, 'updated_at' => $now],
+            // ['name' => 'Uncategorized', 'slug' => 'uncategorized', 'created_at' => $now, 'updated_at' => $now],
         ]);
     }
 }

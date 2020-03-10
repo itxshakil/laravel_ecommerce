@@ -51,6 +51,11 @@ class Product extends Model implements Buyable
         return 'slug';
     }
 
+    public function getImageAttribute($value)
+    {
+        return '/storage/' . $value;
+    }
+
     /**
      * Get the identifier of the Buyable item.
      *

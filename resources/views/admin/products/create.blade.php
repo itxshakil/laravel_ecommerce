@@ -37,7 +37,7 @@
                     </label>
                     <input
                         class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('price') border-red-500 @enderror"
-                        id="quantity" type="text" pattern="[0-9].+" name="quantity" required placeholder="199.99" />
+                        id="quantity" type="number" name="quantity" required placeholder="35" />
                     @error('quantity')
                     <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
                     @enderror
@@ -51,6 +51,21 @@
                     class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('image') border-red-500 @enderror"
                     id="image" type="file" name="image" required />
                 @error('image')
+                <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label class="block mb-2 text-sm font-bold text-gray-700" for="category">
+                    Choose Category
+                </label>
+                <select name="category[]" id="category"
+                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('category') border-red-500 @enderror"
+                    multiple>
+                    @foreach ($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+                @error('category')
                 <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
                 @enderror
             </div>

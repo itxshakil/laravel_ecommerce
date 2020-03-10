@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('categories')->get();
 
         return view('admin.products.index', compact('products'));
     }
@@ -48,7 +48,10 @@ class ProductController extends Controller
 
         $data['image'] = $this->uploadImage($request);
 
-        Product::create($data);
+        $product = Product::create($data);
+        if ($request->filled('category')) {
+            $product->categories()->attach($request->category);
+        }
         return redirect(route('products.index'));
     }
 

@@ -10,7 +10,6 @@ class ShopController extends Controller
     public function index()
     {
         $categoryName = 'Featured';
-        $categories = Category::all();
         $pagination = 9;
 
         if (request()->category) {
@@ -29,6 +28,6 @@ class ShopController extends Controller
             $products = $products->paginate($pagination);
         }
 
-        return view('shop', compact('products', 'categories', 'categoryName'));
+        return view('shop', compact('products', 'categoryName'));
     }
 }

@@ -64,7 +64,7 @@ Edit {{$product->name}}
                 </label>
                 <textarea
                     class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('details') border-red-500 @enderror"
-                    id="details" name="details" required placeholder="Enter product details here">{{ $product->name ?? old('name') }}
+                    id="details" name="details" required placeholder="Enter product details here">{{ $product->details ?? old('details') }}
                 </textarea>
                 @error('details')
                 <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>

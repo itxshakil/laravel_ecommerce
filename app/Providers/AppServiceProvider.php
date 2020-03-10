@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Billing\RazorpayApi;
+use App\Category;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::composer(['shop', 'admin.products.create'], function ($view) {
+            $view->with('categories', Category::all());
+        });
     }
 }
