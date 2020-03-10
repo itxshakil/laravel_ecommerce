@@ -52,6 +52,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('/products', 'Admin\ProductController');
         Route::name('admin.')->group(function () {
             Route::resource('/orders', 'Admin\OrderController');
+            Route::resource('/categories', 'Admin\CategoryController')->only(['store']);
         });
     });
 });

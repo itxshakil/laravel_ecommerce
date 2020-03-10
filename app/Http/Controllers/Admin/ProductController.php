@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
@@ -15,7 +16,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('categories')->get();
+        if (request()->category) {
+            $products = Product::with('categories')->whereHas('categories', function ($query) {
+                $query->where('slug', request()->category);
+            })->get();
+            $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
+        }else{
+            $products = Product::with('categories')->get();
+        }
+
 
         return view('admin.products.index', compact('products'));
     }
