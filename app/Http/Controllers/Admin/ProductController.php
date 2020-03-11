@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
@@ -47,12 +46,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['featured' => $request->filled('featured')]);
+
         $data = $request->validate([
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'numeric'],
-            'image' => ['required']
+            'image' => ['required'],
+            'featured' => 'required'
         ]);
 
         $data['image'] = $this->uploadImage($request);
@@ -95,12 +97,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $request->merge(['featured' => $request->filled('featured')]);
+
         $data = $request->validate([
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
             'quantity' => ['required', 'numeric'],
-            'image' => ['sometimes', 'required']
+            'image' => ['sometimes', 'required'],
+            'featured' => 'required'
         ]);
 
         if ($request->hasFile('image')) {

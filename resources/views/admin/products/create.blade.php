@@ -81,6 +81,13 @@
                 <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
                 @enderror
             </div>
+            <div class="mb-4">
+                <input class="mr-2 leading-tight" type="checkbox" name="featured" id="featured"
+                    {{ old('featured') ? 'checked' : '' }} />
+                <label class="text-sm" for="featured">
+                    Featured Product
+                </label>
+            </div>
             <div class="mb-6 text-center">
                 <button
                     class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none"
