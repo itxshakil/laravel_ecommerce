@@ -35154,6 +35154,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "w-full" },
     [
       _c(
         "div",
@@ -35626,10 +35627,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass:
-        "w-full xl:w-1/4 lg:w-4/12 bg-gray-100 md:ml-2 p-2 rounded-lg"
-    },
+    { staticClass: "md:w-96 w-full bg-gray-100 md:ml-2 p-2 rounded-lg" },
     [
       _c("h3", { staticClass: "text-xl leading-loose font-semibold p-2" }, [
         _vm._v("Ratings")

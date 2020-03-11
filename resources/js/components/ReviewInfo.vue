@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full xl:w-1/4 lg:w-4/12 bg-gray-100 md:ml-2 p-2 rounded-lg">
+  <div class="md:w-96 w-full bg-gray-100 md:ml-2 p-2 rounded-lg">
     <h3 class="text-xl leading-loose font-semibold p-2">Ratings</h3>
     <div class="flex p-2">
       <div clas="flex flex-col mr-4">
