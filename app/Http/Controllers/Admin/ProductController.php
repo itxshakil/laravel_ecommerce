@@ -19,12 +19,12 @@ class ProductController extends Controller
         if (request()->category) {
             $products = Product::with('categories')->whereHas('categories', function ($query) {
                 $query->where('slug', request()->category);
-            })->get();
-            $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
-        }else{
-            $products = Product::with('categories')->get();
+            });
+        } else {
+            $products = Product::with('categories');
         }
 
+        $products = $products->paginate(9);
 
         return view('admin.products.index', compact('products'));
     }

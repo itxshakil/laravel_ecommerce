@@ -21,6 +21,7 @@ Vue.component('flash', require('./components/Flash.vue').default);
 Vue.component('dropdown', require('./components/Dropdown.vue').default);
 Vue.component('cart', require('./components/Cart.vue').default);
 Vue.component('product-view', require('./components/ProductView.vue').default);
+Vue.component('new-category', require('./components/Newcategory.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
