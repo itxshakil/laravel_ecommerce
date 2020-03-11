@@ -6,15 +6,36 @@ use Illuminate\Database\Eloquent\Model;
 use illuminate\Support\Str;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Product extends Model implements Buyable
 {
+    use SearchableTrait;
     /**
       * The attributes that are mass assignable.
       *
       * @var array
       */
     protected $guarded = [];
+
+    /**
+    * Searchable rules.
+    *
+    * @var array
+    */
+    protected $searchable = [
+        /**
+        * Columns and their priority in search results.
+        * Columns with higher values are more important.
+        * Columns with equal values have equal importance.
+        *
+        * @var array
+        */
+        'columns' => [
+            'products.name' => 12,
+            'products.details' => 10
+        ],
+    ];
 
     protected static function boot()
     {

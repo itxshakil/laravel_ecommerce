@@ -6,6 +6,7 @@ Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::get('/shop', 'ShopController@index')->name('shop');
+Route::get('/search', 'ShopController@search')->name('search');
 
 Route::get('/products/{product}', 'ProductController@show')->name('products.view');
 

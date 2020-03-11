@@ -10,11 +10,12 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "fzaninotto/faker": "^1.9.1",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
-        "fzaninotto/faker": "^1.9.1",
+        "nicolaslopezj/searchable": "^1.12",
         "razorpay/razorpay": "2.*"
     },
     "require-dev": {

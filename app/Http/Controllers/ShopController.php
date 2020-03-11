@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
@@ -29,5 +30,14 @@ class ShopController extends Controller
         }
 
         return view('shop', compact('products', 'categoryName'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $products = Product::search($query)->paginate(20);
+        
+        return view('search', compact('products'));
     }
 }
