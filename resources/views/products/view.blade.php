@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="container mx-auto px-6 my-4">
-    <form action="/search" method="get" class="w-full mb-4 text-right">
+    <form action="/search" method="get" class="w-full mb-4 text-right mr-4">
         <input
             class="w-48 px-3 py-2 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('query') border-red-500 @enderror"
             id="query" type="search" name="query" placeholder="Search product" />
