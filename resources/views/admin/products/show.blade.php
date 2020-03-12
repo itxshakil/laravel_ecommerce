@@ -18,12 +18,14 @@ Details of {{ $product->name }}
                     {{ $product->details }}
                 </p>
                 
-                <a href="{{ route('products.edit',$product) }}" class="inline-block px-2 bg-blue-500 text-white rounded mb-2">Edit</a>
-                <form action="{{ route('products.destroy',$product) }}" method="POST" onsubmit="event.preventDefault();if(confirm('Are you sure to Delete?')){event.target.submit();}">
-                    <button type="submit" class="inline-block px-2 bg-blue-500 text-white rounded">Delete</button>
-                    @csrf
-                    @method('delete')
-                </form>
+                <div class="flex">
+                    <a href="{{ route('products.edit',$product) }}" class="bg-blue-500 active:bg-blue-400 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"> Edit</a>
+                    <form action="{{ route('products.destroy',$product) }}" method="POST" onsubmit="event.preventDefault();if(confirm('Are you sure to Delete?')){event.target.submit();}">
+                        <button type="submit" class="bg-red-100 active:bg-red-200 text-red-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs">Delete</button>
+                        @csrf
+                        @method('delete')
+                    </form>
+                  </div>
             </div>
         </div>
     </div>

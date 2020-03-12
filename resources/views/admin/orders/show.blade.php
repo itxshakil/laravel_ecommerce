@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto">
     <div class="flex justify-between">
-        <div class="w-full lg:w-1/2 bg-gray-100 p-5 rounded-lg lg:rounded-l-none mx-1">
+        <div class="w-full lg:w-1/2 bg-white shadow-md p-5 mt-4 rounded-lg lg:rounded-l-none mx-1">
             <div class="flex justify-between pb-2">
                 <p class="text-gray-500 font-semibold">{{ $order->id}}</p>
                 <p class="inline-block px-2 pb-1 bg-yellow-200 text-yellow-800 rounded">{{ $order->status}}</p>
@@ -13,7 +13,7 @@
             <h3 class="text-lg font-semibold">Your Order</h3>
             <div class="cart">
                 @foreach (Cart::instance($order->id)->content() as $item)
-                <div class="flex justify-between border-b-2 p-2">
+                <div class="flex justify-between border-b-2 pb-4 p-2">
                     <img src="/storage/{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
                         height="100">
                     <a href="{{ route('products.view',$item->model->slug) }}" class="mx-2">{{ $item->name }}</a>
@@ -23,7 +23,7 @@
                 @endforeach
             </div>
 
-            <div class="flex justify-between px-2">
+            <div class="flex justify-between px-2 mt-4">
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis blanditiis voluptates commodi
                     vero.
                     Impedit odio unde animi aliquam reprehenderit modi.</p>
@@ -44,7 +44,7 @@
     </div>
     <div class="flex flex-col md:flex-row flex-wrap items-stretch">
         @foreach ($order->payments as $payment)
-        <div class="w-full lg:w-1/3 bg-gray-100 p-5 rounded-lg lg:rounded-l-none mx-1 mt-4 flex-grow">
+        <div class="w-full lg:w-1/3 bg-white shadow-md p-5 rounded-lg lg:rounded-l-none mx-1 mt-4 flex-grow">
             <div class="flex justify-between pb-2">
                 <p class="text-gray-500 font-semibold">{{ $payment->id}}</p>
                 <p class="inline-block px-2 pb-1 bg-yellow-200 text-yellow-800 rounded">{{ $payment->status}}</p>
