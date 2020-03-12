@@ -31,4 +31,7 @@ Vue.component('new-category', require('./components/Newcategory.vue').default);
 
 const app = new Vue({
     el: '#app',
+    data:{
+        open:false
+    }
 });

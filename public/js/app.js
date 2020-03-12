@@ -34696,12 +34696,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "relative" }, [
+  return _c("div", { staticClass: "ml-3 relative" }, [
     _c(
       "button",
       {
         staticClass:
-          "relative z-10 overflow-hidden focus:outline-none cursor-pointer",
+          "flex border-transparent focus:outline-none focus:border-white transition duration-150 ease-in-out",
         on: {
           click: function($event) {
             _vm.active = !_vm.active
@@ -34730,7 +34730,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "absolute align-middle top-auto left-0 mr-12 mt-2 mx-2 rounded-lg border-gray-900 shadow-xl"
+              "origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
           },
           [_vm._t("items")],
           2
@@ -47971,7 +47971,10 @@ Vue.component('new-category', __webpack_require__(/*! ./components/Newcategory.v
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    open: false
+  }
 });
 
 /***/ }),

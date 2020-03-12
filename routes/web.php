@@ -1,4 +1,5 @@
 <?php
+
 Route::get('/', 'ProductController@index');
 
 Auth::routes();

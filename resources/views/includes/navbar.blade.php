@@ -1,74 +1,56 @@
-<nav class="bg-gray-900 text-gray-100">
-    <div class="p-4 flex justify-between">
-        <!-- Left Side of Navbar-->
-        <div class="flex items-end">
-            <a class="mr-8 text-xl" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <a class="mx-2" href="{{ url('/cart') }}"><i class="fa fas fa-shopping-cart"></i> Cart</a>
-            <a class="mx-2" href="{{ url('/shop') }}"> Shop</a>
+<nav class="bg-gray-800">
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <div class="relative flex items-center justify-between h-16">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <button @click="open = !open"
+          class="inline-flex items-center justify-center p-2 rounded text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out">
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path :class="{'hidden': open, 'inline-flex': !open }" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <path :class="{'hidden': !open, 'inline-flex': open }" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="flex-shrink-0 mr-8 text-xl text-gray-100">
+          {{-- <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-dark.svg" alt="" />
+            <img class="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-on-dark.svg" alt="" /> --}}
+          <a href="/">{{ config('app.name', 'Laravel') }}</a>
+        </div>
+        <div class="hidden sm:block sm:ml-6">
+          <div class="flex">
+            <a href="{{ url('/cart') }}"
+              class="px-3 py-2 rounded text-sm font-medium leading-5 text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out inline-flex items-center {{url()->current() == url('/cart') ? 'bg-gray-900' : '' }}"><i
+                class="fa fas fa-shopping-cart"></i> Cart</a>
+            <a href="{{ url('/shop') }}"
+              class="ml-4 px-3 py-2 rounded text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out  {{url()->current() == url('/shop') ? 'bg-gray-900' : '' }}">Shop</a>
             @auth
-            <a class="mx-2" href="{{ url('/orders') }}">My Order</a>
+            <a href="{{ url('/orders') }}"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out  {{url()->current() == url('/orders') ? 'bg-gray-900' : '' }}">My
+              Orders</a>
             @endauth
+          </div>
         </div>
-        <!-- Right Side of Navbar-->
-        <div class="flex">
-            <!-- Authentication Links -->
-            @guest
-            @if (Route::has('register'))
-            <a class="text-blue-500 mr-2 px-2 pb-1 border rounded border-blue-500"
-                href="{{ route('register') }}">{{ __('Register') }}</a>
-            @endif
-            <a class="text-blue-500 mr-2" href="{{ route('login') }}">{{ __('Login') }}</a>
-            @else
-            @if(Auth::guard('admin')->check() && Auth::guard('web')->check())
-            <dropdown v-cloak>
-                <p slot="toggler" class="mr-12">{{ Auth::guard('admin')->user()->name }}</p>
-                <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-                </span>
-            </dropdown>
-            <dropdown v-cloak>
-                <p slot="toggler" class="mr-12">{{ Auth::user()->name }}</p>
-                <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('admin-logout-form').submit();">
-                        {{ __('Logout as Admin') }}
-                    </a>
-                </span>
-            </dropdown>
-            @elseif(Auth::guard('admin')->check())
-            <dropdown v-cloak>
-                <p slot="toggler" class="mr-12">{{ Auth::guard('admin')->user()->name }}</p>
-                <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('admin-logout-form').submit();">
-                        {{ __('Logout as Admin') }}
-                    </a>
-                </span>
-            </dropdown>
-            @else
-            <dropdown v-cloak>
-                <p slot="toggler" class="mr-12">{{ Auth::user()->name }}</p>
-                <span slot="items" class="flex flex-col text-blue-400 bg-gray-900 text-gray-100 p-4 rounded">
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-                </span>
-            </dropdown>
-            @endif
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            </dropdown>
-            <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            @endguest
-        </div>
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        @include('includes.auth-links')
+      </div>
     </div>
+  </div>
+  <!-- Mobile Links -->
+  <div :class="{'block': open, 'hidden': !open}" class="sm:hidden">
+    <div class="px-2 pt-2 pb-3">
+      <a href="{{ url('/cart') }}"
+        class="block px-3 py-2 rounded text-base font-medium text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out  {{url()->current() == url('/cart') ? 'bg-gray-900' : '' }}"><i
+          class="fa fas fa-shopping-cart"></i> Cart</a>
+      <a href="{{ url('/shop') }}"
+        class="mt-1 block px-3 py-2 rounded text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out {{url()->current() == url('/shop') ? 'bg-gray-900' : '' }}">Shop</a>
+      @auth
+      <a href="{{url('/orders')}}"
+        class="mt-1 block px-3 py-2 rounded text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out {{url()->current() == url('/orders') ? 'bg-gray-900' : '' }}">My
+        Orders</a>
+      @endauth
+    </div>
+  </div>
 </nav>

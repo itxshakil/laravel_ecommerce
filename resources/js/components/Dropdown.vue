@@ -1,7 +1,7 @@
 <template>
-  <div class="relative" v-cloak>
+  <div class="ml-3 relative" v-cloak>
     <button
-      class="relative z-10 overflow-hidden focus:outline-none cursor-pointer"
+      class="flex border-transparent focus:outline-none focus:border-white transition duration-150 ease-in-out"
       @click="active = !active"
     >
       <slot name="toggler"></slot>
@@ -12,10 +12,7 @@
       tabindex="-1"
       class="fixed top-0 inset-0 h-full w-full bg-black opacity-0 cursor-default"
     ></button>
-    <div
-      v-if="active"
-      class="absolute align-middle top-auto left-0 mr-12 mt-2 mx-2 rounded-lg border-gray-900 shadow-xl"
-    >
+    <div v-if="active" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
       <slot name="items"></slot>
     </div>
   </div>

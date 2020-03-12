@@ -7,7 +7,7 @@
         <h2 class="text-4xl md:text-6xl">Welcome to My Shop</h2>
         <p class="text-xl md:text-2xl">We provide quality laptops in reasonable price.</p>
         <div class="mt-3">
-            <a href="/shop" class="p-2 inline-block bg-blue-500 rounded">Our Products</a>
+            <a href="/shop" class=" p-2 inline-block bg-blue-500 rounded">Our Products</a>
         </div>
     </div>
 </section>
