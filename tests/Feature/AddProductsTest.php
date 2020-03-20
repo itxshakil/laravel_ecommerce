@@ -31,18 +31,15 @@ class AddProductsTest extends TestCase
     {
         $this->actingAs(factory(Admin::class)->create(), 'admin');
 
-        $product = factory(Product::class)->make([
-            'image' => UploadedFile::fake()->image('avatar.jpg', 200, 350)->size(100),
-        ]);
+        $product = factory(Product::class)->make();
 
-        $response = $this->post('/admin/products', $product->toArray());
+        $productWithImage = array_merge($product->toArray(), ['image' => UploadedFile::fake()->image('avatar.jpg', 200, 350)->size(100)]);
+
+        $this->post('/admin/products', $productWithImage)->assertCreated();
 
         $this->assertEquals($product->name, Product::first()->name);
         $this->assertEquals($product->details, Product::first()->details);
         $this->assertEquals($product->price, Product::first()->price);
-
-        $this->get($response->headers->get('Location'))
-        ->assertSee($product->name);
     }
 
     /**

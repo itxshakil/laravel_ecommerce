@@ -15,15 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        if (request()->category) {
-            $products = Product::with('categories')->whereHas('categories', function ($query) {
-                $query->where('slug', request()->category);
-            });
-        } else {
-            $products = Product::with('categories');
-        }
-
-        $products = $products->paginate(9);
+        $products = Product::all();
 
         return view('admin.products.index', compact('products'));
     }
@@ -46,24 +38,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['featured' => $request->filled('featured')]);
-
         $data = $request->validate([
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
-            'quantity' => ['required', 'numeric'],
-            'image' => ['required'],
-            'featured' => 'required'
+            'image' => ['required']
         ]);
 
         $data['image'] = $this->uploadImage($request);
 
-        $product = Product::create($data);
-        if ($request->filled('category')) {
-            $product->categories()->attach($request->category);
-        }
-        return redirect(route('products.index'));
+        return Product::create($data);
     }
 
     /**
@@ -97,15 +81,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $request->merge(['featured' => $request->filled('featured')]);
-
         $data = $request->validate([
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
-            'quantity' => ['required', 'numeric'],
-            'image' => ['sometimes', 'required'],
-            'featured' => 'required'
+            'image' => ['sometimes', 'required']
         ]);
 
         if ($request->hasFile('image')) {

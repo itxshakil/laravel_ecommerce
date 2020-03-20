@@ -52,7 +52,7 @@ class AdminAuthenticationTest extends TestCase
     {
         $response = $this->json('POST', 'admin/login', [
             'email' => $this->faker->email,
-            'password' => $this->faker->password
+            'password' => $this->faker->password(8)
         ]);
 
         $response->assertStatus(422);
