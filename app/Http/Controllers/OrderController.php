@@ -32,8 +32,8 @@ class OrderController extends Controller
             'receipt' => $order->receipt,
             'status' => $order->status,
             'attempts' => $order->attempts,
-            'items' => serialize(Cart::content()),
-            'notes' => serialize($order->notes),
+            'items' => Cart::content(),
+            'notes' => $order->notes,
         ]);
 
         session(['order' => $order->id]);

@@ -45,6 +45,16 @@ class Order extends Model
         return $value;
     }
 
+    public function setItemsAttribute($value)
+    {
+        $this->attributes['items'] = serialize($value);
+    }
+
+    public function setNotesAttribute($value)
+    {
+        $this->attributes['notes'] = serialize($value);
+    }
+
     public function fetchRecentInfo()
     {
         $razorpayApi = resolve('App\Billing\RazorpayApi');
