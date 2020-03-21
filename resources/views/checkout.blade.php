@@ -2,13 +2,43 @@
 @section('title','Checkout')
 @section('content')
 
-<div class="container mx-auto flex justify-center px-6 my-12">
+<div class="container mx-auto flex justify-center px-6 my-4 md:my-12 overflow-hidden">
     <div class="flex justify-between">
         <div class="form-wrapper flex-1">
             <h3 class="text-2xl text-primary">Checkout with RazorPay</h3>
             <p class="text-dark">You are going to Pay <strong>₹ {{ $order['amount'] }}</strong> for
                 <strong>#{{ $order->id }}</strong>
             </p>
+            <details class="sm:hidden border rounded p-2">
+                <summary class="text-lg font-semibold">See Order</summary>
+                <div class="cart">
+                    @foreach (Cart::instance('default')->content() as $item)
+                    <div class="flex justify-between border-b-2 p-2">
+                        <img src="{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
+                            height="100">
+                        <a href="{{ route('products.view',$item->model->slug) }}" class="mx-2">{{ $item->name }}</a>
+                        <p class="mx-3 font-semibold items-baseline" title="Quantity">{{ $item->qty  }}</p>
+                        <p class="font-semibold" title="Item Price">₹{{ $item->model->price  }}</p>
+                    </div>
+                    @endforeach
+                </div>
+
+                <div class="flex justify-between px-2">
+                    <p>Your total includes subtotal and 12% tax.</p>
+                    <div class="cart-total flex">
+                        <div class="cart-total-left px-2">
+                            <p>Subtotal</p>
+                            <p>Tax</p>
+                            <p class="font-semibold">Total</p>
+                        </div>
+                        <div class="cart-total-right">
+                            <p class="font-semibold">₹{{ Cart::subtotal() }}</p>
+                            <p class="font-semibold">₹{{ Cart::tax() }}</p>
+                            <p class="font-semibold">₹{{ Cart::total() }}</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
             @include('includes.message')
             <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">
                 <input type="hidden" name="key_id" value="{{config('services.razorpay.key')}}">
@@ -46,8 +76,8 @@
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                id="prefill[contact]" name="prefill[contact]" type="tel" placeholder="9123456780" title="Please Enter Valid Contact Number" pattern="[789][0-9]{9}"
-                                required>
+                                id="prefill[contact]" name="prefill[contact]" type="tel" placeholder="9123456780"
+                                title="Please Enter Valid Contact Number" pattern="[789][0-9]{9}" required>
                         </div>
                     </div>
                 </fieldset>
@@ -106,11 +136,11 @@
                 <input type="hidden" name="callback_url" value="http://acme.site/payment">
                 <small>You will be redirect to payment page.</small>
                 <div class="form-group">
-                    <button class="inline-block p-2 bg-blue-300 text-blue-800 rounded">Go to Payment Page</button>
+                    <button class="bg-green-100 active:bg-green-300 text-green-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs">Go to Payment Page</button>
                 </div>
             </form>
         </div>
-        <div class="cart px-4 flex-1">
+        <div class="cart px-4 flex-1 text-sm sm:text-base hidden sm:inline-block">
             <p class="text-lg font-semibold">Your Order</p>
             <div class="cart">
                 @foreach (Cart::instance('default')->content() as $item)
@@ -118,16 +148,14 @@
                     <img src="{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
                         height="100">
                     <a href="{{ route('products.view',$item->model->slug) }}" class="mx-2">{{ $item->name }}</a>
-                    <p>{{ $item->qty  }}</p>
-                    <p class="font-semibold">${{ $item->model->price  }}</p>
+                    <p class="mx-3 font-semibold items-baseline" title="Quantity">{{ $item->qty  }}</p>
+                    <p class="font-semibold" title="Item Price">₹{{ $item->model->price  }}</p>
                 </div>
                 @endforeach
             </div>
 
             <div class="flex justify-between px-2">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis blanditiis voluptates commodi
-                    vero.
-                    Impedit odio unde animi aliquam reprehenderit modi.</p>
+                <p>Your total includes subtotal and 12% tax.</p>
                 <div class="cart-total flex">
                     <div class="cart-total-left px-2">
                         <p>Subtotal</p>
@@ -135,9 +163,9 @@
                         <p class="font-semibold">Total</p>
                     </div>
                     <div class="cart-total-right">
-                        <p class="font-semibold">{{ Cart::subtotal() }}</p>
-                        <p class="font-semibold">{{ Cart::tax() }}</p>
-                        <p class="font-semibold">{{ Cart::total() }}</p>
+                        <p class="font-semibold">₹{{ Cart::subtotal() }}</p>
+                        <p class="font-semibold">₹{{ Cart::tax() }}</p>
+                        <p class="font-semibold">₹{{ Cart::total() }}</p>
                     </div>
                 </div>
             </div>

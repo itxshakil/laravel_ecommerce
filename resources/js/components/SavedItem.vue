@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between border-b-2 p-2">
+  <div class="flex items-center justify-between border-b-2 p-2 text-sm sm:text-base">
     <img
       :src="item.model.image"
       :alt="'Details of '+item.model.name"
@@ -7,11 +7,11 @@
       height="100"
     />
     <a :href="'/products/'+item.model.slug" class="mx-2" v-text="item.name"></a>
-    <div>
+    <div class="flex-shrink-0 p-2 text-center">
       <div class="cursor-pointer" @click="remove(item)">Remove</div>
       <div class="cursor-pointer" @click="savetocart(item)">Save to Cart</div>
     </div>
-    <p class="font-semibold" v-text="item.price"></p>
+    <p class="font-semibold">₹<span v-text="item.price"></span></p>
   </div>
 </template>
 <script>

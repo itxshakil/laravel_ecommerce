@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between border-b-2 p-2">
+  <div class="flex items-center justify-between border-b-2 p-2 text-sm sm:text-base overflow-x-auto">
     <img
       :src="item.model.image"
       :alt="'Details of '+item.model.name"
@@ -22,7 +22,7 @@
       <option>3</option>
       <option>4</option>
     </select>
-    <p class="font-semibold" v-text="item.price"></p>
+    <p class="font-semibold">₹<span v-text="item.price"></span></p>
   </div>
 </template>
 <script>

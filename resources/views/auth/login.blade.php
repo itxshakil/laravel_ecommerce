@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('title','Login')
 @section('content')
-<div class="container mx-auto flex justify-center px-6 my-12">
+<div class="container mx-auto flex justify-center px-3 md:px-6 my-12">
     <div class="w-full xl:w-3/4 lg:w-11/12 flex">
         <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
             style="background-image: url('https://source.unsplash.com/K4mSJ7kc0As/600x800')">
         </div>
-        <div class="w-full lg:w-1/2 bg-gray-100 p-5 rounded-lg lg:rounded-l-none">
+        <div class="w-full lg:w-1/2 bg-gray-100 p-2 md:p-5 rounded-lg lg:rounded-l-none">
             <h3 class="pt-4 text-2xl text-center">Welcome Back!</h3>
             <form class="px-8 pt-6 pb-2 mb-4 bg-white rounded" method="POST" action="{{ route('login') }}">
                 <div class="mb-4">

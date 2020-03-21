@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('title','Welcome to Acme Shop')
 @section('content')
-<section class="container mt-8 mx-auto text-gray-900" id="product-section">
-    <form action="/search" method="get" class="w-full text-right mr-4">
+<section class="container mt-4 sm:mt-8 mx-auto text-gray-900" id="product-section">
+    <form action="/search" method="get" class="w-full text-center sm:text-right mr-4">
         <input
             class="w-48 px-3 py-2 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('query') border-red-500 @enderror"
             id="query" type="search" name="query" placeholder="Search product" />
@@ -13,11 +13,19 @@
     <div class="flex">
         <aside class="w-48">
             <div class="px-2 pt-4 inline-block rounded flex flex-col m-1 md:m-4 mt-8">
-                <p class="pt-4 font-semibold ">By Category</p>
+                <p class="pt-4 font-semibold text-sm sm:text-base">By Category</p>
                 @foreach ($categories as $category)
-                <a class="capitalize {{request()->category == $category->slug ? 'font-semibold' : '' }}"
+                <a class="capitalize text-sm sm:text-base {{request()->category == $category->slug ? 'font-semibold' : '' }}"
                     href="{{route('shop',['category' => $category->slug])}}">{{$category->name}}</a>
                 @endforeach
+                <div class="sm:hidden mt-4">
+                    <p class="pt-4 font-semibold text-sm">Sort Price</p>
+                    <a class="capitalize text-sm {{request()->sort == 'low_high' ? 'font-semibold' : '' }}"
+                        href="{{route('shop',['category'=>request()->category,'sort'=>'low_high'])}}">Low to High</a>
+                    <a class="capitalize text-sm {{request()->sort == 'high_low' ? 'font-semibold' : '' }}"
+                        href="{{route('shop',['category'=>request()->category,'sort'=>'high_low'])}}">High to Low</a>
+                </div>
+
             </div>
         </aside>
         <div class="w-full">
@@ -25,7 +33,7 @@
                 <div class="px-2 pb-0 pl-0 m-1 md:m-4 inline border-b-2 border-gray-900 font-semibold text-2xl">
                     {{$categoryName}}
                 </div>
-                <div class="flex">
+                <div class="hidden sm:flex">
                     <strong class=" mx-1">Price</strong>
                     <a class="capitalize mx-1"
                         href="{{route('shop',['category'=>request()->category,'sort'=>'low_high'])}}">Low to High</a> |
@@ -35,7 +43,7 @@
             </div>
             <div class="flex flex-wrap items-stretch">
                 @forelse ($products as $product)
-                <div class="card flex-shop m-1 md:m-5 bg-gray-800 text-gray-100 rounded overflow-hidden"
+                <div class="card flex-shop mr-2 mb-2 md:m-5 bg-gray-800 text-gray-100 rounded overflow-hidden"
                     title="View Details of {{ $product->name }}">
                     <img class="object-cover w-full" src="{{$product->image}}"
                         alt="View Details of {{ $product->name }}">

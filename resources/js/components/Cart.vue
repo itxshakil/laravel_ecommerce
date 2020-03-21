@@ -12,9 +12,7 @@
         </div>
         <div class="flex justify-between px-2">
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis blanditiis voluptates commodi
-            vero.
-            Impedit odio unde animi aliquam reprehenderit modi.
+            Your total includes subtotal and 12% tax.
           </p>
           <div class="cart-total flex">
             <div class="cart-total-left px-2">
@@ -23,22 +21,22 @@
               <p class="font-semibold">Total</p>
             </div>
             <div class="cart-total-right">
-              <p class="font-semibold" v-text="subtotal"></p>
-              <p class="font-semibold" v-text="tax"></p>
-              <p class="font-semibold" v-text="total"></p>
+              <p class="font-semibold">₹<span v-text="subtotal"></span></p>
+              <p class="font-semibold">₹<span v-text="tax"></span></p>
+              <p class="font-semibold">₹<span v-text="total"></span></p>
             </div>
           </div>
         </div>
         <div class="flex justify-between p-2">
-        <a href="/shop" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
-        <a href="/checkout" class="inline-block p-2 bg-green-200 text-green-800 rounded">Proceed to Checkout</a>
+        <a href="/shop" class="bg-gray-700 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center">Continue Shopping</a>
+        <a href="/checkout" class="bg-green-700 text-green-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center">Proceed to Checkout</a>
         </div>
       </div>
     </div>
     <div v-else>
       <div class="text-center mb-8">
         <p class="text-lg">No Items in Cart.</p>
-        <a href="/shop" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
+        <a href="/shop" class="bg-gray-700 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center">Continue Shopping</a>
       </div>
     </div>
 
@@ -57,7 +55,7 @@
     <div v-else>
       <div class="text-center mb-8">
         <p class="text-lg">No Items is saved for later.</p>
-        <a href="/shop" class="inline-block p-2 bg-gray-200 text-gray-800 rounded">Continue Shopping</a>
+        <a href="/shop" class="bg-gray-700 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center mb-2">Continue Shopping</a>
       </div>
     </div>
   </div>
@@ -109,7 +107,7 @@ export default {
         );
     },
     total() {
-      return this.subtotal + this.tax;
+      return (this.subtotal + this.tax).toFixed(2);
     }
   },
   methods: {

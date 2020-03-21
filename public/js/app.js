@@ -1972,8 +1972,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2014,7 +2012,7 @@ __webpack_require__.r(__webpack_exports__);
       }, 0);
     },
     total: function total() {
-      return this.subtotal + this.tax;
+      return (this.subtotal + this.tax).toFixed(2);
     }
   },
   methods: {
@@ -34410,7 +34408,7 @@ var render = function() {
             _c("div", { staticClass: "flex justify-between px-2" }, [
               _c("p", [
                 _vm._v(
-                  "\n          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis blanditiis voluptates commodi\n          vero.\n          Impedit odio unde animi aliquam reprehenderit modi.\n        "
+                  "\n          Your total includes subtotal and 12% tax.\n        "
                 )
               ]),
               _vm._v(" "),
@@ -34418,20 +34416,22 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "cart-total-right" }, [
-                  _c("p", {
-                    staticClass: "font-semibold",
-                    domProps: { textContent: _vm._s(_vm.subtotal) }
-                  }),
+                  _c("p", { staticClass: "font-semibold" }, [
+                    _vm._v("₹"),
+                    _c("span", {
+                      domProps: { textContent: _vm._s(_vm.subtotal) }
+                    })
+                  ]),
                   _vm._v(" "),
-                  _c("p", {
-                    staticClass: "font-semibold",
-                    domProps: { textContent: _vm._s(_vm.tax) }
-                  }),
+                  _c("p", { staticClass: "font-semibold" }, [
+                    _vm._v("₹"),
+                    _c("span", { domProps: { textContent: _vm._s(_vm.tax) } })
+                  ]),
                   _vm._v(" "),
-                  _c("p", {
-                    staticClass: "font-semibold",
-                    domProps: { textContent: _vm._s(_vm.total) }
-                  })
+                  _c("p", { staticClass: "font-semibold" }, [
+                    _vm._v("₹"),
+                    _c("span", { domProps: { textContent: _vm._s(_vm.total) } })
+                  ])
                 ])
               ])
             ]),
@@ -34498,7 +34498,8 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "inline-block p-2 bg-gray-200 text-gray-800 rounded",
+          staticClass:
+            "bg-gray-700 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center",
           attrs: { href: "/shop" }
         },
         [_vm._v("Continue Shopping")]
@@ -34507,7 +34508,8 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "inline-block p-2 bg-green-200 text-green-800 rounded",
+          staticClass:
+            "bg-green-700 text-green-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center",
           attrs: { href: "/checkout" }
         },
         [_vm._v("Proceed to Checkout")]
@@ -34524,7 +34526,8 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "inline-block p-2 bg-gray-200 text-gray-800 rounded",
+          staticClass:
+            "bg-gray-700 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center",
           attrs: { href: "/shop" }
         },
         [_vm._v("Continue Shopping")]
@@ -34543,7 +34546,8 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "inline-block p-2 bg-gray-200 text-gray-800 rounded",
+          staticClass:
+            "bg-gray-700 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs text-center mb-2",
           attrs: { href: "/shop" }
         },
         [_vm._v("Continue Shopping")]
@@ -34574,7 +34578,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex items-center justify-between border-b-2 p-2" },
+    {
+      staticClass:
+        "flex items-center justify-between border-b-2 p-2 text-sm sm:text-base overflow-x-auto"
+    },
     [
       _c("img", {
         attrs: {
@@ -34664,10 +34671,10 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("p", {
-        staticClass: "font-semibold",
-        domProps: { textContent: _vm._s(_vm.item.price) }
-      })
+      _c("p", { staticClass: "font-semibold" }, [
+        _vm._v("₹"),
+        _c("span", { domProps: { textContent: _vm._s(_vm.item.price) } })
+      ])
     ]
   )
 }
@@ -34798,7 +34805,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _vm.signedIn
-      ? _c("div", { staticClass: "rounded p-8 bg-gray-300 mt-2" }, [
+      ? _c("div", { staticClass: "rounded p-6 bg-gray-300 mt-2" }, [
           _c("h2", { staticClass: "mt-4 text-2xl text-center" }, [
             _vm._v("Submit Review")
           ]),
@@ -35716,7 +35723,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex items-center justify-between border-b-2 p-2" },
+    {
+      staticClass:
+        "flex items-center justify-between border-b-2 p-2 text-sm sm:text-base"
+    },
     [
       _c("img", {
         attrs: {
@@ -35733,7 +35743,7 @@ var render = function() {
         domProps: { textContent: _vm._s(_vm.item.name) }
       }),
       _vm._v(" "),
-      _c("div", [
+      _c("div", { staticClass: "flex-shrink-0 p-2 text-center" }, [
         _c(
           "div",
           {
@@ -35761,10 +35771,10 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("p", {
-        staticClass: "font-semibold",
-        domProps: { textContent: _vm._s(_vm.item.price) }
-      })
+      _c("p", { staticClass: "font-semibold" }, [
+        _vm._v("₹"),
+        _c("span", { domProps: { textContent: _vm._s(_vm.item.price) } })
+      ])
     ]
   )
 }

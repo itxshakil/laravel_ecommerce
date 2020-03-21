@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="signedIn" class="rounded p-8 bg-gray-300 mt-2">
+    <div v-if="signedIn" class="rounded p-6 bg-gray-300 mt-2">
       <h2 class="mt-4 text-2xl text-center">Submit Review</h2>
       <form @submit.prevent="addReview">
         <div class="mb-4">
