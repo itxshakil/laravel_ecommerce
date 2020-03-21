@@ -44,6 +44,22 @@ class CartMangementTest extends TestCase
     /**
     * @test
     */
+    public function message_is_flashed_if_dupliactes_is_added()
+    {
+        $product = factory(Product::class)->create();
+
+        $this->post('/cart/' . $product->slug);
+
+        $this->assertCount(1, Cart::content());
+
+        $this->json('POST', '/cart/' . $product->slug)->assertStatus(422);
+
+        $this->assertCount(1, Cart::content());
+    }
+
+    /**
+    * @test
+    */
     public function cart_items_quantity_could_be_updated()
     {
         $this->actingAs(factory(User::class)->create());
