@@ -16,7 +16,7 @@ class RatingController extends Controller
       */
     public function store(Product $product, Request $request)
     {
-        if (auth()->user()->fresh()->isRated($product)->count()) {
+        if (auth()->user()->fresh()->isRated($product)->isNotEmpty()) {
             return response('You have already added your review', 422);
         }
 
