@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('title','Reset Password')
 @section('content')
-<div class="container mx-auto flex justify-center px-6 my-12">
+<div class="container mx-auto flex justify-center px-3 md:px-6 my-12">
     <div class="w-full xl:w-3/4 lg:w-11/12 flex">
         <div class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
             style="background-image: url('https://source.unsplash.com/K4mSJ7kc0As/600x800')">
         </div>
-        <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+        <div class="w-full lg:w-1/2 bg-white p-2 md:p-5 rounded-lg lg:rounded-l-none">
             <h3 class="py-4 text-2xl text-center">{{ __('Reset Password') }}</h3>
             <form class="px-8 py-6 mb-4 bg-gray-100 rounded" method="POST" action="{{ route('password.email') }}">
                 @if (session('status'))
