@@ -10,24 +10,9 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $categoryName = 'Featured';
-        $pagination = 9;
+        $categoryName = $this->getCategoryTitle();
 
-        if (request()->category) {
-            $products = Product::with('categories')->whereHas('categories', function ($query) {
-                $query->where('slug', request()->category);
-            });
-            $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
-        } else {
-            $products = Product::where('featured', true);
-        }
-        if (request()->sort == 'low_high') {
-            $products = $products->orderBy('price')->paginate($pagination);
-        } elseif (request()->sort == 'high_low') {
-            $products = $products->orderBy('price', 'desc')->paginate($pagination);
-        } else {
-            $products = $products->paginate($pagination);
-        }
+        $products = $this->getProducts();
 
         return view('shop', compact('products', 'categoryName'));
     }
@@ -37,7 +22,35 @@ class ShopController extends Controller
         $query = $request->input('query');
 
         $products = Product::search($query)->paginate(20);
-        
+
         return view('search', compact('products'));
+    }
+
+    protected function getProducts()
+    {
+        if (request()->category) {
+            $products = Product::with('categories')->whereHas('categories', function ($query) {
+                $query->where('slug', request()->category);
+            });
+        } else {
+            $products = Product::where('featured', true);
+        }
+        if (request()->sort == 'low_high') {
+            $products = $products->orderBy('price');
+        } elseif (request()->sort == 'high_low') {
+            $products = $products->orderBy('price', 'desc');
+        }
+
+        $perPage = 9;
+        return $products->paginate($perPage);
+    }
+
+    protected function getCategoryTitle($categoryName = 'Featured')
+    {
+        if (request()->category) {
+            $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
+        }
+
+        return $categoryName;
     }
 }
