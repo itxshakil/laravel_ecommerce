@@ -23,4 +23,20 @@ trait CartHelper
 
         return $duplicates->isNotEmpty();
     }
+
+    protected function sendErrorResponse($message, $status = 422)
+    {
+        if (request()->wantsJson()) {
+            return response($message, $status);
+        }
+        return redirect(route('cart.index'))->with('flash', $message);
+    }
+
+    protected function sendSuccessResponse($message, $status = 200)
+    {
+        if (request()->wantsJson()) {
+            return response($message, $status);
+        }
+        return redirect(route('cart.index'))->with('flash', $message);
+    }
 }
