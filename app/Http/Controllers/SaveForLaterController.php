@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\CartHelper;
 use App\Product;
+use App\Helpers\CartHelper;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class SaveForLaterController extends Controller

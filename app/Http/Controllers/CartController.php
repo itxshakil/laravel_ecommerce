@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\CartHelper;
 use App\Product;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Helpers\CartHelper;
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController
 {

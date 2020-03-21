@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Helpers;
 
+use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 
