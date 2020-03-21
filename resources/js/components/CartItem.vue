@@ -37,7 +37,7 @@ export default {
   methods: {
     remove(item) {
       axios.delete("/cart/" + item.model.slug).then(response => {
-        flash("Item is removed from cart", "danger");
+        flash(response.data.message, "danger");
       });
       this.item.qty = this.quantity;
       this.$emit("removed", item);
@@ -46,10 +46,10 @@ export default {
       axios
         .post("/cart/switchToSaveForLater/" + item.model.slug)
         .then(response => {
-          flash("Item is saved for later", "success");
+          flash(response.data.message, "success");
         })
         .catch(error => {
-          flash(error.response.data, "warning");
+          flash(error.response.data.message, "warning");
         });
       this.$emit("savedforlater", item);
     },
@@ -58,7 +58,7 @@ export default {
         .patch("/cart/" + this.item.model.slug, { quantity: this.quantity })
         .then(response => {
           this.item.qty = this.quantity;
-          flash("Item Quantity updated successfully", "success");
+          flash(response.data.message, "success");
         })
         .catch(error => {
           flash(error.response.data.message, "warning");

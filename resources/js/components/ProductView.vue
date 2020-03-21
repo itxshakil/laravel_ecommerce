@@ -110,7 +110,7 @@ export default {
           this.cartText = "Added to cart";
         })
         .catch(error => {
-          flash(error.response.data, "warning");
+          flash(error.response.data.message, "warning");
         });
     },
     saveforlater() {
@@ -122,7 +122,7 @@ export default {
           this.saved=true;
         })
         .catch(error => {
-          flash(error.response.data, "warning");
+          flash(error.response.data.message, "warning");
         });
     },
     addReview(data) {

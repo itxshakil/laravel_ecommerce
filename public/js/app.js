@@ -2100,16 +2100,16 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     remove: function remove(item) {
       axios["delete"]("/cart/" + item.model.slug).then(function (response) {
-        flash("Item is removed from cart", "danger");
+        flash(response.data.message, "danger");
       });
       this.item.qty = this.quantity;
       this.$emit("removed", item);
     },
     saveforlater: function saveforlater(item) {
       axios.post("/cart/switchToSaveForLater/" + item.model.slug).then(function (response) {
-        flash("Item is saved for later", "success");
+        flash(response.data.message, "success");
       })["catch"](function (error) {
-        flash(error.response.data, "warning");
+        flash(error.response.data.message, "warning");
       });
       this.$emit("savedforlater", item);
     },
@@ -2120,7 +2120,7 @@ __webpack_require__.r(__webpack_exports__);
         quantity: this.quantity
       }).then(function (response) {
         _this.item.qty = _this.quantity;
-        flash("Item Quantity updated successfully", "success");
+        flash(response.data.message, "success");
       })["catch"](function (error) {
         flash(error.response.data.message, "warning");
       });
@@ -2139,9 +2139,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -2539,7 +2536,7 @@ __webpack_require__.r(__webpack_exports__);
         flash("Item is saved to cart", "success");
         _this.cartText = "Added to cart";
       })["catch"](function (error) {
-        flash(error.response.data, "warning");
+        flash(error.response.data.message, "warning");
       });
     },
     saveforlater: function saveforlater() {
@@ -2550,7 +2547,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.saveText = "Saved";
         _this2.saved = true;
       })["catch"](function (error) {
-        flash(error.response.data, "warning");
+        flash(error.response.data.message, "warning");
       });
     },
     addReview: function addReview(data) {
@@ -2829,15 +2826,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     remove: function remove(item) {
       axios["delete"]("/saveForLater/" + item.model.slug).then(function (response) {
-        flash("Item is removed from saved to later successfully", "danger");
+        flash(response.data.message, "danger");
       });
       this.$emit("removed", item);
     },
     savetocart: function savetocart(item) {
       axios.post("/saveForLater/switchToSaveToCart/" + item.model.slug).then(function (response) {
-        flash(response.data, "success");
+        flash(response.data.message, "success");
       })["catch"](function (error) {
-        flash(error.response.data, "warning");
+        flash(error.response.data.message, "warning");
       });
       this.$emit("savedtocart", item);
     }
