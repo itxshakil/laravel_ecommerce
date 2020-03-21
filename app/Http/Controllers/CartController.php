@@ -39,7 +39,7 @@ class CartController
         $request->validate(['quantity' => ['required', 'numeric', 'between:1,5']]);
 
         if ($request->quantity > $product->quantity) {
-            return $this->sendErrorResponse(collect(['message' => 'We currently do not have enough item in stock.']));
+            return $this->sendErrorResponse('We currently do not have enough item in stock.');
         }
 
         Cart::instance('default')->update($product->cartRowId, $request->quantity);
@@ -48,7 +48,7 @@ class CartController
         return $this->sendSuccessResponse('Item quantity updated successfully.');
     }
 
-    public function destroy(Request $request, Product $product)
+    public function destroy(Product $product)
     {
         Cart::instance('default')->remove($product->cartRowId);
         $this->storeCart();

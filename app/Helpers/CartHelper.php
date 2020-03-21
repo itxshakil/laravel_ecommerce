@@ -27,6 +27,8 @@ trait CartHelper
     protected function sendErrorResponse($message, $status = 422)
     {
         if (request()->wantsJson()) {
+            $message = collect(['message' => $message]);
+
             return response($message, $status);
         }
         return redirect(route('cart.index'))->with('flash', $message);
@@ -35,6 +37,8 @@ trait CartHelper
     protected function sendSuccessResponse($message, $status = 200)
     {
         if (request()->wantsJson()) {
+            $message = collect(['message' => $message]);
+
             return response($message, $status);
         }
         return redirect(route('cart.index'))->with('flash', $message);
