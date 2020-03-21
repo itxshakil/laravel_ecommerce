@@ -14,36 +14,26 @@ class PaymentController extends Controller
     public function store(Request $request, RazorpayApi $razorpayApi)
     {
         if ($request->error) {
-            #TODO Save to database with error code and error description
-            return redirect()->route('order.checkout', ['order' => session('order')])
-            ->with('error', $request->error['description']);
+            return $this->handleErrorPayment($request);
         }
 
         try {
             // Please note that the razorpay order ID must
             // come from a trusted source (fetched from API here, but
             // could be database or something else)
-            $payment = $razorpayApi->fetchPayment($request->razorpay_payment_id);
-            $attributes = [
+
+            $razorpayApi->verifyPaymentSignature([
                 'razorpay_signature' => $request->razorpay_signature,
                 'razorpay_payment_id' => $request->razorpay_payment_id,
                 'razorpay_order_id' => session('order')
-            ];
-            $razorpayApi->verifyPaymentSignature($attributes);
+            ]);
         } catch (SignatureVerificationError $e) {
-            // Check if payment really exists
-            $error = $e->getMessage();
-            return view('payments.failed', compact('error'));
+            return $this->handleSignatureVerificationError($e);
         }
-        $payment = Payment::create($payment->toArray());
 
-        $payment->order->decreaseProductQuantity();
-        
-        Cart::instance('default')->destroy();
+        $payment = $razorpayApi->fetchPayment($request->razorpay_payment_id);
 
-        Cart::instance('default')->store(auth()->id());
-
-        return redirect()->route('payment.status', compact('payment'));
+        return $this->handleSuccesPayment($payment);
     }
 
     /**
@@ -55,7 +45,34 @@ class PaymentController extends Controller
     public function show(Payment $payment)
     {
         $payment->order->fetchAllPayments();
-        
+
         return view('payments.success', compact('payment'));
+    }
+
+    protected function handleSuccesPayment($payment)
+    {
+        $payment = Payment::create($payment->toArray());
+
+        $payment->order->decreaseProductQuantity();
+
+        Cart::instance('default')->destroy();
+
+        Cart::instance('default')->store(auth()->id());
+
+        return redirect()->route('payment.status', compact('payment'));
+    }
+
+    protected function handleErrorPayment(Request $request)
+    {
+        //TODO Save to database with error code and error description
+        return redirect()->route('order.checkout', ['order' => session('order')])
+        ->with('error', $request->error['description']);
+    }
+
+    protected function handleSignatureVerificationError(SignatureVerificationError $e)
+    {
+        // Check if payment really exists
+        $error = $e->getMessage();
+        return view('payments.failed', compact('error'));
     }
 }
