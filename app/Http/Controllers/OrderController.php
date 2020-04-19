@@ -22,7 +22,7 @@ class OrderController extends Controller
 
     public function store(RazorpayApi $razorpayApi)
     {
-        $order = $razorpayApi->createOrder();
+        $order = $razorpayApi->createOrder(Cart::total());
 
         $order = auth()->user()->orders()->create([
             'id' => $order->id,

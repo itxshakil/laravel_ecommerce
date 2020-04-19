@@ -2,7 +2,6 @@
 
 namespace App\Billing;
 
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Razorpay\Api\Api;
 
 class RazorpayApi
@@ -14,10 +13,10 @@ class RazorpayApi
         $this->api = new Api(config('services.razorpay.key'), config('services.razorpay.private'));
     }
 
-    public function createOrder()
+    public function createOrder($amount)
     {
         $orderData = [
-            'amount' => str_replace(',', '', Cart::total()) * 100, // 2000 rupees in paise
+            'amount' => str_replace(',', '', $amount) * 100, // 2000 rupees in paise
             'currency' => 'INR',
             'receipt' => 'Receipt #20',
             'payment_capture' => 1 // auto capture
