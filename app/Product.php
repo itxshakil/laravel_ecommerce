@@ -122,4 +122,9 @@ class Product extends Model implements Buyable
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function isNotAvailable()
+    {
+        return $this->quantity < 1;
+    }
 }
