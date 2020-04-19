@@ -21,7 +21,7 @@ class CartController
 
     public function store(Product $product)
     {
-        if ($product->quantity < 1) {
+        if ($this->isNotAvailable($product)) {
             return $this->sendErrorResponse('Item is currently not available.');
         }
         if ($this->isDuplicates($product)) {
@@ -70,5 +70,10 @@ class CartController
         $this->storeCart('savedforlater');
 
         return $this->sendSuccessResponse('Item is saved for later.');
+    }
+
+    public function isNotAvailable($product)
+    {           
+        return $product->quantity < 1;
     }
 }
