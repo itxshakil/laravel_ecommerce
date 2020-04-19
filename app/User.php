@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function isRated(Product $product)
     {
-        return $this->ratings->filter(function ($rating, $key) use ($product) {
+        return $this->fresh()->ratings->filter(function ($rating, $key) use ($product) {
             return $rating->product_id == $product->id;
         });
     }

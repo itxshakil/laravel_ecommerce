@@ -16,7 +16,7 @@ class RatingController extends Controller
       */
     public function store(Product $product, Request $request)
     {
-        if (auth()->user()->fresh()->isRated($product)->isNotEmpty()) {
+        if ($this->IsAuthUserHasRated($product)) {
             return response('You have already added your review', 422);
         }
 
@@ -64,5 +64,16 @@ class RatingController extends Controller
         $rating->delete();
 
         return response('Deleted Successfully', 200);
+    }
+
+    /**
+     * Check If User has Rated Product Once
+     * 
+     * @param $product
+     * @return bool
+     */
+    public function IsAuthUserHasRated($product)
+    {
+        return auth()->user()->isRated($product)->isNotEmpty();
     }
 }
