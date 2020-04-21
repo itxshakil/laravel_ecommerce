@@ -123,6 +123,11 @@ class Product extends Model implements Buyable
         return $this->belongsToMany(Category::class);
     }
 
+    /**
+     * Check if Product is not available 
+     * 
+     * @return bool
+     */
     public function isNotAvailable()
     {
         return $this->quantity < 1;

@@ -46,6 +46,13 @@ class User extends Authenticatable
         return $this->hasMany(Rating::class);
     }
 
+    /**
+     * If User has rated the given product
+     * 
+     * @param Product $product
+     * 
+     * @return array
+     */
     public function isRated(Product $product)
     {
         return $this->fresh()->ratings->filter(function ($rating, $key) use ($product) {
