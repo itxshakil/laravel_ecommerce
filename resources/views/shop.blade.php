@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title','Welcome to Acme Shop')
+@section('title')
+Welcome to Acme Shop | {{$categoryName ?? 'Latest Product'}}
+@endsection
 @section('content')
 <section class="container mt-4 sm:mt-8 mx-auto text-gray-900" id="product-section">
     <form action="/search" method="get" class="w-full text-center sm:text-right mr-4">

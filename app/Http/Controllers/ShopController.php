@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
+    private $perPage = 9;
+
     public function index()
     {
-        $categoryName = $this->getCategoryTitle();
+        if (request()->category) {
+            $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
+        }
 
         $products = $this->getProducts();
 
@@ -41,16 +45,6 @@ class ShopController extends Controller
             $products = $products->orderBy('price', 'desc');
         }
 
-        $perPage = 9;
-        return $products->paginate($perPage);
-    }
-
-    protected function getCategoryTitle($categoryName = 'Featured')
-    {
-        if (request()->category) {
-            $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
-        }
-
-        return $categoryName;
+        return $products->paginate($this->perPage);
     }
 }
