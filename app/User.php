@@ -48,15 +48,13 @@ class User extends Authenticatable
 
     /**
      * If User has rated the given product
-     * 
+     *
      * @param Product $product
-     * 
+     *
      * @return array
      */
     public function isRated(Product $product)
     {
-        return $this->fresh()->ratings->filter(function ($rating, $key) use ($product) {
-            return $rating->product_id == $product->id;
-        });
+        return $this->fresh()->ratings()->where('product_id', $product->id)->exists();
     }
 }
