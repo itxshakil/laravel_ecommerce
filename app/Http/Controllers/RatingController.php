@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRating;
 use App\Product;
 use App\Rating;
 use Illuminate\Http\Request;
@@ -9,24 +10,18 @@ use Illuminate\Http\Request;
 class RatingController extends Controller
 {
     /**
-      * Store a newly created resource in storage.
-      *
-      * @param  \Illuminate\Http\Request  $request
-      * @return \Illuminate\Http\Response
-      */
-    public function store(Product $product, Request $request)
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Product $product, StoreRating $request)
     {
-        if ($this->IsAuthUserHasRated($product)) {
+        if ($request->user()->isRated($product)) {
             return response('You have already added your review', 422);
         }
 
-        $data = $request->validate([
-            'title' => ['required', 'max:100'],
-            'description' => ['required'],
-            'rating' => ['required', 'numeric', 'between:1,5'],
-        ]);
-
-        return $product->ratings()->create($data)->load('user');
+        return $product->ratings()->create($request->all())->load('user');
     }
 
     /**
@@ -36,17 +31,11 @@ class RatingController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rating $rating)
+    public function update(StoreRating $request, Rating $rating)
     {
         $this->authorize('update', $rating);
 
-        $data = $request->validate([
-            'title' => ['required', 'max:100'],
-            'description' => ['required'],
-            'rating' => ['required', 'numeric', 'between:1,5'],
-        ]);
-
-        $rating->update($data);
+        $rating->update($request->all());
 
         return $rating->load('user');
     }
@@ -64,16 +53,5 @@ class RatingController extends Controller
         $rating->delete();
 
         return response('Deleted Successfully', 200);
-    }
-
-    /**
-     * Check If User has Rated Product Once
-     *
-     * @param $product
-     * @return bool
-     */
-    public function IsAuthUserHasRated($product)
-    {
-        return auth()->user()->isRated($product);
     }
 }

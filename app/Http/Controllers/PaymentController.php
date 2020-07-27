@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Billing\RazorpayApi;
-use App\Order;
 use App\Payment;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -66,7 +65,7 @@ class PaymentController extends Controller
     {
         //TODO Save to database with error code and error description
         return redirect()->route('order.checkout', ['order' => session('order')])
-        ->with('error', $request->error['description']);
+            ->with('error', $request->error['description']);
     }
 
     protected function handleSignatureVerificationError(SignatureVerificationError $e)
