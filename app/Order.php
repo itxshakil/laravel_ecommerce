@@ -66,7 +66,8 @@ class Order extends Model
             'amount_due' => $orderData->amount_due,
             'offer_id' => $orderData->offer_id,
             'attempts' => $orderData->attempts,
-            'status' => $orderData->status, ]);
+            'status' => $orderData->status,
+        ]);
         return $orderData;
     }
 

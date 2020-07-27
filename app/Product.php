@@ -12,17 +12,17 @@ class Product extends Model implements Buyable
 {
     use SearchableTrait;
     /**
-      * The attributes that are mass assignable.
-      *
-      * @var array
-      */
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $guarded = [];
 
     /**
-    * Searchable rules.
-    *
-    * @var array
-    */
+     * Searchable rules.
+     *
+     * @var array
+     */
     protected $searchable = [
         /**
         * Columns and their priority in search results.
