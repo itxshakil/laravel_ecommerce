@@ -120,12 +120,12 @@ class Product extends Model implements Buyable
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
     /**
-     * Check if Product is not available 
-     * 
+     * Check if Product is not available
+     *
      * @return bool
      */
     public function isNotAvailable()

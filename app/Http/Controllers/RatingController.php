@@ -68,12 +68,12 @@ class RatingController extends Controller
 
     /**
      * Check If User has Rated Product Once
-     * 
+     *
      * @param $product
      * @return bool
      */
     public function IsAuthUserHasRated($product)
     {
-        return auth()->user()->isRated($product)->isNotEmpty();
+        return auth()->user()->isRated($product);
     }
 }
