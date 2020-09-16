@@ -10,34 +10,34 @@ use Tests\TestCase;
 
 class AdminAuthenticationTest extends TestCase
 {
-    use RefreshDatabase,WithFaker;
+    use RefreshDatabase, WithFaker;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_not_access_admin_dashboard()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
         $this->get('/admin')->assertRedirect('/admin/login');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function authenticated_admin_can_access_admin_dashboard()
     {
-        $this->actingAs(factory(Admin::class)->create(), 'admin');
+        $this->actingAs(Admin::factory()->create(), 'admin');
 
         $this->get('/admin')->assertStatus(200);
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function admin_can_login_with_valid_credentials()
     {
-        $admin = factory(Admin::class)->create();
+        $admin = Admin::factory()->create();
 
         $this->post('/admin/login', [
             'email' => $admin->email,
@@ -46,8 +46,8 @@ class AdminAuthenticationTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function admin_can_not_login_with_invalid_credentials()
     {
         $response = $this->json('POST', 'admin/login', [
@@ -60,13 +60,13 @@ class AdminAuthenticationTest extends TestCase
     }
 
     /**
-    * @test
-    * @dataProvider clientFormValidationProvider
-    */
+     * @test
+     * @dataProvider clientFormValidationProvider
+     */
     public function required_inputs_are_required_to_login($formInput, $formInputValue)
     {
         $this->post('admin/login', [$formInput => $formInputValue])
-        ->assertSessionHasErrors($formInput);
+            ->assertSessionHasErrors($formInput);
 
         $response = $this->json('POST', 'admin/login', [
             $formInput => $formInputValue,

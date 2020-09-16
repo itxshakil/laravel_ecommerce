@@ -13,13 +13,13 @@ class RatingTest extends TestCase
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function rating_belongs_to_product()
     {
-        $this->actingAs(factory(User::class)->create());
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $this->actingAs(User::factory()->create());
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
         $rating = $product->ratings()->create([
             'title' => $rating->title,
             'description' => $rating->description,

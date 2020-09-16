@@ -10,18 +10,18 @@ use Tests\TestCase;
 
 class CategoriesTest extends TestCase
 {
-    use RefreshDatabase,WithFaker;
+    use RefreshDatabase, WithFaker;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function admin_can_add_new_category()
     {
-        $this->actingAs(factory(Admin::class)->create(),'admin');
+        $this->actingAs(Admin::factory()->create(), 'admin');
         $this->post(route('admin.categories.store'), [
             'name' => 'laptops'
         ]);
-        
+
         // Check for no duplicates
         $this->post(route('admin.categories.store'), [
             'name' => 'Laptops'

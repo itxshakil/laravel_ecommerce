@@ -12,11 +12,11 @@ class SaveForLaterTest extends TestCase
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function product_can_be_switched_to_saved_for_later()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::add($product, 1);
 
@@ -32,7 +32,7 @@ class SaveForLaterTest extends TestCase
      */
     public function product_can_be_removed_from_saved_for_later()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::instance('savedforlater')->add($product, 1);
 
@@ -42,11 +42,11 @@ class SaveForLaterTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function product_can_be_switched_to_save_for_cart()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::instance('savedforlater')->add($product, 1);
 

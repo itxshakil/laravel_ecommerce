@@ -13,12 +13,12 @@ class CartMangementTest extends TestCase
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_add_products_to_cart()
     {
-        $this->actingAs(factory(User::class)->create());
-        $product = factory(Product::class)->create();
+        $this->actingAs(User::factory()->create());
+        $product = Product::factory()->create();
 
         $this->post('/cart/' . $product->slug);
 
@@ -27,12 +27,12 @@ class CartMangementTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function item_does_not_added_to_cart_if_stock_is_not_available()
     {
-        $this->actingAs(factory(User::class)->create());
-        $product = factory(Product::class)->create(['quantity' => 0]);
+        $this->actingAs(User::factory()->create());
+        $product = Product::factory()->create(['quantity' => 0]);
 
         $this->assertCount(0, Cart::content());
 
@@ -42,11 +42,11 @@ class CartMangementTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function message_is_flashed_if_dupliactes_is_added()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         $this->post('/cart/' . $product->slug);
 
@@ -58,12 +58,12 @@ class CartMangementTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function cart_items_quantity_could_be_updated()
     {
-        $this->actingAs(factory(User::class)->create());
-        $product = factory(Product::class)->create();
+        $this->actingAs(User::factory()->create());
+        $product = Product::factory()->create();
 
         $this->post('/cart/' . $product->slug);
         $this->assertEquals(1, Cart::content()->first()->qty);
@@ -73,12 +73,12 @@ class CartMangementTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function it_requires_numeric_quantity_to_update_cart()
     {
-        $this->actingAs(factory(User::class)->create());
-        $product = factory(Product::class)->create();
+        $this->actingAs(User::factory()->create());
+        $product = Product::factory()->create();
 
         $this->post('/cart/' . $product->slug);
         $this->assertEquals(1, Cart::content()->first()->qty);
@@ -89,12 +89,12 @@ class CartMangementTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_remove_product_from_cart()
     {
-        $this->actingAs(factory(User::class)->create());
-        $product = factory(Product::class)->create();
+        $this->actingAs(User::factory()->create());
+        $product = Product::factory()->create();
 
         $this->post('/cart/' . $product->slug);
         $this->assertCount(1, Cart::content());

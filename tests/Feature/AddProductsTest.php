@@ -13,25 +13,25 @@ class AddProductsTest extends TestCase
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function guests_may_not_add_products()
     {
         $this->get(route('products.create'))
-        ->assertRedirect('/admin/login');
+            ->assertRedirect('/admin/login');
 
         $this->post('/admin/products')
-        ->assertRedirect('/admin/login');
+            ->assertRedirect('/admin/login');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function an_authenticated_admin_can_add_new_products()
     {
-        $this->actingAs(factory(Admin::class)->create(), 'admin');
+        $this->actingAs(Admin::factory()->create(), 'admin');
 
-        $product = factory(Product::class)->make();
+        $product = Product::factory()->make();
 
         $productWithImage = array_merge($product->toArray(), ['image' => UploadedFile::fake()->image('avatar.jpg', 200, 350)->size(100)]);
 
@@ -43,46 +43,46 @@ class AddProductsTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_product_requires_a_name()
     {
         $this->createProduct(['name' => null])
-        ->assertSessionHasErrors('name');
+            ->assertSessionHasErrors('name');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_product_requires_a_details()
     {
         $this->createProduct(['details' => null])
-        ->assertSessionHasErrors('details');
+            ->assertSessionHasErrors('details');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_product_requires_a_price()
     {
         $this->createProduct(['price' => null])
-        ->assertSessionHasErrors('price');
+            ->assertSessionHasErrors('price');
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_product_requires_a_numeric_price()
     {
         $this->createProduct(['price' => 'not a num'])
-        ->assertSessionHasErrors('price');
+            ->assertSessionHasErrors('price');
     }
 
     public function createProduct($overrides = [])
     {
-        $this->withExceptionHandling()->actingAs(factory(Admin::class)->create(), 'admin');
+        $this->withExceptionHandling()->actingAs(Admin::factory()->create(), 'admin');
 
-        $product = factory(Product::class)->make($overrides);
+        $product = Product::factory()->make($overrides);
 
         return $this->post('/admin/products', $product->toArray());
     }

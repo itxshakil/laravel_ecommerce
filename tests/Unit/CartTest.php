@@ -16,7 +16,7 @@ class CartTest extends TestCase
     */
     public function a_product_can_be_added_to_cart()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::add($product, 1);
 
@@ -28,7 +28,7 @@ class CartTest extends TestCase
      */
     public function a_product_quantity_can_be_added_to_updated()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::add($product, 1);
 
@@ -42,7 +42,7 @@ class CartTest extends TestCase
     */
     public function a_product_can_be_removed_from_cart()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::add($product, 1);
 

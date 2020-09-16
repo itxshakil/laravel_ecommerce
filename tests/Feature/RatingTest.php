@@ -18,10 +18,10 @@ class RatingTest extends TestCase
      */
     public function authenticated_user_can_add_rating()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
 
         $this->assertCount(0, $product->ratings);
 
@@ -35,10 +35,10 @@ class RatingTest extends TestCase
      */
     public function user_can_only_add_one_review_per_product()
     {
-        $this->actingAs($user = factory(User::class)->create());
+        $this->actingAs($user = User::factory()->create());
 
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
 
         $this->post($product->slug . '/ratings', $rating->toArray());
 
@@ -55,8 +55,8 @@ class RatingTest extends TestCase
      */
     public function unauthenticated_user_can_not_add_rating()
     {
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
 
         $this->json('post', $product->slug . '/ratings', $rating->toArray())->assertStatus(401);
 
@@ -95,13 +95,13 @@ class RatingTest extends TestCase
      */
     public function user_can_edit_rating()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
 
         $this->post($product->slug . '/ratings', $rating->toArray());
-        $updatedRating = factory(Rating::class)->make();
+        $updatedRating = Rating::factory()->make();
 
         $this->patch('/ratings/' . Rating::first()->id, $updatedRating->toArray());
 
@@ -115,15 +115,15 @@ class RatingTest extends TestCase
      */
     public function unauthorised_user_can_not_edit_rating()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
 
         $this->post($product->slug . '/ratings', $rating->toArray());
 
-        $this->actingAs(factory(User::class)->create());
-        $updatedRating = factory(Rating::class)->make();
+        $this->actingAs(User::factory()->create());
+        $updatedRating = Rating::factory()->make();
 
         $this->patch('/ratings/' . Rating::first()->id, $updatedRating->toArray())->assertStatus(403);
 
@@ -137,10 +137,10 @@ class RatingTest extends TestCase
      */
     public function authorized_user_can_delete_review()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
 
         $this->post($product->slug . '/ratings', $rating->toArray());
 
@@ -156,15 +156,15 @@ class RatingTest extends TestCase
      */
     public function unauthorized_user_can_not_delete_review()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make();
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make();
 
         $this->post($product->slug . '/ratings', $rating->toArray());
 
         $this->assertCount(1, $product->fresh()->ratings);
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
         $this->delete('/ratings/' . Rating::first()->id, $rating->toArray())->assertStatus(403);
 
@@ -173,10 +173,10 @@ class RatingTest extends TestCase
 
     public function createRating($overrides = [])
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
-        $product = factory(Product::class)->create();
-        $rating = factory(Rating::class)->make($overrides);
+        $product = Product::factory()->create();
+        $rating = Rating::factory()->make($overrides);
 
         return $this->post($product->slug . '/ratings', $rating->toArray());
     }

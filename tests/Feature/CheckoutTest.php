@@ -13,13 +13,13 @@ class CheckoutTest extends TestCase
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function authenticated_user_can_checkout()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs(User::factory()->create());
 
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         $this->post("/cart/$product->slug");
 
@@ -32,8 +32,8 @@ class CheckoutTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function unauthenticated_user_can_not_checkout()
     {
         $this->get('/checkout')->assertRedirect('/login');

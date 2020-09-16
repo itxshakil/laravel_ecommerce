@@ -24,7 +24,7 @@ class RatingFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->words(),
+            'title' => $this->faker->word,
             'description' => $this->faker->paragraph(),
             'rating' => $this->faker->numberBetween(1, 5),
             'product_id' => Product::factory(),

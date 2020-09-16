@@ -12,11 +12,11 @@ class SaveForLaterTest extends TestCase
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_save_item_to_Saved_for_later()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         $this->post("/saveForLater/$product->slug");
 
@@ -25,11 +25,11 @@ class SaveForLaterTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_switch_product_to_saved_for_later()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::add($product, 1);
         $this->post('/cart/switchToSaveForLater/' . $product->slug);
@@ -40,11 +40,11 @@ class SaveForLaterTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_remove_product_from_save_for_later()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::instance('savedforlater')->add($product, 1);
         $this->assertCount(1, Cart::instance('savedforlater')->content());
@@ -54,11 +54,11 @@ class SaveForLaterTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_switch_product_to_cart()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         Cart::instance('savedforlater')->add($product, 1);
         $this->post('/saveForLater/switchToSaveToCart/' . $product->slug);

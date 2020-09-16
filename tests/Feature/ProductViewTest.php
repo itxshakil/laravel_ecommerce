@@ -11,15 +11,15 @@ class ProductViewTest extends TestCase
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_user_can_view_product()
     {
-        $product = factory(Product::class)->create();
+        $product = Product::factory()->create();
 
         $this->get(route('products.view', $product))
-        ->assertSee($product->name)
-        ->assertSee($product->details)
-        ->assertSee($product->price);
+            ->assertSee($product->name)
+            ->assertSee($product->details)
+            ->assertSee($product->price);
     }
 }

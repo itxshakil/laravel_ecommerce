@@ -33,5 +33,7 @@
         <server name="MAIL_DRIVER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
+        <server name="RAZORPAY_KEY" value="rzp_test_KEEckJG9hEhHFN"/>
+        <server name="RAZORPAY_PRIVATE" value="uqd7cEmdMpyfTOcY1m3XTDSe"/>
     </php>
 </phpunit>
