@@ -22,7 +22,7 @@
             <div class="cart">
                 @foreach (Cart::instance($payment->order->id)->content() as $item)
                 <div class="flex justify-between border-b-2 p-2">
-                    <img src="/storage/{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
+                    <img src="{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
                         height="100">
                     <a href="{{ route('products.view',$item->model->slug) }}" class="mx-2">{{ $item->name }}</a>
                     <p>{{ $item->qty  }}</p>

@@ -75,6 +75,9 @@ class Product extends Model implements Buyable
 
     public function getImageAttribute($value)
     {
+        if ($value == "https://source.unsplash.com/collection/307591/400x300") {
+            return "https://source.unsplash.com/collection/307591/400x300";
+        }
         return '/storage/' . $value;
     }
 

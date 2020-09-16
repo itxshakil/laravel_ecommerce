@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Details of {{ $order->id }}
+Details of {{ $order->id }}
 @endsection
 @section('content')
 <div class="container mx-auto">
@@ -14,7 +14,7 @@
             <div class="cart">
                 @foreach (Cart::instance($order->id)->content() as $item)
                 <div class="flex justify-between border-b-2 pb-4 p-2">
-                    <img src="/storage/{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
+                    <img src="{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
                         height="100">
                     <a href="{{ route('products.view',$item->model->slug) }}" class="mx-2">{{ $item->name }}</a>
                     <p>{{ $item->qty  }}</p>
@@ -64,7 +64,7 @@
                     <span class="text-sm text-grey-900 p-1">{{'XXXXXX'.$payment->card['last4']}}</span>
                     <span class="text-sm text-grey-900 p-1">{{'Issued by' .$payment->card['issuer']}}</span>
                 </div>
-                
+
             </div>
             @endif
             <div class="flex pb-2 ">
