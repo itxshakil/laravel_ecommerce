@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use illuminate\Support\Str;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Product extends Model implements Buyable
 {
-    use SearchableTrait;
+    use HasFactory, SearchableTrait;
     /**
      * The attributes that are mass assignable.
      *
