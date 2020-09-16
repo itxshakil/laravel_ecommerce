@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Product;
 use Illuminate\Database\Seeder;
 
@@ -12,9 +14,8 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Product::class, 12)->create()->each(function($product){
-            $product->categories()->attach(rand(1,5));
-            return $product;
-        });
+        Product::factory()->count(25)->create();
+
+        Product::factory()->featured()->count(12)->create();
     }
 }

@@ -29,4 +29,30 @@ class ProductFactory extends Factory
             'image' => 'https://source.unsplash.com/collection/307591/400x300',
         ];
     }
+
+    /**
+     * Indicate that the product is featured
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function featured()
+    {
+        return $this->state([
+            'featured' => true,
+        ]);
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterMaking(function (Product $product) {
+            //
+        })->afterCreating(function (Product $product) {
+            $product->categories()->attach(rand(1, 5));
+        });
+    }
 }
