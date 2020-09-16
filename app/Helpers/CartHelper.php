@@ -8,18 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 trait CartHelper
 {
-
-    private string $instance = 'default';
     /**
      * Store cart items to database
      *
      * @param  mixed $instance
      * @return void
      */
-    public function storeCart()
+    public function storeCart($instance = "default")
     {
         if (Auth::check()) {
-            Cart::instance($this->instance)->store(auth()->id());
+            Cart::instance($instance)->store(auth()->id());
         }
     }
 
@@ -30,9 +28,9 @@ trait CartHelper
      * @param  mixed $instance
      * @return bool
      */
-    public function isDuplicates(Product $product)
+    public function isDuplicates(Product $product, $instance = "default")
     {
-        $duplicates = Cart::instance($this->instance)->search(function ($cartItem, $rowId) use ($product) {
+        $duplicates = Cart::instance($instance)->search(function ($cartItem, $rowId) use ($product) {
             return $cartItem->model->id === $product->id;
         });
 

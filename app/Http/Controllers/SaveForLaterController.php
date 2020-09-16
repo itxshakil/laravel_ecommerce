@@ -14,12 +14,12 @@ class SaveForLaterController extends Controller
 
     public function store(Product $product)
     {
-        if ($this->isDuplicates($product)) {
+        if ($this->isDuplicates($product, $this->instance)) {
             return $this->sendErrorResponse('Item is already saved for later.');
         }
 
         Cart::instance('savedforlater')->add($product, 1);
-        $this->storeCart();
+        $this->storeCart($this->instance);
 
         return $this->sendSuccessResponse('Item is saved for later.');
     }
@@ -28,7 +28,7 @@ class SaveForLaterController extends Controller
     {
         Cart::instance('savedforlater');
         Cart::remove($product->cartRowId);
-        $this->storeCart();
+        $this->storeCart($this->instance);
 
         return $this->sendSuccessResponse('Item is removed from saved for later.');
     }
@@ -37,7 +37,7 @@ class SaveForLaterController extends Controller
     {
         Cart::instance('savedforlater');
         Cart::remove($product->cartRowId);
-        $this->storeCart();
+        $this->storeCart($this->instance);
 
         $duplicates = Cart::instance('default')->search(function ($cartItem, $rowId) use ($product) {
             return $cartItem->model->id === $product->id;
@@ -48,7 +48,7 @@ class SaveForLaterController extends Controller
         };
 
         Cart::instance('default')->add($product, 1);
-        $this->storeCart('default');
+        $this->storeCart();
 
         return $this->sendSuccessResponse('Item is saved to cart.');
     }

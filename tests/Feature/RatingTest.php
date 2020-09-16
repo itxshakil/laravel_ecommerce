@@ -11,11 +11,11 @@ use Tests\TestCase;
 
 class RatingTest extends TestCase
 {
-    use RefreshDatabase,WithFaker;
+    use RefreshDatabase, WithFaker;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function authenticated_user_can_add_rating()
     {
         $this->actingAs(factory(User::class)->create());
@@ -64,12 +64,12 @@ class RatingTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function rating_requires_valid_title()
     {
         $this->createRating(['title' => ''])->assertSessionHasErrors('title');
-        $this->createRating(['title' => $this->faker->paragraph()])->assertSessionHasErrors('title');
+        $this->createRating(['title' => $this->faker->paragraph(40)])->assertSessionHasErrors('title');
     }
 
     /**
@@ -81,8 +81,8 @@ class RatingTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function rating_requires_valid_rating()
     {
         $this->createRating(['rating' => ''])->assertSessionHasErrors('rating');
@@ -91,8 +91,8 @@ class RatingTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function user_can_edit_rating()
     {
         $this->actingAs(factory(User::class)->create());
@@ -111,8 +111,8 @@ class RatingTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function unauthorised_user_can_not_edit_rating()
     {
         $this->actingAs(factory(User::class)->create());
@@ -133,8 +133,8 @@ class RatingTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function authorized_user_can_delete_review()
     {
         $this->actingAs(factory(User::class)->create());
@@ -152,8 +152,8 @@ class RatingTest extends TestCase
     }
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function unauthorized_user_can_not_delete_review()
     {
         $this->actingAs(factory(User::class)->create());
