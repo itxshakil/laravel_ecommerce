@@ -1,20 +1,34 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Product;
 use App\Rating;
 use App\User;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Rating::class, function (Faker $faker) {
-    return [
-        'title' => $faker->name,
-        'description' => $faker->paragraph(),
-        'rating' => $faker->numberBetween(1, 5),
-        'product_id' => $faker->numberBetween(1, 12),
-        'user_id' => $faker->numberBetween(1, 12),
-        // 'user_id' => (factory(User::class)->create())->id,
-        // 'product_id' => (factory(Product::class)->create())->id
-    ];
-});
+class RatingsFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Rating::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->words(),
+            'description' => $this->faker->paragraph(),
+            'rating' => $this->faker->numberBetween(1, 5),
+            'product_id' => Product::factory(),
+            'user_id' => User::factory(),
+        ];
+    }
+}
