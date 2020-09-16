@@ -12,6 +12,7 @@ class ShopController extends Controller
 
     public function index()
     {
+        $categoryName =  "All Products";
         if (request()->category) {
             $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
         }
