@@ -12,17 +12,6 @@
     </form>
     <h1 class="pr-2 font-semibold text-2xl">Search Result for {{request()->input('query')}}</h1>
     @if ($products->count() > 0)
-    <div class="">
-        <p class="text-sm leading-5 text-gray-700">
-          Showing
-        <span class="font-medium">{{$products->perPage() * $products->currentPage() - $products->perPage() + 1 }}</span>
-          -
-          <span class="font-medium">{{$products->currentPage() == $products->lastPage() ? $products->total():$products->perPage() * $products->currentPage() }}</span>
-          of
-          <span class="font-medium">{{$products->total() }}</span>
-          results
-        </p>
-    </div>
     <table class="overflow-y-auto w-full text-center border-collapse">
         <tr class="bg-blue-300 text-gray-100">
             <th class="p-3">Name</th>
@@ -39,7 +28,7 @@
         </tr>
         @endforeach
     </table>
-    {{$products->appends(request()->input())->links('pagination.tailwind')}}
+    {{$products->appends(request()->input())->links()}}
     @else
     <p>No results found.</p>
     @endif

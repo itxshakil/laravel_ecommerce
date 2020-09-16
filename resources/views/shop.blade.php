@@ -63,7 +63,7 @@ Welcome to Acme Shop | {{$categoryName ?? 'Latest Product'}}
                 </div>
                 @endforelse
             </div>
-            {{$products->appends(request()->input())->links('pagination.tailwind')}}
+            {{$products->appends(request()->input())->links()}}
         </div>
     </div>
 
