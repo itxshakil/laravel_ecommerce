@@ -28,7 +28,7 @@
         </tr>
         @endforeach
     </table>
-    {{$products->appends(request()->input())->links()}}
+    {{$products->withQueryString()->links()}}
     @else
     <p>No results found.</p>
     @endif
