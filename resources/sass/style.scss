@@ -1,3 +1,6 @@
+main {
+    content-visibility: auto;
+}
 a {
     &:hover {
         filter: saturate(90%);
