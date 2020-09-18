@@ -7,21 +7,21 @@
       <div class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
         <div class="sm:text-center lg:text-left">
           <h2 class="text-4xl tracking-tight leading-10 font-semibold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
-            Quality laptops in 
+            Quality laptops in
             <br class="xl:hidden" />
             <span class="text-indigo-600">reasonable price.</span>
           </h2>
-          <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+          <p class="mt-3 text-base text-gray-700 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
             Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
           </p>
           <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
             <div class="rounded-lg shadow">
-              <a href="#product-section" class="w-full flex items-center justify-center px-8 py-3 text-xs  border border-transparent text-base leading-6 font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out md:py-4 md:px-10">
+              <a href="#product-section" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out md:py-4 md:px-10">
                 Featured Products
               </a>
             </div>
             <div class="mt-3 sm:mt-0 sm:ml-3">
-              <a href="/shop" class="w-full flex items-center justify-center px-8 py-3 text-xs  border border-transparent text-base leading-6 font-medium rounded-lg text-indigo-700 bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:px-10">
+              <a href="/shop" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-lg text-indigo-700 bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:px-10">
                 Shop by category
               </a>
             </div>
@@ -36,7 +36,7 @@
 </section>
 
 <section class="container mx-auto text-white" id="product-section">
-    <div class="p-2 inline-block bg-indigo-500 rounded m-4">Featured Products</div>
+    <div class="p-2 inline-block bg-indigo-900 rounded m-4">Featured Products</div>
     <div class="flex flex-wrap items-stretch">
         @forelse ($products as $product)
         <div class="card flex-product m-5 bg-gray-800 rounded overflow-hidden" title="View Details of {{ $product->name }}">
@@ -45,7 +45,7 @@
                 <div class="text-2xl">{{ $product->name }}</div>
                 <div class="text-green-400">₹{{ $product->price }}</div>
                 <a href="{{route('products.view',$product)}}"
-                    class="p-2 inline-block bg-green-400 rounded text-white m-1">View Details</a>
+                    class="p-2 inline-block bg-green-300 rounded text-green-900 m-1">View Details</a>
             </div>
         </div>
         @empty
