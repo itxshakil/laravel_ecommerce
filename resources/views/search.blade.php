@@ -11,26 +11,21 @@
         @enderror
     </form>
     <h1 class="pr-2 font-semibold text-2xl">Search Result for {{request()->input('query')}}</h1>
-    @if ($products->count() > 0)
-    <table class="overflow-y-auto w-full text-center border-collapse">
-        <tr class="bg-blue-300 text-gray-100">
-            <th class="p-3">Name</th>
-            <th class="p-3">Price</th>
-            <th class="p-3">Details</th>
-            <th class="p-3">Action</th>
-        </tr>
-        @foreach ($products as $product)
-        <tr class="border-blue-300 border-b">
-            <td class="p-3">{{ $product->name }}</td>
-            <td class="p-3">{{ $product->price }}</td>
-            <td class="p-3">{{ Str::limit($product->details,30) }}</td>
-            <td class="p-3"><a href="{{ route('products.view',$product) }}">View</a></td>
-        </tr>
-        @endforeach
-    </table>
-    {{$products->withQueryString()->links()}}
-    @else
+    @forelse ($products as $product)
+    <div class="w-full bg-gray-200 p-5 rounded-lg shadow flex mb-2">
+        <img src="{{$product->image}}" alt="Image of {{$product->name}}" height="150px" width="150px">
+        <div>
+            <h3 class="text-xl">{{ $product->name }}</h3>
+            <p class="text-sm text-green-400 mb-2">₹{{ $product->price }}</p>
+            <p class="">{{ Str::limit($product->details,60) }}</p>
+            <a href="{{route('products.view',$product)}}"
+                class="p-2 inline-block bg-green-300 rounded text-green-900 m-1">View
+                Details</a>
+        </div>
+    </div>
+    @empty
     <p>No results found.</p>
-    @endif
+    @endforelse
+    {{$products->withQueryString()->links()}}
 </section>
 @endsection
