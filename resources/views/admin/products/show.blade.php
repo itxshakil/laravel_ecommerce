@@ -4,7 +4,7 @@ Details of {{ $product->name }}
 @endsection
 @section('content')
 <div class="container mx-auto flex justify-center px-6 my-12">
-    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg">
+    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg shadow-md">
         <a class="pt-4 text-blue-500 float-right text-sm" href="{{route('admin.products.index')}}">All Products</a>
         <h3 class="pt-4 text-2xl text-center">All Products!</h3>
         <div class="md:flex border-2 rounded-lg">

@@ -11,8 +11,9 @@
             @endforeach
             <new-category></new-category>
         </div>
-        <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg">
-            <a class="pt-4 text-blue-500 float-right text-sm" href="{{route('admin.products.create')}}">Add new Products!</a>
+        <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg shadow-md">
+            <a class="pt-4 text-blue-500 float-right text-sm" href="{{route('admin.products.create')}}">Add new
+                Products!</a>
             <h3 class="pt-4 text-2xl text-center">All Products!</h3>
             @if ($products->count() > 0)
             <table class="overflow-y-auto w-full text-center border-collapse">
