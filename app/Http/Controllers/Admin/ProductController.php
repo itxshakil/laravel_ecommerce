@@ -15,7 +15,21 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(15);
+        $products = Product::query();
+        if (request()->category) {
+            $products = $products->with('categories')->whereHas('categories', function ($query) {
+                $query->where('slug', request()->category);
+            });
+        } else {
+            $products = $products->where('featured', true);
+        }
+        if (request()->sort == 'low_high') {
+            $products = $products->orderBy('price');
+        } elseif (request()->sort == 'high_low') {
+            $products = $products->orderBy('price', 'desc');
+        }
+
+        $products = $products->paginate(15);
 
         return view('admin.products.index', compact('products'));
     }
