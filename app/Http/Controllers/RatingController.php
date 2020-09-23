@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRating;
 use App\Product;
 use App\Rating;
-use Illuminate\Http\Request;
 
 class RatingController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreRating  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Product $product, StoreRating $request)
@@ -21,7 +20,7 @@ class RatingController extends Controller
             return response('You have already added your review', 422);
         }
 
-        return $product->ratings()->create($request->all())->load('user');
+        return $product->ratings()->create($request->only('title', 'description', 'rating'))->load('user');
     }
 
     /**
@@ -35,7 +34,7 @@ class RatingController extends Controller
     {
         $this->authorize('update', $rating);
 
-        $rating->update($request->all());
+        $rating->update($request->only('title', 'description', 'rating'));
 
         return $rating->load('user');
     }
