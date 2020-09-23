@@ -52,7 +52,7 @@ class User extends Authenticatable
      *
      * @param Product $product
      *
-     * @return array
+     * @return boolean
      */
     public function isRated(Product $product)
     {
