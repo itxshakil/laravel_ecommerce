@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 @section('title','All Orders')
 @section('content')
 <div class="container mx-auto">

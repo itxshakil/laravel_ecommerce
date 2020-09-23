@@ -17,7 +17,7 @@ class AddProductsTest extends TestCase
      */
     public function guests_may_not_add_products()
     {
-        $this->get(route('products.create'))
+        $this->get(route('admin.products.create'))
             ->assertRedirect('/admin/login');
 
         $this->post('/admin/products')

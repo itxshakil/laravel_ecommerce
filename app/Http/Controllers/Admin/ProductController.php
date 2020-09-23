@@ -94,7 +94,7 @@ class ProductController extends Controller
 
         $product->update(array_merge($data, $imgArr ?? []));
 
-        return redirect()->route('products.show', ['product' => $product]);
+        return redirect()->route('admin.products.show', ['product' => $product]);
     }
 
     /**
@@ -107,7 +107,7 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect(route('products.index'));
+        return redirect(route('admin.products.index'));
     }
 
     /**

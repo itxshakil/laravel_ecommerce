@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 @section('title','Admin dashboard')
 @section('content')
 <div class="container mx-auto flex justify-center px-6 my-12">
     <div class="w-full lg:w-1/2 bg-gray-100 p-5 rounded-lg lg:rounded-l-none">
         <h3 class="pt-4 text-2xl text-center">Dashboard!</h3>
-        <a class="text-blue-500 mr-2" href="{{ route('products.index') }}">{{ __('All Product') }}</a>
+        <a class="text-blue-500 mr-2" href="{{ route('admin.products.index') }}">{{ __('All Product') }}</a>
         <a class="text-blue-500 mr-2" href="{{ route('admin.orders.index') }}">{{ __('All Orders') }}</a>
         <div class="card-body">
             @if (session('status'))

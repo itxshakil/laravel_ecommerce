@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 @section('title')
 Details of {{ $order->id }}
 @endsection

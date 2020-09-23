@@ -51,8 +51,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 
     Route::middleware(['auth:admin'])->group(function () {
-        Route::resource('/products', 'Admin\ProductController');
         Route::name('admin.')->group(function () {
+            Route::resource('/products', 'Admin\ProductController');
             Route::resource('/orders', 'Admin\OrderController');
             Route::resource('/categories', 'Admin\CategoryController')->only(['store']);
         });
