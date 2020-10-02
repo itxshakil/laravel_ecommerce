@@ -17,21 +17,21 @@ class ShopController extends Controller
             $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
         }
 
-        $products = $this->getProducts();
+        $products = $this->getPaginatedProducts();
 
         return view('shop', compact('products', 'categoryName'));
     }
 
     public function search(Request $request)
     {
-        $query = $request->input('query');
+        $query = $request->input('q');
 
         $products = Product::search($query)->paginate(20);
 
         return view('search', compact('products'));
     }
 
-    protected function getProducts()
+    protected function getPaginatedProducts()
     {
         if (request()->category) {
             $products = Product::with('categories')->whereHas('categories', function ($query) {

@@ -14,10 +14,10 @@ class ProductController
      */
     public function index()
     {
-        $products = Cache::remember('featured-product', 600, function () {
+        $featuredProducts = Cache::remember('featured-product', 600, function () {
             return Product::where('featured', true)->take(12)->get();
         });
-        return view('welcome', compact('products'));
+        return view('welcome', compact('featuredProducts'));
     }
 
     public function show(Product $product)

@@ -1,11 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 @section('title','Add new product')
 @section('content')
 <div class="container mx-auto flex justify-center px-6 my-12">
-    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg">
-        <a class="pt-4 text-blue-500 float-right text-sm" href="{{route('products.index')}}">All Products</a>
+    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg shadow-md">
+        <a class="pt-4 text-blue-500 float-right text-sm" href="{{route('admin.products.index')}}">All
+            Products</a>
         <h3 class="pt-4 text-2xl text-center">Add new Product!</h3>
-        <form class="px-8 pt-6 pb-2 mb-4 bg-white rounded" method="POST" action="{{ route('products.store') }}"
+        <form class="px-8 pt-6 pb-2 mb-4 bg-white rounded" method="POST" action="{{ route('admin.products.store') }}"
             enctype="multipart/form-data">
             <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-700" for="name">

@@ -2,7 +2,7 @@
 @section('title','My Orders')
 @section('content')
 <div class="container mx-auto flex justify-center px-2 md:px-6 my-12 overflow-hidden">
-    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg">
+    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg shadow-md">
         <h3 class="pt-4 text-2xl text-center">My Orders!</h3>
         <div class="flex flex-col mt-2">
             <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -39,7 +39,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-900">₹{{ $order->amount }}</div>
+                                    <div class="text-sm leading-5 text-gray-900" title="Order amount">₹{{ $order->amount }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <span

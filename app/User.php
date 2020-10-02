@@ -52,10 +52,10 @@ class User extends Authenticatable
      *
      * @param Product $product
      *
-     * @return array
+     * @return boolean
      */
     public function isRated(Product $product)
     {
-        return $this->fresh()->ratings()->where('product_id', $product->id)->exists();
+        return $this->ratings()->where('product_id', $product->id)->exists();
     }
 }

@@ -1,14 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 @section('title')
 Edit {{$product->name}}
 @endsection
 @section('content')
 <div class="container mx-auto flex justify-center px-6 my-12">
-    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg">
+    <div class="w-full xl:w-3/4 lg:w-11/12 bg-gray-100 p-5 rounded-lg shadow-md">
         <h3 class="pt-4 text-2xl text-center">Edit {{$product->name}}</h3>
-        <a class="pt-4 text-blue-500 float-right text-sm" href="{{route('products.index')}}">All Products</a>
+        <a class="pt-4 text-blue-500 float-right text-sm" href="{{route('admin.products.index')}}">All Products</a>
         <form class="px-8 pt-6 pb-2 mb-4 bg-white rounded" method="POST"
-            action="{{ route('products.update',$product) }}" enctype="multipart/form-data">
+            action="{{ route('admin.products.update',$product) }}" enctype="multipart/form-data">
             <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-700" for="name">
                     Product name

@@ -21,21 +21,23 @@
                     <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
-                        Password
-                    </label>
+                <div class="mb-2">
+                    <div class="flex justify-between">
+                        <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
+                            Password
+                        </label>
+                        @if (Route::has('admin.password.request'))
+                        <a class="inline-block text-xs text-blue-500 align-baseline hover:text-blue-800"
+                            href="{{ route('admin.password.request') }}">
+                            Forgot Password?
+                        </a>
+                    </div>
                     <input
                         class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('password') border-red-500 @enderror"
                         id="password" type="password" name="password" placeholder="******************" />
                     @error('password')
                     <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
                     @enderror
-                    @if (Route::has('admin.password.request'))
-                    <a class="inline-block text-xs text-blue-500 align-baseline hover:text-blue-800"
-                        href="{{ route('admin.password.request') }}">
-                        Forgot Password?
-                    </a>
                     @endif
                 </div>
                 <div class="mb-4">
