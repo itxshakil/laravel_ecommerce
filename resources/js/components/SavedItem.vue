@@ -11,7 +11,7 @@
       <div class="cursor-pointer" @click="remove(item)">Remove</div>
       <div class="cursor-pointer" @click="savetocart(item)">Save to Cart</div>
     </div>
-    <p class="font-semibold">₹<span v-text="item.price"></span></p>
+    <p class="font-semibold" title="Product price">₹<span v-text="item.price"></span></p>
   </div>
 </template>
 <script>

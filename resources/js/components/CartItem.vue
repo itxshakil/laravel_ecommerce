@@ -7,7 +7,7 @@
       height="100"
     />
     <a :href="'/products/'+item.model.slug" class="mx-2" v-text="item.name"></a>
-    <div class="flex-shrink-0 m-2">
+    <div class="flex-shrink-0 m-2 text-center">
       <div class="cursor-pointer" @click="remove(item)">Remove</div>
       <div class="cursor-pointer" @click="saveforlater(item)">Save for Later</div>
     </div>
@@ -22,7 +22,7 @@
       <option>3</option>
       <option>4</option>
     </select>
-    <p class="font-semibold">₹<span v-text="item.price"></span></p>
+    <p class="font-semibold" title="Product price">₹<span v-text="item.price"></span></p>
   </div>
 </template>
 <script>

@@ -12,7 +12,7 @@
       tabindex="-1"
       class="fixed top-0 inset-0 h-full w-full bg-black opacity-0 cursor-default"
     ></button>
-    <div v-if="active" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
+    <div v-if="active" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-10">
       <slot name="items"></slot>
     </div>
   </div>
