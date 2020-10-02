@@ -17,7 +17,7 @@ class ShopController extends Controller
             $categoryName = Category::where('slug', request()->category)->first()->name ?? 'Invalid Category';
         }
 
-        $products = $this->getProducts();
+        $products = $this->getPaginatedProducts();
 
         return view('shop', compact('products', 'categoryName'));
     }
@@ -31,7 +31,7 @@ class ShopController extends Controller
         return view('search', compact('products'));
     }
 
-    protected function getProducts()
+    protected function getPaginatedProducts()
     {
         if (request()->category) {
             $products = Product::with('categories')->whereHas('categories', function ($query) {

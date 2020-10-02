@@ -14,17 +14,17 @@ Welcome to Acme Shop | {{$categoryName ?? 'Latest Product'}}
     </form>
     <div class="flex">
         <aside class="w-48">
-            <div class="px-2 pt-4 inline-block rounded flex flex-col m-1 md:m-4 mt-8">
+            <div class="px-2 pt-4 rounded flex flex-col m-1 md:m-4 mt-8">
                 <p class="pt-4 font-semibold text-sm sm:text-base">By Category</p>
                 @foreach ($categories as $category)
-                <a class="capitalize text-sm sm:text-base {{request()->category == $category->slug ? 'font-semibold' : '' }}"
+                <a class="capitalize text-sm sm:text-base {{request()->category == $category->slug ? 'font-semibold' : null }}"
                     href="{{route('shop',['category' => $category->slug])}}">{{$category->name}}</a>
                 @endforeach
                 <div class="sm:hidden mt-4">
-                    <p class="pt-4 font-semibold text-sm">Sort Price</p>
-                    <a class="capitalize text-sm {{request()->sort == 'low_high' ? 'font-semibold' : '' }}"
+                    <p class="pt-4 font-semibold">Sort Price</p>
+                    <a class="capitalize text-sm {{request()->sort == 'low_high' ? 'font-semibold' : null }}"
                         href="{{route('shop',['category'=>request()->category,'sort'=>'low_high'])}}">Low to High</a>
-                    <a class="capitalize text-sm {{request()->sort == 'high_low' ? 'font-semibold' : '' }}"
+                    <a class="capitalize text-sm {{request()->sort == 'high_low' ? 'font-semibold' : null }}"
                         href="{{route('shop',['category'=>request()->category,'sort'=>'high_low'])}}">High to Low</a>
                 </div>
 
@@ -37,9 +37,9 @@ Welcome to Acme Shop | {{$categoryName ?? 'Latest Product'}}
                 </div>
                 <div class="hidden sm:flex">
                     <strong class=" mx-1">Price</strong>
-                    <a class="capitalize mx-1"
+                    <a class="capitalize mx-1 {{request()->sort == 'low_high' ? 'font-semibold' : null }}"
                         href="{{route('shop',['category'=>request()->category,'sort'=>'low_high'])}}">Low to High</a> |
-                    <a class="capitalize mx-1"
+                    <a class="capitalize mx-1 {{request()->sort == 'high_low' ? 'font-semibold' : null }}"
                         href="{{route('shop',['category'=>request()->category,'sort'=>'high_low'])}}">High to Low</a>
                 </div>
             </div>
@@ -66,7 +66,5 @@ Welcome to Acme Shop | {{$categoryName ?? 'Latest Product'}}
             {{$products->withQueryString()->links()}}
         </div>
     </div>
-
-
 </section>
 @endsection
