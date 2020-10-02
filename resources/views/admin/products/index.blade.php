@@ -33,12 +33,18 @@
                     <td class="p-3">
                         <img src="{{ $product->image }}" alt="Image of {{ $product->name }}" height="auto" width="50">
                     </td>
-                    <td class="p-3 text-lg">{{ $product->quantity }}</td>
+                    <td class="flex flex-col">
+                        <p class="p-3 text-lg">{{ $product->quantity }}</p>
+                        @if ($product->featured)
+                        <p class="p-1 text-xs rounded-full bg-blue-500 text-gray-100">Featured</p>
+                        @endif
+                    </td>
                     <td class="p-3"><a href="{{ route('admin.products.show',$product) }}">View</a></td>
                 </tr>
                 @endforeach
             </table>
             {{$products->withQueryString()->links()}}
+
             @else
             <p class="text-xl font-semibold text-center -ml-20">No Products found.</p>
             @endif

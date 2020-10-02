@@ -21,7 +21,7 @@ class ProductController extends Controller
                 $query->where('slug', request()->category);
             });
         } else {
-            $products = $products->where('featured', true);
+            $products = $products->latest();
         }
         if (request()->sort == 'low_high') {
             $products = $products->orderBy('price');
@@ -56,12 +56,14 @@ class ProductController extends Controller
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric'],
             'image' => ['required']
         ]);
 
         $data['image'] = $this->uploadImage($request);
 
-        return Product::create($data);
+        Product::create($data);
+        return redirect(route('admin.products.index'))->with('flash', 'Product is Added successfully!');
     }
 
     /**
@@ -99,6 +101,7 @@ class ProductController extends Controller
             'name' => ['required'],
             'details' => ['required'],
             'price' => ['required', 'numeric'],
+            'quantity' => ['required', 'numeric'],
             'image' => ['sometimes', 'required']
         ]);
 
