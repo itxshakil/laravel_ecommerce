@@ -7,7 +7,7 @@ Welcome to Acme Shop | {{$categoryName ?? 'Latest Product'}}
     <form action="/search" method="get" class="w-full text-center sm:text-right mr-4">
         <input
             class="w-48 px-3 py-2 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none @error('query') border-red-500 @enderror"
-            id="query" type="search" name="query" placeholder="Search product" />
+            id="query" type="search" name="q" placeholder="Search products" />
         @error('query')
         <p class="text-xs italic text-red-500" role="alert">{{ $message }}</p>
         @enderror

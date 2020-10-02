@@ -24,7 +24,7 @@ class ShopController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->input('query');
+        $query = $request->input('q');
 
         $products = Product::search($query)->paginate(20);
 
