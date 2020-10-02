@@ -1,11 +1,11 @@
 @guest
 @if (Route::has('register'))
-<a class="hidden sm:block bg-blue-100 active:bg-blue-200 text-blue-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs"
+<a class="hidden sm:block bg-blue-100 active:bg-blue-200 text-blue-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs"
     href="{{ route('register') }}">{{ __('Register') }}</a>
 @endif
-<a class="bg-gray-700 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs" href="{{ route('login') }}">{{ __('Login') }}</a>
+<a class="bg-gray-700 text-gray-100 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md font-bold text-xs"
+    href="{{ route('login') }}">{{ __('Login') }}</a>
 @else
-@if(Auth::guard('web')->check())
 <dropdown v-cloak>
     <p slot="toggler"
         class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out text-gray-100">
@@ -19,11 +19,10 @@
         <a href="{{ route('logout') }}"
             class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
             onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">Sign out</a>
+                        document.getElementById('logout-form').submit();">Sign out</a>
     </span>
 </dropdown>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
 </form>
-@endif
 @endguest
