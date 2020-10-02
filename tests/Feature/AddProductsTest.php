@@ -35,7 +35,7 @@ class AddProductsTest extends TestCase
 
         $productWithImage = array_merge($product->toArray(), ['image' => UploadedFile::fake()->image('avatar.jpg', 200, 350)->size(100)]);
 
-        $this->post('/admin/products', $productWithImage)->assertCreated();
+        $this->post('/admin/products', $productWithImage)->assertRedirect(route('admin.products.index'));
 
         $this->assertEquals($product->name, Product::first()->name);
         $this->assertEquals($product->details, Product::first()->details);
