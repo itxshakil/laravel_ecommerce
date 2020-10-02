@@ -2,13 +2,18 @@
   <div class="mt-2 border rounded bg-gray-100 p-4">
     <div v-if="!editing">
       <div v-text="title" class="font-semibold"></div>
-      <i class="fa fas- fa-star text-yellow-600 mr-1" v-for="star in parseInt(stars)"></i>
+      <i
+        class="fa fas- fa-star text-yellow-600 mr-1"
+        v-for="star in parseInt(stars)"
+      ></i>
       <div class="mt-2" v-text="description"></div>
     </div>
     <div v-else>
       <form>
         <div class="mb-4">
-          <label class="block mb-2 text-sm font-bold text-gray-700" for="title">Title</label>
+          <label class="block mb-2 text-sm font-bold text-gray-700" for="title"
+            >Title</label
+          >
           <input
             class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
             id="title"
@@ -21,7 +26,11 @@
           />
         </div>
         <div class="mb-4">
-          <label class="block mb-2 text-sm font-bold text-gray-700" for="description">Description</label>
+          <label
+            class="block mb-2 text-sm font-bold text-gray-700"
+            for="description"
+            >Description</label
+          >
           <textarea
             class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
             id="description"
@@ -32,31 +41,62 @@
           ></textarea>
         </div>
         <div class="mb-4">
-          <label class="block mb-2 text-sm font-bold text-gray-700" for="rating">Rating</label>
+          <label class="block mb-2 text-sm font-bold text-gray-700" for="rating"
+            >Rating</label
+          >
           <span class="star-rating">
-            <input type="radio" name="rating" v-model="stars" v-bind:value="1" />
+            <input
+              type="radio"
+              name="rating"
+              v-model="stars"
+              v-bind:value="1"
+            />
             <i class="fa fas- fa-star text-yellow-600"></i>
-            <input type="radio" name="rating" v-model="stars" v-bind:value="2" />
+            <input
+              type="radio"
+              name="rating"
+              v-model="stars"
+              v-bind:value="2"
+            />
             <i class="fa fas- fa-star text-yellow-600"></i>
-            <input type="radio" name="rating" v-model="stars" v-bind:value="3" />
+            <input
+              type="radio"
+              name="rating"
+              v-model="stars"
+              v-bind:value="3"
+            />
             <i class="fa fas- fa-star text-yellow-600"></i>
-            <input type="radio" name="rating" v-model="stars" v-bind:value="4" />
+            <input
+              type="radio"
+              name="rating"
+              v-model="stars"
+              v-bind:value="4"
+            />
             <i class="fa fas- fa-star text-yellow-600"></i>
-            <input type="radio" name="rating" v-model="stars" v-bind:value="5" />
+            <input
+              type="radio"
+              name="rating"
+              v-model="stars"
+              v-bind:value="5"
+            />
             <i class="fa fas- fa-star text-yellow-600"></i>
           </span>
         </div>
         <div class="flex">
           <button
             type="submit"
-            class="bg-blue-500 active:bg-blue-400 text-gray-100 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+            class="bg-blue-500 active:bg-blue-400 text-gray-100 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
             @click="update"
-          >Update</button>
+          >
+            Update
+          </button>
           <button
             type="submit"
-            class="bg-gray-100 active:bg-gray-200 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+            class="bg-gray-100 active:bg-gray-200 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
             @click="cancel"
-          >Cancel</button>
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>
@@ -67,12 +107,16 @@
     <div v-if="canEdit" class="flex">
       <div
         @click="editing = true"
-        class="bg-blue-500 active:bg-blue-400 text-gray-100 font-normal px-2 py-1 rounded outline-none focus:outline-none mr-2 my-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs cursor-pointer"
-      >Edit</div>
+        class="bg-blue-500 active:bg-blue-400 text-gray-100 px-2 py-1 rounded outline-none focus:outline-none mr-2 my-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs cursor-pointer"
+      >
+        Edit
+      </div>
       <div
-        class="bg-red-500 active:bg-red-400 text-gray-100 font-normal px-2 py-1 rounded outline-none focus:outline-none mr-2 my-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs cursor-pointer"
+        class="bg-red-500 active:bg-red-400 text-gray-100 px-2 py-1 rounded outline-none focus:outline-none mr-2 my-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs cursor-pointer"
         @click="remove"
-      >Delete</div>
+      >
+        Delete
+      </div>
     </div>
   </div>
 </template>
@@ -87,7 +131,7 @@ export default {
       title: this.data.title,
       description: this.data.description,
       stars: this.data.rating,
-      rating: this.data
+      rating: this.data,
     };
   },
   computed: {
@@ -96,7 +140,7 @@ export default {
         return this.rating.user_id == auth_user.id;
       }
       return false;
-    }
+    },
   },
   methods: {
     cancel() {
@@ -111,12 +155,12 @@ export default {
         .patch("/ratings/" + this.id, {
           title: this.title,
           description: this.description,
-          rating: this.stars
+          rating: this.stars,
         })
         .then(({ data }) => {
-          flash("Your Review has been updated");
+          flash("Your Review has been updated.");
         })
-        .catch(error => {
+        .catch((error) => {
           flash(error.response.data, "danger");
         });
     },
@@ -128,10 +172,10 @@ export default {
           flash("Your Review has been deleted");
           this.$emit("deleted", this.id);
         })
-        .catch(error => {
+        .catch((error) => {
           flash(error.response.data, "danger");
         });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -31,12 +31,7 @@
 </template>
 <script>
 export default {
-  props: ["data"],
-  data() {
-    return {
-      ratings: this.data
-    };
-  },
+  props: ["ratings"],
   computed: {
     average() {
       let length = this.ratings.length;
