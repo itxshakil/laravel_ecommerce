@@ -25,8 +25,8 @@ class CreateOrdersTable extends Migration
             $table->string('offer_id')->nullable();
             $table->string('status');
             $table->integer('attempts');
-            $table->string('notes')->nullable();
-            $table->longText('items');
+            $table->binary('notes')->nullable();
+            $table->binary('items');
             $table->timestamps();
         });
     }
