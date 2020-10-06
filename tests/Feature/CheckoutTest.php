@@ -17,18 +17,22 @@ class CheckoutTest extends TestCase
      */
     public function authenticated_user_can_checkout()
     {
+
         $this->actingAs(User::factory()->create());
-
-        $product = Product::factory()->create();
-
-        $this->post("/cart/$product->slug");
-
         $response = $this->get('/checkout');
 
-        $order = Order::all();
-        $this->assertCount(1, $order);
+        $response->assertSeeText('Coming Soon!');
 
-        $response->assertRedirect(route('order.checkout', ['order' => $order->first()->id]));
+        // $product = Product::factory()->create();
+
+        // $this->post("/cart/$product->slug");
+
+        // $response = $this->get('/checkout');
+
+        // $order = Order::all();
+        // $this->assertCount(1, $order);
+
+        // $response->assertRedirect(route('order.checkout', ['order' => $order->first()->id]));
     }
 
     /**
