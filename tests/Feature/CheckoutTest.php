@@ -32,7 +32,7 @@ class CheckoutTest extends TestCase
         $order = Order::all();
         $this->assertCount(1, $order);
 
-        $this->assertEquals($product->id, $order->products()->first()->pivot->product_id);
+        $this->assertEquals($product->id, $order->first()->products->first()->pivot->product_id);
 
         $response->assertRedirect(route('order.checkout', ['order' => $order->first()->id]));
     }
