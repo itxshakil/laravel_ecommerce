@@ -50,6 +50,7 @@ class PaymentController extends Controller
 
     protected function handleSuccesPayment($payment)
     {
+        dd($payment);
         $payment = Payment::create($payment->toArray());
 
         $payment->order->decreaseProductQuantity();

@@ -21,8 +21,8 @@ class Order extends Model
 
         static::retrieved(function ($order) {
             if (!session()->has('cart.' . $order->id)) {
-                $order->items->each(function ($item) use ($order) {
-                    Cart::instance($order->id)->add($item->model, $item->qty);
+                $order->products->each(function ($item) use ($order) {
+                    Cart::instance($order->id)->add($item, $item->pivot->quantity);
                 });
             }
         });
