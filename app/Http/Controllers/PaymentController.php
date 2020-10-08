@@ -50,7 +50,6 @@ class PaymentController extends Controller
 
     protected function handleSuccesPayment($payment)
     {
-        // dd($payment);
         $payment = Payment::create([
             "id" => $payment->id,
             "entity" => $payment->entity,
@@ -71,7 +70,7 @@ class PaymentController extends Controller
             "vpa" => $payment->vpa,
             "email" => $payment->email,
             "contact" => $payment->contact,
-            "notes" => json_encode($payment->notes),
+            "notes" => $this->notesToShippingAddress($payment->notes),
             "fee" => $payment->fee,
             "tax" => $payment->tax,
             "error_code" => $payment->error_code,
@@ -104,5 +103,10 @@ class PaymentController extends Controller
         // Check if payment really exists
         $error = $e->getMessage();
         return view('payments.failed', compact('error'));
+    }
+
+    protected function notesToShippingAddress($notes)
+    {
+        return "{$notes['shipping_address_local']}, {$notes['shipping_address_state']}, {$notes['shipping_address_pincode']}";
     }
 }
