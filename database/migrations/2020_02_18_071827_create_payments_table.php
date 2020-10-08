@@ -27,7 +27,7 @@ class CreatePaymentsTable extends Migration
             $table->string('refund_status')->nullable(); //- null- partial- full.
             $table->boolean('captured');
             $table->string('description');
-            $table->string('card_id');
+            $table->string('card_id')->nullable();
             $table->string('bank')->nullable();
             $table->string('wallet')->nullable();
             $table->string('vpa')->nullable();
@@ -39,6 +39,8 @@ class CreatePaymentsTable extends Migration
             $table->string('error_code')->nullable();
             $table->string('error_description')->nullable();
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 

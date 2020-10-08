@@ -15,8 +15,8 @@ class CreateRatingsTable extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('product_id')->constrained();
             $table->string('title');
             $table->text('description');
             $table->string('rating')->default(5);
