@@ -33,11 +33,6 @@ class Order extends Model
         return $value / 100;
     }
 
-    public function getItemsAttribute($value)
-    {
-        return unserialize($value);
-    }
-
     public function getStatusAttribute($value)
     {
         //TODO: Check for refund
@@ -45,11 +40,6 @@ class Order extends Model
             $value = $this->fetchRecentInfo()->status;
         }
         return $value;
-    }
-
-    public function setItemsAttribute($value)
-    {
-        $this->attributes['items'] = serialize($value);
     }
 
     public function setNotesAttribute($value)
