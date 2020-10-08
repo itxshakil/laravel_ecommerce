@@ -26,7 +26,6 @@ class CreateOrdersTable extends Migration
             $table->string('status');
             $table->integer('attempts');
             $table->text('notes')->nullable();
-            $table->text('items');
             $table->timestamps();
         });
     }
