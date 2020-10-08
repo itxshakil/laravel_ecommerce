@@ -19,9 +19,6 @@ class CheckoutTest extends TestCase
     {
 
         $this->actingAs(User::factory()->create());
-        $response = $this->get('/checkout');
-
-        // $response->assertSeeText('Coming Soon!');
 
         $product = Product::factory()->create();
 
