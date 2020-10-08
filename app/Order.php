@@ -89,8 +89,8 @@ class Order extends Model
 
     public function decreaseProductQuantity()
     {
-        $this->items->map(function ($item) {
-            $item->model->decrement('quantity', $item->qty);
+        $this->products->map(function ($product) {
+            $product->decrement('quantity', $product->pivot->quantity);
         });
     }
 

@@ -50,8 +50,38 @@ class PaymentController extends Controller
 
     protected function handleSuccesPayment($payment)
     {
-        dd($payment);
-        $payment = Payment::create($payment->toArray());
+        // dd($payment);
+        $payment = Payment::create([
+            "id" => $payment->id,
+            "entity" => $payment->entity,
+            "amount" => $payment->amount,
+            "currency" => $payment->currency,
+            "status" => $payment->status,
+            "order_id" => $payment->order_id,
+            "invoice_id" => $payment->invoice_id,
+            "international" => $payment->international,
+            "method" => $payment->method,
+            "amount_refunded" => $payment->amount_refunded,
+            "refund_status" => $payment->refund_status,
+            "captured" => $payment->captured,
+            "description" => $payment->description,
+            "card_id" => $payment->card_id,
+            "bank" => $payment->bank,
+            "wallet" => $payment->wallet,
+            "vpa" => $payment->vpa,
+            "email" => $payment->email,
+            "contact" => $payment->contact,
+            "notes" => json_encode($payment->notes),
+            "fee" => $payment->fee,
+            "tax" => $payment->tax,
+            "error_code" => $payment->error_code,
+            "error_description" => $payment->error_description,
+            // "error_source" => $payment->error_source,
+            // "error_step" => $payment->error_step,
+            // "error_reason" => $payment->error_reason,
+            // "acquirer_data" => $payment->acquirer_data,
+            // "created_at" => $payment->created_at,
+        ]);
 
         $payment->order->decreaseProductQuantity();
 
