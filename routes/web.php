@@ -22,8 +22,8 @@ Route::delete('/saveForLater/{product}', 'SaveForLaterController@destroy')->name
 Route::post('/saveForLater/switchToSaveToCart/{product}', 'SaveForLaterController@switchToSaveToCart')->name('saveForLater.switchToCart');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::view('/checkout', 'coming-soon')->name('order.create');
-    // Route::get('/checkout', 'OrderController@store')->name('order.create');
+    // Route::view('/checkout', 'coming-soon')->name('order.create');
+    Route::get('/checkout', 'OrderController@store')->name('order.create');
     Route::get('/checkout/{order}', 'OrderController@checkout')->name('order.checkout');
     Route::post('/payment', 'PaymentController@store')->name('payment.verify');
     Route::get('/payment/{payment}', 'PaymentController@show')->name('payment.status');
