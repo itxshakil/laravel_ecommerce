@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title')
-Welcome to Acme Shop | {{$categoryName ?? 'Latest Product'}}
+{{$categoryName  ?? 'Latest Product'}}
+{{ (request()->sort) ? (request()->sort == 'low_high')  ? "| Price Low to High" : "| Price High to Low" : NULL }}
+{{ (request()->page) ? "| Page ". request()->page  : NULL }}
 @endsection
 @section('content')
 <section class="container mt-4 sm:mt-8 mx-auto text-gray-900" id="product-section">

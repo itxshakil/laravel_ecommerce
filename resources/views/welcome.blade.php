@@ -41,7 +41,7 @@
 </section>
 
 <section class="container mx-auto text-white" id="product-section">
-  <div class="p-2 inline-block bg-indigo-900 rounded m-4">Featured Products</div>
+  <h1 class="p-2 inline-block bg-indigo-900 rounded m-4">Featured Products</h1>
   <div class="flex flex-wrap items-stretch">
     @forelse ($featuredProducts as $product)
     <div class="card flex-product m-5 bg-gray-800 rounded overflow-hidden" title="View Details of {{ $product->name }}">
