@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </fieldset>
-                <input type="hidden" name="callback_url" value="https://mi-dukaan.herokuapp.com/payment">
+                <input type="hidden" name="callback_url" value="http://acme.site/payment">
                 <small>You will be redirect to payment page.</small>
                 <div class="form-group">
                 <button

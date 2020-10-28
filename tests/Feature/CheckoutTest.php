@@ -19,20 +19,19 @@ class CheckoutTest extends TestCase
     {
 
         $this->actingAs(User::factory()->create());
+
+        $product = Product::factory()->create();
+
+        $this->post("/cart/$product->slug");
+
         $response = $this->get('/checkout');
 
-        $response->assertSeeText('Coming Soon!');
+        $order = Order::all();
+        $this->assertCount(1, $order);
 
-        // $product = Product::factory()->create();
+        $this->assertEquals($product->id, $order->first()->products->first()->pivot->product_id);
 
-        // $this->post("/cart/$product->slug");
-
-        // $response = $this->get('/checkout');
-
-        // $order = Order::all();
-        // $this->assertCount(1, $order);
-
-        // $response->assertRedirect(route('order.checkout', ['order' => $order->first()->id]));
+        $response->assertRedirect(route('order.checkout', ['order' => $order->first()->id]));
     }
 
     /**

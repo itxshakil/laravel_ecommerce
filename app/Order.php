@@ -3,10 +3,12 @@
 namespace App;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use HasFactory;
     public $incrementing = false;
     protected $guarded = [];
     protected $casts = [
@@ -19,8 +21,8 @@ class Order extends Model
 
         static::retrieved(function ($order) {
             if (!session()->has('cart.' . $order->id)) {
-                $order->items->each(function ($item) use ($order) {
-                    Cart::instance($order->id)->add($item->model, $item->qty);
+                $order->products->each(function ($item) use ($order) {
+                    Cart::instance($order->id)->add($item, $item->pivot->quantity);
                 });
             }
         });
@@ -31,11 +33,6 @@ class Order extends Model
         return $value / 100;
     }
 
-    public function getItemsAttribute($value)
-    {
-        return unserialize($value);
-    }
-
     public function getStatusAttribute($value)
     {
         //TODO: Check for refund
@@ -43,11 +40,6 @@ class Order extends Model
             $value = $this->fetchRecentInfo()->status;
         }
         return $value;
-    }
-
-    public function setItemsAttribute($value)
-    {
-        $this->attributes['items'] = serialize($value);
     }
 
     public function setNotesAttribute($value)
@@ -87,8 +79,8 @@ class Order extends Model
 
     public function decreaseProductQuantity()
     {
-        $this->items->map(function ($item) {
-            $item->model->decrement('quantity', $item->qty);
+        $this->products->map(function ($product) {
+            $product->decrement('quantity', $product->pivot->quantity);
         });
     }
 
@@ -100,5 +92,10 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class)->withPivot('quantity')->withTimestamps();
     }
 }

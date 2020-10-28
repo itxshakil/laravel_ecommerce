@@ -136,4 +136,9 @@ class Product extends Model implements Buyable
     {
         return $this->quantity < 1;
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('quantity')->withTimestamps();
+    }
 }

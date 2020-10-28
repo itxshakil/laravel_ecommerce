@@ -8,18 +8,10 @@ class Payment extends Model
 {
     public $incrementing = false;
     protected $guarded = [];
-    protected $casts = [
-        'notes' => 'array',
-    ];
 
     public function order()
     {
         return $this->belongsTo(Order::class);
-    }
-
-    public function setNotesAttribute($value)
-    {
-        $this->attributes['notes'] = json_encode($value);
     }
 
     public function getAmountAttribute($value)
@@ -34,7 +26,7 @@ class Payment extends Model
 
     public function getShippingAddressAttribute()
     {
-        return "{$this->notes['shipping_address_local']}, {$this->notes['shipping_address_state']}, {$this->notes['shipping_address_pincode']}";
+        return $this->notes;
     }
 
     public function getCardDetails()

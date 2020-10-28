@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRatingsTable extends Migration
+class CreateOrderProductPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateRatingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ratings', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained();
+        Schema::create('order_product', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('order_id');
             $table->foreignId('product_id')->constrained();
-            $table->string('title');
-            $table->text('description');
-            $table->string('rating')->default(5);
+            $table->integer('quantity')->default(1);
+
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 
@@ -31,6 +33,6 @@ class CreateRatingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ratings');
+        Schema::dropIfExists('order_product');
     }
 }

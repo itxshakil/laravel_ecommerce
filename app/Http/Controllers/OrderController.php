@@ -32,9 +32,14 @@ class OrderController extends Controller
             'receipt' => $order->receipt,
             'status' => $order->status,
             'attempts' => $order->attempts,
-            'items' => Cart::content(),
             'notes' => $order->notes,
         ]);
+        $products = [];
+        Cart::content()->each(function ($item) use (&$products) {
+            $products[$item->model->id] = ['quantity' => $item->qty];
+        });
+
+        $order->products()->sync($products);
 
         session(['order' => $order->id]);
 
@@ -48,6 +53,7 @@ class OrderController extends Controller
 
     public function checkout(Order $order)
     {
+        // dd($order);
         return view('checkout', compact('order'));
     }
 }

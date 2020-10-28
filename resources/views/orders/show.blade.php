@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Deatails of {{ $order->id}}
+Details of {{ $order->id}}
 @endsection
 @section('content')
 <div class="container mx-auto text-sm sm:text-base overflow-hidden">
@@ -12,7 +12,7 @@ Deatails of {{ $order->id}}
             </div>
             <h3 class="text-lg font-semibold">Your Order</h3>
             <div class="cart ">
-                @foreach (Cart::instance('default')->content() as $item)
+                @foreach (Cart::instance($order->id)->content() as $item)
                 <div class="flex justify-between border-b-2 p-2">
                     <img src="{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100"
                         height="100">
