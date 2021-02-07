@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 /**
  * @method static where(string $string, mixed $category)
+ * @method static firstWhere(string $string, mixed $category)
  */
 class Category extends Model
 {
