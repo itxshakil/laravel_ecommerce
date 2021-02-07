@@ -18,6 +18,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  * @property mixed price
  * @property mixed id
  * @property mixed name
+ * @property mixed cartRowId
  */
 class Product extends Model implements Buyable
 {
