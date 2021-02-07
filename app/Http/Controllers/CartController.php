@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Helpers\CartHelper;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 
 class CartController
 {
     use CartHelper;
 
-    public function index()
+    public function index(): Factory|View|Application
     {
         $cartItems = Cart::instance('default')->content();
         $savedForLaterItems = Cart::instance('savedforlater')->content();
@@ -19,7 +26,7 @@ class CartController
         return view('cart.index', compact('cartItems', 'savedForLaterItems'));
     }
 
-    public function store(Product $product)
+    public function store(Product $product): Response|Redirector|RedirectResponse|Application|ResponseFactory
     {
         if ($product->isNotAvailable()) {
             return $this->sendErrorResponse('Item is currently not available.');
@@ -34,7 +41,7 @@ class CartController
         return $this->sendSuccessResponse('Item is added to cart');
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product): Response|Redirector|RedirectResponse|Application|ResponseFactory
     {
         $request->validate(['quantity' => ['required', 'numeric', 'between:1,5']]);
 
@@ -48,7 +55,7 @@ class CartController
         return $this->sendSuccessResponse('Item quantity updated successfully.');
     }
 
-    public function destroy(Product $product)
+    public function destroy(Product $product): Response|Redirector|Application|RedirectResponse|ResponseFactory
     {
         Cart::instance('default')->remove($product->cartRowId);
         $this->storeCart();
@@ -56,7 +63,7 @@ class CartController
         return $this->sendSuccessResponse('Item is removed from cart.');
     }
 
-    public function switchToSaveForLater(Product $product)
+    public function switchToSaveForLater(Product $product): Response|Redirector|RedirectResponse|Application|ResponseFactory
     {
         Cart::instance('default');
         Cart::remove($product->cartRowId);
