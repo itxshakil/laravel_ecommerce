@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -46,11 +49,11 @@ class LoginController extends Controller
     /**
      * The user has been authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
+     * @param Request $request
+     * @param mixed $user
+     * @return RedirectResponse
      */
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, mixed $user): RedirectResponse
     {
         Cart::instance('savedforlater')->restore($user->id);
         Cart::instance('default')->restore($user->id);
@@ -61,9 +64,10 @@ class LoginController extends Controller
     /**
      * Redirect the user to the Social sites authentication page.
      *
-     * @return \Illuminate\Http\Response
+     * @param $provider
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirectToProvider($provider)
+    public function redirectToProvider($provider): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         return Socialite::driver($provider)->redirect();
     }
@@ -71,24 +75,35 @@ class LoginController extends Controller
     /**
      * Obtain the user information from Social Sites.
      *
-     * @return \Illuminate\Http\Response
+     * @param $provider
+     * @return Redirector|Application|RedirectResponse
      */
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback($provider): Redirector|Application|RedirectResponse
     {
         $socialUser = Socialite::driver($provider)->user();
 
         $user = User::where('provider_id', $socialUser->getId())->where('provider', $provider)->first();
         if (!$user) {
-            $user = User::create([
-                'email' => $socialUser->getEmail(),
-                'name' => $socialUser->getName(),
-                'provider_id' => $socialUser->getId(),
-                'provider' => $provider,
-            ]);
+            $user = $this->createUser($socialUser, $provider);
         }
 
         Auth::login($user, true);
 
         return redirect($this->redirectTo);
+    }
+
+    /**
+     * @param \Laravel\Socialite\Contracts\User $socialUser
+     * @param $provider
+     * @return User
+     */
+    protected function createUser(\Laravel\Socialite\Contracts\User $socialUser, $provider): User
+    {
+        return User::create([
+            'email' => $socialUser->getEmail(),
+            'name' => $socialUser->getName(),
+            'provider_id' => $socialUser->getId(),
+            'provider' => $provider,
+        ]);
     }
 }

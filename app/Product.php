@@ -14,6 +14,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 /**
  * @method static where(string $string, bool $true)
  * @method static search(mixed $query)
+ * @method static create(array $data)
  * @property integer quantity
  * @property mixed price
  * @property mixed id

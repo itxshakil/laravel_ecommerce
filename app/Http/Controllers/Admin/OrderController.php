@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Order;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
         $orders = Order::all();
 
@@ -22,10 +25,10 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return Factory|View|Application
      */
-    public function show(Order $order)
+    public function show(Order $order): Factory|View|Application
     {
         $order->fetchAllPayments();
         return view('admin.orders.show', compact('order'));
