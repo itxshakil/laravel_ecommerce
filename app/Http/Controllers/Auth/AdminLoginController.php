@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
@@ -32,9 +38,9 @@ class AdminLoginController extends Controller
     /**
      * Show the application's login form.
      *
-     * @return \Illuminate\Http\Response
+     * @return
      */
-    public function showLoginForm()
+    public function showLoginForm(): Factory|View|Application
     {
         return view('auth.admin-login');
     }
@@ -42,10 +48,9 @@ class AdminLoginController extends Controller
     /**
      * Validate the user login request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
      */
     protected function validateLogin(Request $request)
     {
@@ -60,7 +65,7 @@ class AdminLoginController extends Controller
      *
      * @return string
      */
-    public function redirectPath()
+    public function redirectPath(): string
     {
         return '/admin';
     }
@@ -68,10 +73,10 @@ class AdminLoginController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Redirector|Application|RedirectResponse
      */
-    public function logout(Request $request)
+    public function logout(Request $request): Redirector|Application|RedirectResponse
     {
         $this->guard()->logout();
 
@@ -81,9 +86,9 @@ class AdminLoginController extends Controller
     /**
      * Get the guard to be used during authentication.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return StatefulGuard
      */
-    protected function guard()
+    protected function guard(): StatefulGuard
     {
         return Auth::guard('admin');
     }

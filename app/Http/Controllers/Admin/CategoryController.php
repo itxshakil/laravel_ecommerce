@@ -34,10 +34,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return Category
      */
-    public function store(Request $request)
+    public function store(Request $request): Category
     {
         $request->validate([
             'name' => ['required', 'unique:categories,name']

@@ -3,12 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use illuminate\Support\Str;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
+/**
+ * @method static where(string $string, bool $true)
+ * @method static search(mixed $query)
+ * @method static create(array $data)
+ * @property integer quantity
+ * @property mixed price
+ * @property mixed id
+ * @property mixed name
+ * @property mixed cartRowId
+ */
 class Product extends Model implements Buyable
 {
     use HasFactory, SearchableTrait;
@@ -56,7 +68,7 @@ class Product extends Model implements Buyable
         $this->attributes['slug'] = $slug;
     }
 
-    protected function createSlug($value)
+    protected function createSlug($value): string
     {
         $count = static::where('slug', 'like', Str::slug($value) . '%')->count();
         $value = ($count > 0) ? ($value . '-' . $count) : $value;
@@ -68,12 +80,12 @@ class Product extends Model implements Buyable
      *
      * @return string
      */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    public function getImageAttribute($value)
+    public function getImageAttribute($value): string
     {
         if ($value == "https://source.unsplash.com/collection/307591/400x300") {
             return "https://source.unsplash.com/collection/307591/400x300";
@@ -84,9 +96,10 @@ class Product extends Model implements Buyable
     /**
      * Get the identifier of the Buyable item.
      *
+     * @param null $options
      * @return int|string
      */
-    public function getBuyableIdentifier($options = null)
+    public function getBuyableIdentifier($options = null): int|string
     {
         return $this->id;
     }
@@ -94,9 +107,10 @@ class Product extends Model implements Buyable
     /**
      * Get the description or title of the Buyable item.
      *
+     * @param null $options
      * @return string
      */
-    public function getBuyableDescription($options = null)
+    public function getBuyableDescription($options = null): string
     {
         return $this->name;
     }
@@ -104,9 +118,10 @@ class Product extends Model implements Buyable
     /**
      * Get the price of the Buyable item.
      *
+     * @param null $options
      * @return float
      */
-    public function getBuyablePrice($options = null)
+    public function getBuyablePrice($options = null): float
     {
         return $this->price;
     }
@@ -117,12 +132,12 @@ class Product extends Model implements Buyable
         return $cart->firstWhere('id', $this->id)->rowId;
     }
 
-    public function ratings()
+    public function ratings(): HasMany
     {
         return $this->hasMany(Rating::class);
     }
 
-    public function categories()
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class)->withTimestamps();
     }
@@ -132,13 +147,23 @@ class Product extends Model implements Buyable
      *
      * @return bool
      */
-    public function isNotAvailable()
+    public function isNotAvailable(): bool
     {
         return $this->quantity < 1;
     }
 
-    public function orders()
+    public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class)->withPivot('quantity')->withTimestamps();
+    }
+
+    public function scopeCategories($query, string $slug){
+        return $query->whereHas('categories', function ($query) use ($slug) {
+            $query->where('slug',$slug);
+        });
+    }
+
+    public function scopeFeatured($query){
+        return $query->where('featured', true);
     }
 }

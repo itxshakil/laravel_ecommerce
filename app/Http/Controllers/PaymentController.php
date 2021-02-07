@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Billing\RazorpayApi;
 use App\Payment;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Razorpay\Api\Errors\SignatureVerificationError;
 
 class PaymentController extends Controller
 {
-    public function store(Request $request, RazorpayApi $razorpayApi)
+    public function store(Request $request, RazorpayApi $razorpayApi): Factory|View|Application|RedirectResponse
     {
         if ($request->error) {
             return $this->handleErrorPayment($request);
@@ -38,19 +42,55 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
+     * @param Payment $payment
+     * @return Factory|View|Application
      */
-    public function show(Payment $payment)
+    public function show(Payment $payment): Factory|View|Application
     {
         $payment->order->fetchAllPayments();
 
         return view('payments.success', compact('payment'));
     }
 
-    protected function handleSuccesPayment($payment)
+    protected function handleSuccesPayment($payment): RedirectResponse
     {
-        $payment = Payment::create([
+        $payment = $this->createPayment($payment);
+
+        $payment->order->decreaseProductQuantity();
+
+        Cart::instance('default')->destroy();
+
+        Cart::instance('default')->store(auth()->id());
+
+        return redirect()->route('payment.status', compact('payment'));
+    }
+
+    protected function handleErrorPayment(Request $request): RedirectResponse
+    {
+        //TODO Save to database with error code and error description
+        return redirect()->route('order.checkout', ['order' => session('order')])
+            ->with('error', $request->error['description']);
+    }
+
+    protected function handleSignatureVerificationError(SignatureVerificationError $e): Factory|View|Application
+    {
+        // Check if payment really exists
+        $error = $e->getMessage();
+        return view('payments.failed', compact('error'));
+    }
+
+    protected function notesToShippingAddress($notes): string
+    {
+        return "{$notes['shipping_address_local']}, {$notes['shipping_address_state']}, {$notes['shipping_address_pincode']}";
+    }
+
+    /**
+     * @param $payment
+     * @return Payment
+     */
+    protected function createPayment($payment): Payment
+    {
+        return Payment::create([
             "id" => $payment->id,
             "entity" => $payment->entity,
             "amount" => $payment->amount,
@@ -81,32 +121,5 @@ class PaymentController extends Controller
             // "acquirer_data" => $payment->acquirer_data,
             // "created_at" => $payment->created_at,
         ]);
-
-        $payment->order->decreaseProductQuantity();
-
-        Cart::instance('default')->destroy();
-
-        Cart::instance('default')->store(auth()->id());
-
-        return redirect()->route('payment.status', compact('payment'));
-    }
-
-    protected function handleErrorPayment(Request $request)
-    {
-        //TODO Save to database with error code and error description
-        return redirect()->route('order.checkout', ['order' => session('order')])
-            ->with('error', $request->error['description']);
-    }
-
-    protected function handleSignatureVerificationError(SignatureVerificationError $e)
-    {
-        // Check if payment really exists
-        $error = $e->getMessage();
-        return view('payments.failed', compact('error'));
-    }
-
-    protected function notesToShippingAddress($notes)
-    {
-        return "{$notes['shipping_address_local']}, {$notes['shipping_address_state']}, {$notes['shipping_address_pincode']}";
     }
 }

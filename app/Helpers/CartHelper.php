@@ -4,6 +4,11 @@ namespace App\Helpers;
 
 use App\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 trait CartHelper
@@ -28,7 +33,7 @@ trait CartHelper
      * @param  mixed $instance
      * @return bool
      */
-    public function isDuplicates(Product $product, $instance = "default")
+    public function isDuplicates(Product $product, $instance = "default"): bool
     {
         $duplicates = Cart::instance($instance)->search(function ($cartItem, $rowId) use ($product) {
             return $cartItem->model->id === $product->id;
@@ -43,9 +48,9 @@ trait CartHelper
      * @param mixed $message
      * @param integer $status
      *
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return Application|ResponseFactory|Response|RedirectResponse|Redirector
      */
-    protected function sendErrorResponse($message, $status = 422)
+    protected function sendErrorResponse(mixed $message, int $status = 422): Application|ResponseFactory|Response|RedirectResponse|Redirector
     {
         if (request()->wantsJson()) {
             $message = collect(['message' => $message]);
@@ -61,9 +66,9 @@ trait CartHelper
      * @param mixed $message
      * @param integer $status
      *
-     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     * @return Application|ResponseFactory|Response|Redirector|RedirectResponse
      */
-    protected function sendSuccessResponse($message, $status = 200)
+    protected function sendSuccessResponse(mixed $message, int $status = 200): Application|ResponseFactory|Response|Redirector|RedirectResponse
     {
         if (request()->wantsJson()) {
             $message = collect(['message' => $message]);

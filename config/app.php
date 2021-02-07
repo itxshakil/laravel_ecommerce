@@ -55,6 +55,9 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'meta_description' => env('APP_META_DESCRIPTION', 'Mi-dukaan is an E-commerce website where users can browse products, sort products by category and price, add products to cart, Save Products for later, Leave Reviews of products, order, and pay for the product. It also includes a site management system for admin. Razorpay is used as a Payment.'),
+    'meta_keywords' => env('APP_META_KEYWORDS', 'laravel ecommerce with shopping cart,ecommerce website,ecommerce website project,laravel ecommerce website,laravel shopping cart,laravel ecommerce website with admin panel,admin panel,laravel project,product rating,filter product by price,laravel ecommerce,laravel 8 ecommerce,laravel 8 project,laravel ecommerce full project,laravel ecommerce project,laravel ecommerce project source code,shopping cart php project,Shopping cart project,laravel vue ecommerce'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -224,5 +227,5 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
     ],
-    
+
 ];

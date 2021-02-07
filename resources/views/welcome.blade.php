@@ -24,7 +24,7 @@
               </a>
             </div>
             <div class="mt-3 sm:mt-0 sm:ml-3">
-              <a href="/shop"
+              <a href="{{route('shop')}}"
                 class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-lg text-indigo-700 bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:px-10">
                 Shop by category
               </a>
@@ -36,7 +36,7 @@
   </div>
   <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
     <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-      src="https://source.unsplash.com/Xn5FbEM9564/" alt="" />
+      src="https://source.unsplash.com/Xn5FbEM9564/" alt="Placeholder Hero Image : A girl holding phone and some beauty product and tablet on table." />
   </div>
 </section>
 
@@ -47,8 +47,8 @@
     <div class="card flex-product m-5 bg-gray-800 rounded overflow-hidden" title="View Details of {{ $product->name }}">
       <img class="object-cover w-full" src="{{$product->image}}" alt="View Details of {{ $product->name }}">
       <div class="text-center p-3">
-        <div class="text-2xl">{{ $product->name }}</div>
-        <div class="text-green-400">₹{{ $product->price }}</div>
+        <div class="text-2xl" title="Product name">{{ $product->name }}</div>
+        <div class="text-green-400" title="Product Price">₹{{ $product->price }}</div>
         <a href="{{route('products.view',$product)}}"
           class="p-2 inline-block bg-green-300 rounded text-green-900 m-1">View Details</a>
       </div>
