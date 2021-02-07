@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class ProductController
@@ -10,17 +14,17 @@ class ProductController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View|Application
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
-        $featuredProducts = Cache::remember('featured-product', 600, function () {
+        $featuredProducts = Cache::remember('featured-product', 6000, function () {
             return Product::where('featured', true)->take(12)->get();
         });
         return view('welcome', compact('featuredProducts'));
     }
 
-    public function show(Product $product)
+    public function show(Product $product): Factory|View|Application
     {
         $product->load('ratings.user');
         return view('products.view', compact('product'));

@@ -9,6 +9,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
+/**
+ * @method static where(string $string, bool $true)
+ */
 class Product extends Model implements Buyable
 {
     use HasFactory, SearchableTrait;
