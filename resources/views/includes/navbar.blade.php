@@ -20,7 +20,7 @@
           <div class="flex">
             <a title="Shopping Cart" href="{{ url('/cart') }}"
               class="px-3 py-2 rounded text-sm font-medium leading-5 text-white hover:text-white hover:bg-gray-700  focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out inline-flex items-center {{url()->current() == url('/cart') ? 'bg-gray-900' : '' }}"><i
-                class="fa fas fa-shopping-cart"></i> Cart</a>
+                class="fa fas fa-shopping-cart"></i>&nbsp;Cart</a>
             <a title="Shop Page" href="{{ url('/shop') }}"
               class="ml-4 px-3 py-2 rounded text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out  {{url()->current() == url('/shop') ? 'bg-gray-900' : '' }}">Shop</a>
             @auth
@@ -41,7 +41,7 @@
     <div class="px-2 pt-2 pb-3">
       <a href="{{ url('/cart') }}"
         class="block px-3 py-2 rounded text-base font-medium text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out  {{url()->current() == url('/cart') ? 'bg-gray-900' : '' }}"><i
-          class="fa fas fa-shopping-cart"></i> Cart</a>
+          class="fa fas fa-shopping-cart"></i>&nbsp;Cart</a>
       <a href="{{ url('/shop') }}"
         class="mt-1 block px-3 py-2 rounded text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out {{url()->current() == url('/shop') ? 'bg-gray-900' : '' }}">Shop</a>
       @auth
