@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed order
+ * @method static create(array $array)
+ */
 class Payment extends Model
 {
     public $incrementing = false;
