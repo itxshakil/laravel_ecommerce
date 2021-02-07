@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-        content="Laravel Ecommerce is demo app where user can browse, add to cart and order products.This also includes site management system for admin. Razorpay is used as Payment Gateway.">
+    <meta name="description" content="@yield('description', config('app.meta_description'))">
+    <meta name="keywords" content="@yield('keywords', config('app.meta_keywords'))">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
