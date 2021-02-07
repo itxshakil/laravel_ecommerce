@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/**
+ * @method static where(string $string, mixed $category)
+ */
 class Category extends Model
 {
     protected $fillable = ['name', 'slug'];
