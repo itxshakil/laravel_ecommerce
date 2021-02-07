@@ -2,6 +2,9 @@
 @section('title')
 {{ $product->name }}
 @endsection
+@section('description')
+    View details of  {{$product->name}} such as price, reviews and more. You can even search products here.
+@endsection
 @section('content')
 <div class="container mx-auto px-6 my-4">
     <form action="/search" method="get" class="w-full mb-4 text-right mr-4">
