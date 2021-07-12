@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -45,7 +46,7 @@ class AdminResetPasswordController extends Controller
         return Auth::guard('admin');
     }
 
-    protected function broker(): \Illuminate\Contracts\Auth\PasswordBroker
+    protected function broker(): PasswordBroker
     {
         return Password::broker('admins');
     }

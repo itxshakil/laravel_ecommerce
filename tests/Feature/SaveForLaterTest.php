@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Product;
+use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

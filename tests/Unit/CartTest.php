@@ -2,18 +2,18 @@
 
 namespace Tests\Unit;
 
-use App\Product;
+use App\Models\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
-    * @test
-    */
+     * @test
+     */
     public function a_product_can_be_added_to_cart()
     {
         $product = Product::factory()->create();

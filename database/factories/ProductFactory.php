@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Product;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -33,7 +33,7 @@ class ProductFactory extends Factory
     /**
      * Indicate that the product is featured
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function featured()
     {

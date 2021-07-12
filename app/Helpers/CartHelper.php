@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Product;
+use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;

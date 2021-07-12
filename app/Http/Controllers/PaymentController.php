@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Billing\RazorpayApi;
-use App\Payment;
+use App\Models\Payment;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

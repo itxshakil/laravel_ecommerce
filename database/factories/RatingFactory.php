@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Product;
-use App\Rating;
-use App\User;
+use App\Models\Product;
+use App\Models\Rating;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RatingFactory extends Factory

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Rating;
-use App\User;
+use App\Models\Rating;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RatingPolicy
@@ -13,7 +13,7 @@ class RatingPolicy
     /**
      * Determine whether the user can view any ratings.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function viewAny(User $user)

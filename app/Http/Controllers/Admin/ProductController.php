@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Product;
+use App\Models\Product;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -119,7 +120,7 @@ class ProductController extends Controller
      *
      * @param Product $product
      * @return Redirector|Application|RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Product $product): Redirector|Application|RedirectResponse
     {

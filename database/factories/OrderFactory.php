@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Order;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class OrderFactory extends Factory
 {

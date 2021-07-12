@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Gloudemans\Shoppingcart\Contracts\Buyable;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use illuminate\Support\Str;
-use Gloudemans\Shoppingcart\Contracts\Buyable;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
@@ -24,6 +24,7 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Product extends Model implements Buyable
 {
     use HasFactory, SearchableTrait;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -38,12 +39,12 @@ class Product extends Model implements Buyable
      */
     protected $searchable = [
         /**
-        * Columns and their priority in search results.
-        * Columns with higher values are more important.
-        * Columns with equal values have equal importance.
-        *
-        * @var array
-        */
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
         'columns' => [
             'products.name' => 12,
             'products.details' => 10
