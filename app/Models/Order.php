@@ -3,9 +3,18 @@
 namespace App\Models;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int id
+ * @property Collection|null payments
+ * @property Collection|null products
+ */
 class Order extends Model
 {
     use HasFactory;
@@ -29,7 +38,7 @@ class Order extends Model
         });
     }
 
-    public function getAmountAttribute($value)
+    public function getAmountAttribute($value): float|int
     {
         return $value / 100;
     }
@@ -85,18 +94,20 @@ class Order extends Model
         });
     }
 
-    public function payments()
+    public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function products()
+    public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class)->withPivot('quantity')->withTimestamps();
+        return $this->belongsToMany(Product::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }

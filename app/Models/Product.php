@@ -23,7 +23,8 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  */
 class Product extends Model implements Buyable
 {
-    use HasFactory, SearchableTrait;
+    use HasFactory;
+    use SearchableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -140,7 +141,8 @@ class Product extends Model implements Buyable
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class)->withTimestamps();
+        return $this->belongsToMany(Category::class)
+            ->withTimestamps();
     }
 
     /**
@@ -155,7 +157,9 @@ class Product extends Model implements Buyable
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class)->withPivot('quantity')->withTimestamps();
+        return $this->belongsToMany(Order::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 
     public function scopeCategories($query, string $slug){
