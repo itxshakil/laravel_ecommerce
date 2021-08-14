@@ -147,9 +147,9 @@ class ProductController extends Controller
      */
     protected function handleSorting(Builder $products): Builder
     {
-        if (request()->sort == 'low_high') {
+        if (request()->query('sort') == 'low_high') {
             $products = $products->orderBy('price');
-        } elseif (request()->sort == 'high_low') {
+        } elseif (request()->query('sort') == 'high_low') {
             $products = $products->orderBy('price', 'desc');
         }
         return $products;

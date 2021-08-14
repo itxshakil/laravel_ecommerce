@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Cache;
 
 class ProductController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Factory|View|Application
-     */
     public function index(): Factory|View|Application
     {
         $featuredProducts = Cache::remember('featured-product', 6000, function () {

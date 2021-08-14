@@ -34,7 +34,7 @@ class AdminResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected string $redirectTo = '/admin';
 
     public function __construct()
     {

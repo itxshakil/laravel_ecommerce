@@ -16,10 +16,10 @@ trait CartHelper
     /**
      * Store cart items to database
      *
-     * @param  mixed $instance
+     * @param string $instance
      * @return void
      */
-    public function storeCart($instance = "default")
+    public function storeCart(string $instance = "default")
     {
         if (Auth::check()) {
             Cart::instance($instance)->store(auth()->id());
@@ -33,7 +33,7 @@ trait CartHelper
      * @param  mixed $instance
      * @return bool
      */
-    public function isDuplicates(Product $product, $instance = "default"): bool
+    public function isDuplicates(Product $product, string $instance = "default"): bool
     {
         $duplicates = Cart::instance($instance)->search(function ($cartItem, $rowId) use ($product) {
             return $cartItem->model->id === $product->id;

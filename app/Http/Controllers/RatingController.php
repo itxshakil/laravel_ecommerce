@@ -14,17 +14,10 @@ use Illuminate\Http\Response;
 
 class RatingController extends Controller
 {
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Product $product
-     * @param StoreRating $request
-     * @return Model|Response|Application|ResponseFactory
-     */
     public function store(Product $product, StoreRating $request): Model|Response|Application|ResponseFactory
     {
         if ($request->user()->hasRated($product)) {
-            return response('You have already added your review', 422);
+            return response('You have already reviewed the product.', 422);
         }
 
         return $product->ratings()->create($request->validated())->load('user');
@@ -61,9 +54,9 @@ class RatingController extends Controller
         try {
             $rating->delete();
         } catch (Exception $e) {
-            return response('Some Error Occurred', 500);
+            return response('An Error Occurred, Please try again.', 500);
         }
 
-        return response('Deleted Successfully', 200);
+        return response('Rating deleted Successfully.', 200);
     }
 }

@@ -16,7 +16,7 @@ class PaymentController extends Controller
 {
     public function store(Request $request, RazorpayApi $razorpayApi): Factory|View|Application|RedirectResponse
     {
-        if ($request->error) {
+        if ($request->has('error')) {
             return $this->handleErrorPayment($request);
         }
 
@@ -36,15 +36,9 @@ class PaymentController extends Controller
 
         $payment = $razorpayApi->fetchPayment($request->razorpay_payment_id);
 
-        return $this->handleSuccesPayment($payment);
+        return $this->handleSuccessPayment($payment);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Payment $payment
-     * @return Factory|View|Application
-     */
     public function show(Payment $payment): Factory|View|Application
     {
         $payment->order->fetchAllPayments();
@@ -52,7 +46,7 @@ class PaymentController extends Controller
         return view('payments.success', compact('payment'));
     }
 
-    protected function handleSuccesPayment($payment): RedirectResponse
+    protected function handleSuccessPayment($payment): RedirectResponse
     {
         $payment = $this->createPayment($payment);
 

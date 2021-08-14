@@ -22,8 +22,8 @@ class AdminLoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
-    protected $redirectPath = '/admin';
+    protected string $redirectTo = '/admin';
+    protected string $redirectPath = '/admin';
 
     /**
      * Create a new controller instance.
@@ -50,7 +50,6 @@ class AdminLoginController extends Controller
      *
      * @param Request $request
      * @return void
-     *
      */
     protected function validateLogin(Request $request)
     {

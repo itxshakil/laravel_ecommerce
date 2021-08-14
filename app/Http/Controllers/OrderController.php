@@ -13,11 +13,6 @@ use Illuminate\Routing\Redirector;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Factory|View|Application
-     */
     public function index(): Factory|View|Application
     {
         $orders = auth()->user()->orders;
