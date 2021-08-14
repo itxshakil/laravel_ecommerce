@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
+use JetBrains\PhpStorm\ArrayShape;
 
 class AdminResetPasswordNotification extends Notification
 {
@@ -13,11 +14,6 @@ class AdminResetPasswordNotification extends Notification
 
     public $token;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct($token)
     {
         $this->token = $token;
@@ -53,13 +49,14 @@ class AdminResetPasswordNotification extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    #[ArrayShape(['token' => ""])]
+    public function toArray($notifiable): array
     {
         return [
-            //
+            'token' => $this->token,
         ];
     }
 }
