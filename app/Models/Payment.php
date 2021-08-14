@@ -41,7 +41,6 @@ class Payment extends Model
 
     public function getCardDetails()
     {
-        $razorpayApi = resolve('App\Billing\RazorpayApi');
-        return $razorpayApi->fetchCard($this->card_id);
+        return resolve('App\Billing\RazorpayApi')->fetchCard($this->card_id);
     }
 }

@@ -59,9 +59,7 @@ class Order extends Model
 
     public function fetchRecentInfo()
     {
-        $razorpayApi = resolve('App\Billing\RazorpayApi');
-
-        $orderData = $razorpayApi->fetchOrder($this->id);
+        $orderData = resolve('App\Billing\RazorpayApi')->fetchOrder($this->id);
 
         $this->update([
             'amount_paid' => $orderData->amount_paid,
@@ -75,9 +73,8 @@ class Order extends Model
 
     public function fetchAllPayments()
     {
-        $razorpayApi = resolve('App\Billing\RazorpayApi');
+        $payments = resolve('App\Billing\RazorpayApi')->fetchOrder($this->id)->payments();
 
-        $payments = $razorpayApi->fetchOrder($this->id)->payments();
         if ($payments->count > $this->payments->count()) {
             for ($i = 0; $i < $payments->count; $i++) {
                 if (!Payment::find($payments->items[$i]->id)) {

@@ -26,18 +26,8 @@ class Product extends Model implements Buyable
     use HasFactory;
     use SearchableTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [];
 
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
     protected $searchable = [
         /**
          * Columns and their priority in search results.
@@ -77,11 +67,6 @@ class Product extends Model implements Buyable
         return Str::slug($value);
     }
 
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
     public function getRouteKeyName(): string
     {
         return 'slug';
@@ -90,7 +75,7 @@ class Product extends Model implements Buyable
     public function getImageAttribute($value): string
     {
         if ($value == "https://source.unsplash.com/collection/307591/400x300") {
-            return "https://source.unsplash.com/collection/307591/400x300";
+            return $value;
         }
         return '/storage/' . $value;
     }
