@@ -52,14 +52,7 @@ class User extends Authenticatable
         return $this->hasMany(Rating::class);
     }
 
-    /**
-     * If User has rated the given product
-     *
-     * @param Product $product
-     *
-     * @return boolean
-     */
-    public function isRated(Product $product): bool
+    public function hasRated(Product $product): bool
     {
         return $this->ratings()->where('product_id', $product->id)->exists();
     }

@@ -23,7 +23,7 @@ class RatingController extends Controller
      */
     public function store(Product $product, StoreRating $request): Model|Response|Application|ResponseFactory
     {
-        if ($request->user()->isRated($product)) {
+        if ($request->user()->hasRated($product)) {
             return response('You have already added your review', 422);
         }
 
