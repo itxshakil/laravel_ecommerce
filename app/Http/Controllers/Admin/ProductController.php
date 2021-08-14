@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Product;
+use App\Models\Product;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -119,7 +120,7 @@ class ProductController extends Controller
      *
      * @param Product $product
      * @return Redirector|Application|RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Product $product): Redirector|Application|RedirectResponse
     {
@@ -146,9 +147,9 @@ class ProductController extends Controller
      */
     protected function handleSorting(Builder $products): Builder
     {
-        if (request()->sort == 'low_high') {
+        if (request()->query('sort') == 'low_high') {
             $products = $products->orderBy('price');
-        } elseif (request()->sort == 'high_low') {
+        } elseif (request()->query('sort') == 'high_low') {
             $products = $products->orderBy('price', 'desc');
         }
         return $products;

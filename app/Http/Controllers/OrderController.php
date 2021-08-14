@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Billing\RazorpayApi;
-use App\Order;
+use App\Models\Order;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,11 +13,6 @@ use Illuminate\Routing\Redirector;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Factory|View|Application
-     */
     public function index(): Factory|View|Application
     {
         $orders = auth()->user()->orders;

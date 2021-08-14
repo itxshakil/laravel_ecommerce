@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Product;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\Factory;
@@ -19,7 +19,7 @@ class ShopController extends Controller
     public function index(): Factory|View|Application
     {
         $categoryName =  "All Products";
-        if (request()->category) {
+        if (request('category')) {
             $categoryName = Category::firstWhere('slug', request()->category)->name ?? 'Invalid Category';
         }
 
@@ -29,9 +29,9 @@ class ShopController extends Controller
 
     protected function getPaginatedProducts(): LengthAwarePaginator
     {
-        $products =  Product::query();
-        if (request()->category) {
-            $products->categories(request()->category);
+        $products = Product::query();
+        if (request('category')) {
+            $products->categories(request('category'));
         } else {
             $products->featured();
         }
@@ -54,9 +54,9 @@ class ShopController extends Controller
      */
     protected function SortProducts(Builder $products): Builder
     {
-        if (request()->sort == 'low_high') {
+        if (request()->query('sort') == 'low_high') {
             $products = $products->orderBy('price');
-        } elseif (request()->sort == 'high_low') {
+        } elseif (request()->query('sort') == 'high_low') {
             $products = $products->orderBy('price', 'desc');
         }
         return $products;

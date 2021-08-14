@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
+use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
 class ProductController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Factory|View|Application
-     */
     public function index(): Factory|View|Application
     {
         $featuredProducts = Cache::remember('featured-product', 6000, function () {

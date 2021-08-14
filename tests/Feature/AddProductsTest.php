@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Admin;
-use App\Product;
+use App\Models\Admin;
+use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
@@ -32,8 +32,9 @@ class AddProductsTest extends TestCase
         $this->actingAs(Admin::factory()->create(), 'admin');
 
         $product = Product::factory()->make();
-
-        $productWithImage = array_merge($product->toArray(), ['image' => UploadedFile::fake()->image('avatar.jpg', 200, 350)->size(100)]);
+        $productWithImage = array_merge($product->toArray(), [
+            'image' => UploadedFile::fake()->image('avatar.jpg', 200, 350)->size(100)
+        ]);
 
         $this->post('/admin/products', $productWithImage)->assertRedirect(route('admin.products.index'));
 

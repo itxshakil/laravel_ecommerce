@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Product;
-use App\Rating;
-use App\User;
+use App\Models\Product;
+use App\Models\Rating;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

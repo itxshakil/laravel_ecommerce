@@ -6,7 +6,7 @@ use Razorpay\Api\Api;
 
 class RazorpayApi
 {
-    protected $api;
+    protected Api $api;
 
     public function __construct()
     {

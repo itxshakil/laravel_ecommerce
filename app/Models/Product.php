@@ -1,14 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Gloudemans\Shoppingcart\Contracts\Buyable;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use illuminate\Support\Str;
-use Gloudemans\Shoppingcart\Contracts\Buyable;
-use Gloudemans\Shoppingcart\Facades\Cart;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 /**
@@ -23,27 +23,19 @@ use Nicolaslopezj\Searchable\SearchableTrait;
  */
 class Product extends Model implements Buyable
 {
-    use HasFactory, SearchableTrait;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    use HasFactory;
+    use SearchableTrait;
+
     protected $guarded = [];
 
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
     protected $searchable = [
         /**
-        * Columns and their priority in search results.
-        * Columns with higher values are more important.
-        * Columns with equal values have equal importance.
-        *
-        * @var array
-        */
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
         'columns' => [
             'products.name' => 12,
             'products.details' => 10
@@ -75,11 +67,6 @@ class Product extends Model implements Buyable
         return Str::slug($value);
     }
 
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
     public function getRouteKeyName(): string
     {
         return 'slug';
@@ -88,7 +75,7 @@ class Product extends Model implements Buyable
     public function getImageAttribute($value): string
     {
         if ($value == "https://source.unsplash.com/collection/307591/400x300") {
-            return "https://source.unsplash.com/collection/307591/400x300";
+            return $value;
         }
         return '/storage/' . $value;
     }
@@ -139,7 +126,8 @@ class Product extends Model implements Buyable
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class)->withTimestamps();
+        return $this->belongsToMany(Category::class)
+            ->withTimestamps();
     }
 
     /**
@@ -154,7 +142,9 @@ class Product extends Model implements Buyable
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class)->withPivot('quantity')->withTimestamps();
+        return $this->belongsToMany(Order::class)
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 
     public function scopeCategories($query, string $slug){

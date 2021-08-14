@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class StoreRating extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreRating extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +22,8 @@ class StoreRating extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    #[ArrayShape(['title' => "string[]", 'description' => "string[]", 'rating' => "string[]"])]
+    public function rules(): array
     {
         return [
             'title' => ['required', 'max:100'],

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
 use App\Helpers\CartHelper;
+use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -42,7 +42,7 @@ class SaveForLaterController extends Controller
 
         if ($this->isDuplicates($product)) {
             return $this->sendErrorResponse('Item is already saved in cart.');
-        };
+        }
 
         Cart::instance('default')->add($product, 1);
         $this->storeCart();
