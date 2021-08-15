@@ -14,8 +14,7 @@ module.exports = {
     ],
     options: {
       // defaultExtractor: (content) => content.match(/[\w-/.:]+(?<!:)/g) || [],
-      whitelist: ['bg-red-500', 'bg-yellow-500', 'bg-green-500',],
-      whitelistPatterns: [/-active$/, /-enter$/, /-leave-to$/, /show$/],
+      safelist: ['bg-red-500', 'bg-yellow-500', 'bg-green-500',/-active$/, /-enter$/, /-leave-to$/, /show$/],
     }
   },
   theme: {
