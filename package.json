@@ -11,7 +11,7 @@
         "axios": "^0.21.1",
         "cross-env": "^7.0.3",
         "laravel-mix": "^6.0.31",
-        "resolve-url-loader": "^2.3.1",
+        "resolve-url-loader": "^4.0.0",
         "sass": "^1.42.1",
         "sass-loader": "^12.1.0",
         "vue": "^2.6.12",
