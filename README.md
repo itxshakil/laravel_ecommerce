@@ -7,11 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-# [Laralib](https://laralib.herokuapp.com)
+# [Laralib](https://ecommerce.shakiltech.com/)
 
 Mi-dukaan is an **E-commerce** website where users can browse products, sort products by category and price, add products to cart, Save Products for later, Leave Reviews of products, order, and pay for the product. It also includes a site management system for admin. Razorpay is used as a Payment.
 
-##### [https://mi-dukaan.herokuapp.com](https://mi-dukaan.herokuapp.com)
+##### [https://ecommerce.shakiltech.com/](https://ecommerce.shakiltech.com/)
 
 ## Table of contents
 * [Features](#features)
